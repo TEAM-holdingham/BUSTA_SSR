@@ -1,58 +1,359 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>마이페이지</title>
+    <link rel="stylesheet" href="/my_page/my_page_styles.css" />
 </head>
 <body>
-<div>
-    <h1>마이페이지</h1>
-    <form th:action="@{/profile/update}" th:method="post" th:object="${userProfile}" enctype="multipart/form-data">
-        <div>
-            <label for="profilePicture">프로필 사진:</label>
-            <input type="file" id="profilePicture" name="profilePicture"/>
-        </div>
-        <br/>
-        <div>
-            <label for="nickname">닉네임:</label>
-            <input type="text" th:field="*{nickname}" readonly/>
-        </div>
-        <br/>
-        <div>
-            <label for="loginId">가입 이메일:</label>
-            <input type="email" th:field="*{loginId}" readonly/>
-        </div>
-        <br/>
-        <div>
-            <label for="introduction">한줄 소개:</label>
-            <textarea th:field="*{introduction}"></textarea>
-        </div>
-        <br/>
-        <div>
-            <label for="phoneNumber">전화번호:</label>
-            <input type="text" th:field="*{phoneNumber}" readonly/>
-        </div>
-        <br/>
-        <div>
-            <label for="birthDate">생년월일:</label>
-            <input type="date" th:field="*{birthDate}" readonly/>
-        </div>
-        <br/>
-        <div>
-            <label for="gender">성별:</label>
-            <input type="text" th:field="*{gender}" readonly/>
-        </div>
-        <br/>
-        <div>
-            <label for="password">비밀번호 변경:</label>
-            <input type="password" th:field="*{password}"/>
-        </div>
-        <br/>
-        <button type="submit">수정하기</button>
-    </form>
-    <form th:action="@{/profile/delete}" th:method="post">
-        <button type="submit">탈퇴하기</button>
-    </form>
+<div id="mySidenav" class="sidenav">
+    <a href="#" class="closebtn" onclick="toggleNav()">
+        <svg
+                width="25"
+                height="27"
+                viewBox="0 0 25 27"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                    d="M10.0216 24.7431L10.0216 24.7431L10.018 24.7386L1.38288 13.8427C1.20869 13.6227 1.2051 13.3694 1.37084 13.1455L9.99665 2.26141L10.0002 2.2569C10.4719 1.6561 11.2942 1.25001 12.2019 1.25001C13.3552 1.25001 14.1978 1.82785 14.6012 2.53264C14.9949 3.22054 14.9983 4.05538 14.4092 4.79455L14.406 4.79863L8.14307 12.7251L7.53076 13.5L8.14307 14.275L14.4048 22.1999C14.405 22.2002 14.4052 22.2004 14.4054 22.2006C14.9882 22.9409 14.985 23.7798 14.592 24.4694C14.1907 25.1735 13.3538 25.75 12.2019 25.75C11.3014 25.75 10.4974 25.3492 10.0216 24.7431Z"
+                    fill="#8D8D8D"
+                    stroke="#E4E8F0"
+                    stroke-width="2.5"
+            />
+            <path
+                    d="M9.33653 13.8434L9.336 13.8427C9.16181 13.6227 9.15823 13.3694 9.32397 13.1455L17.9498 2.26141L17.9533 2.2569C18.425 1.6561 19.2473 1.25001 20.155 1.25001C21.3083 1.25001 22.1509 1.82785 22.5543 2.53264C22.948 3.22054 22.9514 4.05538 22.3623 4.79455L22.3591 4.79863L16.0962 12.7251L15.4839 13.5L16.0962 14.275L22.3591 22.2014L22.3591 22.2014L22.3623 22.2055C22.9514 22.9446 22.948 23.7795 22.5543 24.4674C22.1509 25.1722 21.3083 25.75 20.155 25.75C19.2604 25.75 18.449 25.3532 17.9461 24.734L9.33653 13.8434Z"
+                    fill="#8D8D8D"
+                    stroke="#E4E8F0"
+                    stroke-width="2.5"
+            />
+        </svg>
+        접기
+    </a>
+    <a href="#" class="home-link">홈</a>
+    <a href="#" class="record-link">나의 기록</a>
+    <a href="#" class="mypage-link">마이페이지</a>
+    <a href="#" class="friend-link">친구 관리</a>
+    <a href="#" class="setting-link">
+        <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+            <g clip-path="url(#clip0_910_1113)">
+                <path
+                        d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
+                        stroke="black"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                />
+                <path
+                        d="M19.398 14.9985C19.2649 15.3001 19.2252 15.6346 19.284 15.959C19.3428 16.2833 19.4975 16.5826 19.728 16.8183L19.788 16.8783C19.9739 17.064 20.1214 17.2846 20.222 17.5273C20.3227 17.7701 20.3745 18.0303 20.3745 18.2931C20.3745 18.5559 20.3227 18.8162 20.222 19.0589C20.1214 19.3017 19.9739 19.5222 19.788 19.708C19.6022 19.8939 19.3817 20.0414 19.1389 20.142C18.8961 20.2427 18.6359 20.2945 18.3731 20.2945C18.1103 20.2945 17.8501 20.2427 17.6073 20.142C17.3645 20.0414 17.144 19.8939 16.9583 19.708L16.8983 19.648C16.6626 19.4175 16.3633 19.2628 16.039 19.204C15.7146 19.1452 15.3801 19.1849 15.0785 19.318C14.7827 19.4448 14.5305 19.6552 14.3529 19.9235C14.1752 20.1917 14.0799 20.5061 14.0786 20.8278V20.9978C14.0786 21.5282 13.8679 22.0369 13.4929 22.4119C13.1178 22.7869 12.6092 22.9976 12.0788 22.9976C11.5484 22.9976 11.0398 22.7869 10.6647 22.4119C10.2897 22.0369 10.079 21.5282 10.079 20.9978V20.9078C10.0713 20.5769 9.96415 20.2559 9.77156 19.9866C9.57897 19.7174 9.30983 19.5123 8.99913 19.398C8.69755 19.2649 8.36301 19.2252 8.03865 19.284C7.71429 19.3428 7.41498 19.4975 7.17933 19.728L7.11934 19.788C6.93361 19.9739 6.71306 20.1214 6.47029 20.222C6.22752 20.3227 5.96729 20.3745 5.70449 20.3745C5.44169 20.3745 5.18146 20.3227 4.93869 20.222C4.69592 20.1214 4.47537 19.9739 4.28964 19.788C4.10371 19.6022 3.95621 19.3817 3.85557 19.1389C3.75493 18.8961 3.70313 18.6359 3.70313 18.3731C3.70313 18.1103 3.75493 17.8501 3.85557 17.6073C3.95621 17.3645 4.10371 17.144 4.28964 16.9583L4.34964 16.8983C4.58015 16.6626 4.73478 16.3633 4.79359 16.039C4.85241 15.7146 4.8127 15.3801 4.6796 15.0785C4.55285 14.7827 4.34239 14.5305 4.07413 14.3529C3.80587 14.1752 3.49152 14.0799 3.16976 14.0786H2.99978C2.46941 14.0786 1.96075 13.8679 1.58572 13.4929C1.21069 13.1178 1 12.6092 1 12.0788C1 11.5484 1.21069 11.0398 1.58572 10.6647C1.96075 10.2897 2.46941 10.079 2.99978 10.079H3.08977C3.42073 10.0713 3.74171 9.96415 4.01097 9.77156C4.28024 9.57897 4.48534 9.30983 4.59961 8.99913C4.73271 8.69755 4.77241 8.36301 4.7136 8.03865C4.65479 7.71429 4.50016 7.41498 4.26965 7.17933L4.20965 7.11934C4.02372 6.93361 3.87622 6.71306 3.77558 6.47029C3.67494 6.22752 3.62314 5.96729 3.62314 5.70449C3.62314 5.44169 3.67494 5.18146 3.77558 4.93869C3.87622 4.69592 4.02372 4.47537 4.20965 4.28964C4.39538 4.10371 4.61593 3.95621 4.8587 3.85557C5.10147 3.75493 5.3617 3.70313 5.6245 3.70313C5.8873 3.70313 6.14753 3.75493 6.3903 3.85557C6.63307 3.95621 6.85362 4.10371 7.03934 4.28964L7.09934 4.34964C7.33499 4.58015 7.6343 4.73478 7.95866 4.79359C8.28302 4.85241 8.61756 4.8127 8.91914 4.6796H8.99913C9.29487 4.55285 9.54709 4.34239 9.72475 4.07413C9.9024 3.80587 9.99774 3.49152 9.99902 3.16976V2.99978C9.99902 2.46941 10.2097 1.96075 10.5847 1.58572C10.9598 1.21069 11.4684 1 11.9988 1C12.5292 1 13.0378 1.21069 13.4129 1.58572C13.7879 1.96075 13.9986 2.46941 13.9986 2.99978V3.08977C13.9999 3.41152 14.0952 3.72588 14.2729 3.99414C14.4505 4.2624 14.7027 4.47286 14.9985 4.59961C15.3001 4.73271 15.6346 4.77241 15.959 4.7136C16.2833 4.65479 16.5826 4.50016 16.8183 4.26965L16.8783 4.20965C17.064 4.02372 17.2846 3.87622 17.5273 3.77558C17.7701 3.67494 18.0303 3.62314 18.2931 3.62314C18.5559 3.62314 18.8162 3.67494 19.0589 3.77558C19.3017 3.87622 19.5222 4.02372 19.708 4.20965C19.8939 4.39538 20.0414 4.61593 20.142 4.8587C20.2427 5.10147 20.2945 5.3617 20.2945 5.6245C20.2945 5.8873 20.2427 6.14753 20.142 6.3903C20.0414 6.63307 19.8939 6.85362 19.708 7.03934L19.648 7.09934C19.4175 7.33499 19.2628 7.6343 19.204 7.95866C19.1452 8.28302 19.1849 8.61756 19.318 8.91914V8.99913C19.4448 9.29487 19.6552 9.54709 19.9235 9.72475C20.1917 9.9024 20.5061 9.99774 20.8278 9.99902H20.9978C21.5282 9.99902 22.0369 10.2097 22.4119 10.5847C22.7869 10.9598 22.9976 11.4684 22.9976 11.9988C22.9976 12.5292 22.7869 13.0378 22.4119 13.4129C22.0369 13.7879 21.5282 13.9986 20.9978 13.9986H20.9078C20.5861 13.9999 20.2717 14.0952 20.0035 14.2729C19.7352 14.4505 19.5248 14.7027 19.398 14.9985V14.9985Z"
+                        stroke="black"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                />
+            </g>
+            <defs>
+                <clipPath id="clip0_910_1113">
+                    <rect width="23.9974" height="23.9974" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+        설정
+    </a>
+    <a href="#" class="dm-link">
+        <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                    d="M21.9988 2L11 12.9988"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+            />
+            <path
+                    d="M21.9978 2L14.9986 21.9978L10.999 12.9988L2 8.99924L21.9978 2Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+            />
+        </svg>
+    </a>
+    <a href="#" class="alarm-link">
+        <svg
+                width="30"
+                height="30"
+                viewBox="0 0 30 30"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                    d="M22.5 10C22.5 8.01088 21.7098 6.10322 20.3033 4.6967C18.8968 3.29018 16.9891 2.5 15 2.5C13.0109 2.5 11.1032 3.29018 9.6967 4.6967C8.29018 6.10322 7.5 8.01088 7.5 10C7.5 18.75 3.75 21.25 3.75 21.25H26.25C26.25 21.25 22.5 18.75 22.5 10Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+            />
+            <path
+                    d="M17.1614 26.25C16.9416 26.6289 16.6262 26.9434 16.2466 27.162C15.867 27.3806 15.4367 27.4957 14.9987 27.4957C14.5606 27.4957 14.1303 27.3806 13.7508 27.162C13.3712 26.9434 13.0557 26.6289 12.8359 26.25"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+            />
+        </svg>
+    </a>
+
+    <a href="#" class="notify-link">
+        <svg
+                width="25"
+                height="30"
+                viewBox="0 0 25 30"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                    d="M12.54 5.72727L10.03 8.45455H15.03L12.54 5.72727ZM4.5 10.6364V24.8182H20.5V10.6364H4.5ZM12.5 3L17.5 8.45455H20.5C21.0304 8.45455 21.5391 8.68442 21.9142 9.09359C22.2893 9.50276 22.5 10.0577 22.5 10.6364V24.8182C22.5 25.3968 22.2893 25.9518 21.9142 26.361C21.5391 26.7701 21.0304 27 20.5 27H4.5C3.96957 27 3.46086 26.7701 3.08579 26.361C2.71071 25.9518 2.5 25.3968 2.5 24.8182V10.6364C2.5 10.0577 2.71071 9.50276 3.08579 9.09359C3.46086 8.68442 3.96957 8.45455 4.5 8.45455H7.5L12.5 3ZM7.5 22.6364V18.2727H12.5V22.6364H7.5ZM14.5 21.5455V13.9091H18.5V21.5455H14.5ZM6.5 16.0909V12.8182H11.5V16.0909H6.5Z"
+                    fill="black"
+            />
+        </svg>
+    </a>
+
+    <a href="#" class="profile-link">
+        <svg
+                width="68"
+                height="68"
+                viewBox="0 0 68 68"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+            <g filter="url(#filter0_d_910_817)">
+                <circle cx="32.9967" cy="31.9967" r="29.9967" fill="#484848" />
+            </g>
+            <g filter="url(#filter1_dd_910_817)">
+                <circle cx="54.9933" cy="53.9913" r="7.99913" fill="#32D469" />
+                <circle cx="54.9933" cy="53.9913" r="7.99913" fill="#A9A9A9" />
+            </g>
+            <defs>
+                <filter
+                        id="filter0_d_910_817"
+                        x="0.000325263"
+                        y="0.000216842"
+                        width="67.9933"
+                        height="67.9913"
+                        filterUnits="userSpaceOnUse"
+                        color-interpolation-filters="sRGB"
+                >
+                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <feColorMatrix
+                            in="SourceAlpha"
+                            type="matrix"
+                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                            result="hardAlpha"
+                    />
+                    <feOffset dx="0.999892" dy="1.99978" />
+                    <feGaussianBlur stdDeviation="1.99978" />
+                    <feComposite in2="hardAlpha" operator="out" />
+                    <feColorMatrix
+                            type="matrix"
+                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.07 0"
+                    />
+                    <feBlend
+                            mode="normal"
+                            in2="BackgroundImageFix"
+                            result="effect1_dropShadow_910_817"
+                    />
+                    <feBlend
+                            mode="normal"
+                            in="SourceGraphic"
+                            in2="effect1_dropShadow_910_817"
+                            result="shape"
+                    />
+                </filter>
+                <filter
+                        id="filter1_dd_910_817"
+                        x="42.9946"
+                        y="41.9926"
+                        width="23.9972"
+                        height="23.9991"
+                        filterUnits="userSpaceOnUse"
+                        color-interpolation-filters="sRGB"
+                >
+                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <feColorMatrix
+                            in="SourceAlpha"
+                            type="matrix"
+                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                            result="hardAlpha"
+                    />
+                    <feOffset />
+                    <feGaussianBlur stdDeviation="1.99978" />
+                    <feComposite in2="hardAlpha" operator="out" />
+                    <feColorMatrix
+                            type="matrix"
+                            values="0 0 0 0 0.265741 0 0 0 0 0.872363 0 0 0 0 0.471993 0 0 0 1 0"
+                    />
+                    <feBlend
+                            mode="normal"
+                            in2="BackgroundImageFix"
+                            result="effect1_dropShadow_910_817"
+                    />
+                    <feColorMatrix
+                            in="SourceAlpha"
+                            type="matrix"
+                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                            result="hardAlpha"
+                    />
+                    <feMorphology
+                            radius="3.99957"
+                            operator="dilate"
+                            in="SourceAlpha"
+                            result="effect2_dropShadow_910_817"
+                    />
+                    <feOffset />
+                    <feComposite in2="hardAlpha" operator="out" />
+                    <feColorMatrix
+                            type="matrix"
+                            values="0 0 0 0 0.933333 0 0 0 0 0.933333 0 0 0 0 0.933333 0 0 0 1 0"
+                    />
+                    <feBlend
+                            mode="normal"
+                            in2="effect1_dropShadow_910_817"
+                            result="effect2_dropShadow_910_817"
+                    />
+                    <feBlend
+                            mode="normal"
+                            in="SourceGraphic"
+                            in2="effect2_dropShadow_910_817"
+                            result="shape"
+                    />
+                </filter>
+            </defs>
+        </svg>
+    </a>
+
+    <a href="#" class="logout-link">로그아웃</a>
 </div>
+
+<span class="arrow" onclick="toggleNav()">
+      <svg
+              width="26"
+              height="31"
+              viewBox="0 0 26 31"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+                d="M23.6905 15.6759L14.6078 28.0217L14.6078 28.0217L14.6037 28.0274C14.1386 28.6656 13.3513 29.0708 12.5106 29.0708C10.3379 29.0708 9.27292 26.7742 10.4109 25.2359L10.4146 25.2308L17.0103 16.2384L17.6872 15.3155L17.0103 14.3927L10.416 5.40211C10.4158 5.40185 10.4156 5.40158 10.4154 5.40132C9.27998 3.84736 10.3558 1.56034 12.5106 1.56034C13.3421 1.56034 14.1107 1.95812 14.5812 2.6037L14.5812 2.60371L14.5853 2.60935L23.6793 14.9706C23.8374 15.1857 23.8423 15.4533 23.6905 15.6759Z"
+                fill="#8D8D8D"
+                stroke="#E4E8F0"
+                stroke-width="3.12067"
+        />
+        <path
+                d="M15.3017 14.9697L15.3023 14.9706C15.4604 15.1857 15.4654 15.4533 15.3135 15.6759L6.2309 28.0217L6.23088 28.0217L6.22675 28.0274C5.76166 28.6656 4.97438 29.0708 4.13363 29.0708C1.96093 29.0708 0.895966 26.7742 2.03393 25.2359L2.03769 25.2308L8.63338 16.2384L9.31025 15.3155L8.63338 14.3927L2.03769 5.40029L2.0377 5.40029L2.03392 5.39517C0.895966 3.8569 1.96093 1.56034 4.13363 1.56034C4.95884 1.56034 5.73614 1.95374 6.23523 2.61526L15.3017 14.9697Z"
+                fill="#8D8D8D"
+                stroke="#E4E8F0"
+                stroke-width="3.12067"
+        />
+      </svg>
+    </span>
+
+<div class="profile-container">
+    <div class="profile-header">
+        <img src="my_profile.svg" alt="Profile Picture" />
+        <div class="nickname-info">
+            <div style="display: flex; align-items: center">
+                <input type="text" id="nickname" value="승연티비" readonly />
+                <span class="edit-icon" onclick="toggleEdit('nickname')">
+              <!--<img src="pencil.svg" alt="수정">-->
+            </span>
+            </div>
+
+            <div class="tagline">온 세상의 다크서클을 모아 심연이 될 때까지</div>
+        </div>
+    </div>
+    <div class="profile-info">
+        <label
+        >아이디
+            <div style="display: flex; align-items: center">
+                <input type="text" id="username" value="r8ol7z" readonly />
+                <span class="edit-icon" onclick="toggleEdit('username')"
+                ><img src="pencil.svg" alt="수정"
+                /></span>
+            </div>
+        </label>
+        <label
+        >이메일
+            <div style="display: flex; align-items: center">
+                <input
+                        type="email"
+                        id="email"
+                        value="seungyeonsi913@gmail.com"
+                        readonly
+                />
+                <span class="edit-icon" onclick="toggleEdit('email')"
+                ><img src="pencil.svg" alt="수정"
+                /></span>
+            </div>
+        </label>
+        <label
+        >전화번호
+            <div style="display: flex; align-items: center">
+                <input type="tel" id="phone" value="010-1234-5678" readonly />
+                <span class="edit-icon" onclick="toggleEdit('phone')"
+                ><img src="pencil.svg" alt="수정"
+                /></span>
+            </div>
+        </label>
+        <label
+        >생년월일
+            <div style="display: flex; align-items: center">
+                <input type="date" id="dob" value="2003-09-13" readonly />
+                <span class="edit-icon" onclick="toggleEdit('dob')"
+                ><img src="pencil.svg" alt="수정"
+                /></span>
+            </div>
+        </label>
+        <label
+        >성별
+            <div style="display: flex; align-items: center">
+                <input type="text" id="gender" value="여성" readonly />
+                <span class="edit-icon" onclick="toggleEdit('gender')"
+                ><img src="pencil.svg" alt="수정"
+                /></span>
+            </div>
+        </label>
+        <label
+        >비밀번호 변경
+            <div style="display: flex; align-items: center">
+                <input
+                        type="password"
+                        id="password"
+                        value="************"
+                        readonly
+                />
+                <span class="edit-icon" onclick="toggleEdit('password')"
+                ><img src="pencil.svg" alt="수정"
+                /></span>
+            </div>
+        </label>
+        <label style="margin-top: 10px">
+            <input type="checkbox" checked /> 광고성 메일 수신 동의
+        </label>
+    </div>
+</div>
+<script src="/my_page/script_my_page.js"></script>
 </body>
 </html>

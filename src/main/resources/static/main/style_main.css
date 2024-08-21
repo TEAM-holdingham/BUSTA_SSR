@@ -1,0 +1,79 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    flex-direction: column;
+    position: relative; /* 부모 요소에 대해 상대 위치 설정 */
+}
+
+.container {
+    text-align: center;
+    position: relative; /* 부모 요소에 대해 상대 위치 설정 */
+}
+
+.logo {
+    width: 500px; /* 원하는 크기로 조절 */
+    height: auto;
+    margin: 30px auto;
+}
+
+.login-button {
+    display: block;
+    width: 200px;
+    padding: 10px;
+    margin: 10px auto;
+    font-size: 18px;
+    text-align: center;
+    text-decoration: none;
+    color: #6A88C0;
+    background-color: white;
+    border: 1px solid #0056b3; /* 테두리선 추가 */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.login-button:hover {
+    border: 1px solid white; /* 테두리선 추가 */
+    box-shadow: 0 0 30px white; /* 빛 효과 추가 */
+}
+
+.signup-button {
+    display: block;
+    width: 200px;
+    padding: 10px;
+    margin: 10px auto;
+    font-size: 18px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background-color: #C6D3E4;
+    border: 1px solid #ffffff; /* 테두리선 추가 */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.signup-button:hover {
+    border: 1px solid #C6D3E4; /* 테두리선 추가 */
+    box-shadow: 0 0 30px white; /* 빛 효과 추가 */
+}
+
+.help-button {
+    position: fixed; /* 절대 위치 설정 */
+    bottom: 50px; /* 아래쪽 여백 조정 */
+    left: 100px; /* 왼쪽 여백 조정 */
+    color: white;
+    text-decoration: none;
+    text-shadow: -1px 0px #5EB3AC, 0px 1px #5EB3AC, 1px 0px #5EB3AC, 0px -1px #5EB3AC;
+    font-size: 20px;
+}
+
+
+.help-button:hover {
+    text-decoration: underline;
+}

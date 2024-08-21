@@ -137,24 +137,24 @@ public class SecurityLoginController {
         return "redirect:/";
     }
 
-//    @GetMapping("/api/my-page")
-//    public String apiMyPage(Model model, Authentication authentication) {
-//        if (authentication == null) {
-//            model.addAttribute("errorMessage", "인증되지 않은 사용자입니다.");
-//            return "errorPage/unauthorized";
-//        }
-//
-//        String loginId = authentication.getName();
-//        User user = userService.findByLoginId(loginId);
-//
-//        if (user != null) {
-//            model.addAttribute("user", user);
-//            return "my_page";
-//        } else {
-//            model.addAttribute("errorMessage", "사용자 정보를 찾을 수 없습니다.");
-//            return "errorPage/userNotFound";
-//        }
-//    }
+    @GetMapping("/my-page")
+    public String apiMyPage(Model model, Authentication authentication) {
+        if (authentication == null) {
+            model.addAttribute("errorMessage", "인증되지 않은 사용자입니다.");
+            return "errorPage/unauthorized";
+        }
+
+        String loginId = authentication.getName();
+        User user = userService.findByLoginId(loginId);
+
+        if (user != null) {
+            model.addAttribute("user", user);
+            return "my_page";
+        } else {
+            model.addAttribute("errorMessage", "사용자 정보를 찾을 수 없습니다.");
+            return "errorPage/userNotFound";
+        }
+    }
 //
 //    @GetMapping("/api/info")
 //    public String apiUserInfo(Model model, Authentication auth) {

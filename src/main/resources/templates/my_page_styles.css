@@ -1,0 +1,214 @@
+body {
+    font-family: "KimjungchulGothic-Bold";
+    font-family: Arial, sans-serif;
+  }
+  
+  .sidenav {
+    height: 100%;
+    width: 50px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #E4E8F0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  
+  .sidenav a {
+    padding: 4px 8px 4px 50px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #363636;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidenav a:hover {
+    color: #A9CFE2;
+  }
+  
+  .sidenav .home-link {
+    margin-top: 10px;
+  }
+  
+  .sidenav .record-link {
+    margin-top: 10px;
+  }
+  
+  .sidenav .mypage-link {
+    margin-top: 50px;
+  }
+  
+  .sidenav .friend-link {
+    margin-top: 10px;
+  }
+  
+  .sidenav .setting-link svg {
+    width: 20px;
+    height: 20px;
+    margin-top: 50px;
+  }
+  
+  .sidenav .dm-link svg {
+    width: 20px;
+    height: 20px;
+    margin-top: 50px;
+  }
+  
+  .sidenav .alarm-link svg {
+    width: 20px;
+    height: 20px;
+    margin-top: 10px;
+  }
+  
+  .sidenav .notify-link svg {
+    width: 20px;
+    height: 20px;
+    margin-top: 10px;
+  }
+  
+  .sidenav .profile-link svg {
+    width: 50px;
+    height: 50px;
+    margin-top: 50px;
+  }
+  
+  .sidenav .logout-link  {
+    margin-top: 5px;
+    font-size: 15px;
+    margin-bottom: 200px;
+  }
+  
+  .sidenav .closebtn {
+    position: absolute;
+    top: 700px;
+    right: 25px;
+    margin-left: 50px;
+  }
+  
+  .arrow {
+    margin-right: 0px;
+    position: fixed;
+    bottom: 10px;
+    cursor: pointer;
+  }
+  
+  #main {
+    transition: margin-left .5s;
+    padding: 16px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav { padding-top: 1500px; }
+    .sidenav a { font-size: 18px; }
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+.nickname-info label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+
+
+
+.profile-container {
+    max-width: 700px; 
+    margin: auto;
+    margin-left: 400px;
+    padding: 100px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.profile-header img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin-right: 20px;
+}
+
+.profile-header div {
+    padding-top: 10px;
+    text-align: left;
+}
+
+.profile-header .username {
+    font-size: 3em;
+}
+
+.profile-header .tagline {
+    font-size: 1.4em;
+    color: #9B9A9A;
+}
+
+
+
+
+
+
+
+.profile-info {
+    text-align: left;
+}
+
+.profile-info label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+
+
+.profile-info input[type="text"],
+.profile-info input[type="email"],
+.profile-info input[type="tel"],
+.profile-info input[type="date"],
+.profile-info input[type="password"] {
+    width: 400px;
+    padding: 10px;
+    margin-top: 10px;
+    border: none; /* 기존의 테두리 제거 */
+    border-bottom: 1px solid #B8B7B7; /* 밑줄 스타일 추가 */
+    border-radius: 0; /* 둥근 효과 제거 */
+    background-color: transparent; /* 배경색 투명으로 설정 */
+    outline: none; /* 포커스 시 외곽선 제거 */
+}
+
+
+.edit-icon {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.profile-info input[readonly] {
+    background-color: #f9f9f9;
+}

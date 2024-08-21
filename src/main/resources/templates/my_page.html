@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>마이페이지</title>
+</head>
+<body>
+<div>
+    <h1>마이페이지</h1>
+    <form th:action="@{/profile/update}" th:method="post" th:object="${userProfile}" enctype="multipart/form-data">
+        <div>
+            <label for="profilePicture">프로필 사진:</label>
+            <input type="file" id="profilePicture" name="profilePicture"/>
+        </div>
+        <br/>
+        <div>
+            <label for="nickname">닉네임:</label>
+            <input type="text" th:field="*{nickname}" readonly/>
+        </div>
+        <br/>
+        <div>
+            <label for="loginId">가입 이메일:</label>
+            <input type="email" th:field="*{loginId}" readonly/>
+        </div>
+        <br/>
+        <div>
+            <label for="introduction">한줄 소개:</label>
+            <textarea th:field="*{introduction}"></textarea>
+        </div>
+        <br/>
+        <div>
+            <label for="phoneNumber">전화번호:</label>
+            <input type="text" th:field="*{phoneNumber}" readonly/>
+        </div>
+        <br/>
+        <div>
+            <label for="birthDate">생년월일:</label>
+            <input type="date" th:field="*{birthDate}" readonly/>
+        </div>
+        <br/>
+        <div>
+            <label for="gender">성별:</label>
+            <input type="text" th:field="*{gender}" readonly/>
+        </div>
+        <br/>
+        <div>
+            <label for="password">비밀번호 변경:</label>
+            <input type="password" th:field="*{password}"/>
+        </div>
+        <br/>
+        <button type="submit">수정하기</button>
+    </form>
+    <form th:action="@{/profile/delete}" th:method="post">
+        <button type="submit">탈퇴하기</button>
+    </form>
+</div>
+</body>
+</html>

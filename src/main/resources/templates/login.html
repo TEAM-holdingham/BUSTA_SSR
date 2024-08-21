@@ -1,47 +1,79 @@
 <!DOCTYPE html>
 <html lang="ko">
-<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title th:text="|${pageName}|"></title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>로그인</title>
+  <link rel="stylesheet" href="./login/style_login.css" />
+  <script src="https://kit.fontawesome.com/9125fcc41c.js" crossorigin="anonymous"></script>
 </head>
-<body>
-<div>
-    <h1><a th:href="|/${loginType}|">[[${pageName}]]</a></h1> <hr/>
-        <h2>로그인</h2>
-        <form th:method="post" th:action="|@{/{loginType}/login (loginType=${loginType})}|" th:object="${loginRequest}">
-            <div>
-                <label th:for="loginId">로그인 아이디 : </label>
-                <input type="text" th:field="*{loginId}"/>
-            </div>
-            <br/>
-            <div>
-                <label th:for="password">비밀번호 : </label>
-                <input type="password" th:field="*{password}"/>
-            </div>
-            <div th:if="${#fields.hasGlobalErrors()}">
-                <br/>
-                <div class="error-class" th:each="error : ${#fields.globalErrors()}" th:text="${error}" />
-            </div>
-            <br/>
-            <button type="submit">로그인</button>
-            <button type="button" th:onclick="|location.href='@{/{loginType}/join (loginType=${loginType})}'|">회원 가입</button> <br/><br/>
-        </form>
+<body style="background: linear-gradient(to top right, #b8fdc8, #bfd6ff, white)">
+<header>
+  <img src="../assets/signup_logo_white.png" width="100px" style="margin-top: 25px" />
+</header>
+<form id="loginForm" action="/security-login/login" method="post">
+  <div class="login-wrapper">
+    <h2>환영합니다.</h2>
+  </div>
+  <div>
+    <input
+            type="email"
+            id="email"
+            name="loginId"
+            placeholder="이메일을 입력하세요"
+            required
+    />
+  </div>
+  <div class="input_password">
+    <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-input"
+            placeholder="비밀번호를 입력하세요"
+            maxlength="20"
+            required
+    />
+    <button id="showPassword" type="button">
+      <i class="fa-solid fa-eye"></i>
+    </button>
+  </div>
+  <div class="page_center">
+    <div class="remember-container">
+      <input type="checkbox" id="remember" />
+      <label for="remember">로그인 유지</label>
     </div>
-    <div th:if="${loginType == 'security-login'}">
-        <a href="/oauth2/authorization/google">구글 로그인</a>
-        <a href="/oauth2/authorization/kakao">카카오 로그인</a>
-        <a href="/oauth2/authorization/naver">네이버 로그인</a>
-        <a href="/oauth2/authorization/facebook">페이스북 로그인</a>
+    <div class="find-container">
+      <button
+              class="findemail"
+              type="button"
+              onClick="location.href='../find_email-1.html'"
+      >
+        이메일 찾기
+      </button>
+      <span>|</span>
+      <button
+              class="findpassword"
+              type="button"
+              onClick="location.href='../find_password-1.html'"
+      >
+        비밀번호 찾기
+      </button>
     </div>
+  </div>
+  <div class="emaillogin">
+    <button class="mainlogin" type="submit">이메일로 로그인</button>
+  </div>
+</form>
+<div class="tosignup">
+  <button
+          class="to_signup"
+          type="button"
+          onClick="location.href='../sign_up/sign_up_1.html'"
+  >
+    회원가입
+  </button>
+</div>
+<script src="/login/script_login.js"></script>
 </body>
 </html>
-
-<style>
-.error-class {
-    color: red;
-}
-.error-input {
-    border-color: red;
-}
-</style>

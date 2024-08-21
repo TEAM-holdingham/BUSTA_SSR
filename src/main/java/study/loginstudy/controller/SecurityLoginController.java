@@ -155,6 +155,32 @@ public class SecurityLoginController {
             return "errorPage/userNotFound";
         }
     }
+
+    @GetMapping("/goals")
+    public String goalsPage(Model model, Authentication auth) {
+        if (auth != null) {
+            User loginUser = userService.getLoginUserByLoginId(auth.getName());
+            if (loginUser != null) {
+                model.addAttribute("nickname", loginUser.getNickname());
+            }
+        }
+        return "goals";  // goals.html 파일로 이동
+    }
+    @GetMapping("/timelaps")
+    public String timelapsPage(Model model, Authentication auth) {
+        if (auth != null) {
+            User loginUser = userService.getLoginUserByLoginId(auth.getName());
+            if (loginUser != null) {
+                model.addAttribute("nickname", loginUser.getNickname());
+            }
+        }
+        return "timelaps";  // timelaps.html 파일로 이동
+    }
+
+
+
+
+
 //
 //    @GetMapping("/api/info")
 //    public String apiUserInfo(Model model, Authentication auth) {

@@ -3,19 +3,26 @@ package study.loginstudy.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import study.loginstudy.domain.dto.NotificationRequest;
+import study.loginstudy.domain.entity.User;
 import study.loginstudy.service.NotificationService;
+import study.loginstudy.service.UserService;
 
-@RestController
+@Controller
 @RequestMapping("/notifications")
 public class NotificationController {
 
     private final NotificationService notificationService;
+    private final UserService userService;
 
     @Autowired
-    public NotificationController(NotificationService notificationService) {
+    public NotificationController(NotificationService notificationService, UserService userService) {
         this.notificationService = notificationService;
+        this.userService = userService;
     }
 
     @PostMapping("/admin")
@@ -31,6 +38,8 @@ public class NotificationController {
         notificationService.sendFriendRequestNotification(request.getMessage());
         return message;
     }
+
+
 }
 
 

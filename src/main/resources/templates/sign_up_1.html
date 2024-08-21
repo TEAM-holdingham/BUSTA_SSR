@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원가입_1</title>
+    <link rel="stylesheet" href="/sign_up/style_sign_up.css" />
+  </head>
+  <body>
+    <header>
+      <img
+        src="/assets/signup_logo_white.png"
+        width="100px"
+        style="margin-top: 20px"
+      />
+      <div style="justify-content: center; margin-top: 10px">
+        <span style="color: #444444; font-size: 35px"><b>회원가입</b></span>
+        <span style="font-size: 20px; color: #6a88c0; margin-right: 330px"
+          >[약관동의]</span
+        >
+        <span style="color: #6a88c0; font-size: 25px"><b>1/2</b></span>
+      </div>
+    </header>
+    <div class="bg">
+      <form action="/security-login/join2" method="get">
+        <div class="checkbox-container">
+          <input type="checkbox" id="checkbox1" onclick="checkAll(this)" />
+          <b>전체 동의하기</b>
+        </div>
+        <div class="p1">
+          <br />이메일이 인증된 아이디로 가입, 개인정보 동의서, 이벤트・혜택
+          정보 수신(선택) 동의를 포함합니다.
+        </div>
+        <p></p>
+        <div class="checkbox-container">
+          <input type="checkbox" id="checkbox2" required />
+          <b
+            >BST 이용약관<span style="color: red; font-size: 10px"
+              ><b> (필수)</b></span
+            ></b
+          >
+        </div>
+        <div class="ContractText-wrapper">
+          <div class="ContractText">
+            <!--약관 박스-->
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+            suscipit ipsum et efficitur lobortis. Duis cursus risus ac nisi
+            finibus, in venenatis nulla consectetur. Nunc porta dapibus dui quis
+            fringilla. Aenean pulvinar sodales mauris et feugiat. Praesent porta
+            lacinia dolor vel vulputate. Vestibulum vestibulum massa vitae augue
+            tempus, et convallis sapien varius. Nunc nec tempor ipsum. Fusce at
+            nulla nunc. Nam a elit eu leo tempor posuere id elementum urna. Duis
+            sit amet eros odio. Mauris a nisl eleifend, sollicitudin quam ac,
+            pretium tortor. Duis elit turpis, tempus ac tortor sed, venenatis
+            consectetur diam. In sit amet sapien at leo volutpat volutpat.
+            Pellentesque nec augue efficitur, pellentesque erat eget, egestas
+            tellus. Phasellus et lobortis quam. In turpis nibh, placerat id
+            mauris eu, placerat ornare nibh. Phasellus aliquam dolor lacus,
+            ultricies ultricies orci dignissim fermentum. Aenean congue non sem
+            ac facilisis. Nulla ac iaculis augue. Nam vitae tincidunt tortor.
+            Cras ut rutrum turpis, at suscipit dui. Aenean sodales pretium
+            lorem. Nunc a condimentum leo, sit amet gravida nisl. Duis libero
+            mi, scelerisque a purus id, condimentum sagittis odio. Proin
+            ultricies libero nec diam molestie aliquam. Nam commodo nulla sed
+            rutrum hendrerit. Vestibulum hendrerit maximus varius.
+          </div>
+        </div>
+        <div class="checkbox-container">
+          <input type="checkbox" id="checkbox3" required />
+          <b
+            >개인정보 수집 및 이용<span style="color: red; font-size: 10px"
+              ><b> (필수)</b></span
+            ></b
+          >
+        </div>
+        <div class="ContractText-wrapper">
+          <div class="ContractText">
+            <!--약관 박스-->
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+            suscipit ipsum et efficitur lobortis. Duis cursus risus ac nisi
+            finibus, in venenatis nulla consectetur. Nunc porta dapibus dui quis
+            fringilla. Aenean pulvinar sodales mauris et feugiat. Praesent porta
+            lacinia dolor vel vulputate. Vestibulum vestibulum massa vitae augue
+            tempus, et convallis sapien varius. Nunc nec tempor ipsum. Fusce at
+            nulla nunc. Nam a elit eu leo tempor posuere id elementum urna. Duis
+            sit amet eros odio. Mauris a nisl eleifend, sollicitudin quam ac,
+            pretium tortor. Duis elit turpis, tempus ac tortor sed, venenatis
+            consectetur diam. In sit amet sapien at leo volutpat volutpat.
+            Pellentesque nec augue efficitur, pellentesque erat eget, egestas
+            tellus. Phasellus et lobortis quam. In turpis nibh, placerat id
+            mauris eu, placerat ornare nibh. Phaselluset lobortis quam. In
+            turpis nibh, placerat id mauris eu, placerat ornare nibh. Phasellus
+            aliquam dolor lacus, ultricies ultricies orci dignissim fermentum.
+            Aenean congue non sem ac facilisis. Nulla ac iaculis augue. Nam
+            vitae tincidunt tortor. Cras ut rutrum turpis, at suscipit dui.
+            Aenean sodales pretium lorem. Nunc a condimentum leo, sit amet
+            gravida nisl. Duis libero mi, scelerisque a purus id, condimentum
+            sagittis odio. Proin ultricies libero nec diam molestie aliquam. Nam
+            commodo nulla sed rutrum hendrerit. Vestibulum hendrerit maximus
+            varius.
+          </div>
+        </div>
+        <div class="checkbox-container">
+          <input type="checkbox" id="checkbox4" />
+          <b
+            >마케팅 정보 활용 동의<span
+              style="color: rgb(117, 117, 117); font-size: 10px"
+              ><b> (선택)</b></span
+            ></b
+          >
+        </div>
+        <div style="display: flex; justify-content: center">
+          <div class="ContractText">
+            <!--약관 박스-->
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+            suscipit ipsum et efficitur lobortis. Duis cursus risus ac nisi
+            finibus, in venenatis nulla consectetur. Nunc porta dapibus dui quis
+            fringilla. Aenean pulvinar sodales mauris et feugiat. Praesent porta
+            lacinia dolor vel vulputate. Vestibulum vestibulum massa vitae augue
+            tempus, et convallis sapien varius. Nunc nec tempor ipsum. Fusce at
+            nulla nunc. Nam a elit eu leo tempor posuere id elementum urna. Duis
+            sit amet eros odio. Mauris a nisl eleifend, sollicitudin quam ac,
+            pretium tortor. Duis elit turpis, tempus ac tortor sed, venenatis
+            consectetur diam. In sit amet sapien at leo volutpat volutpat.
+            Pellentesque nec augue efficitur, pellentesque erat eget, egestas
+            tellus. Phasellus et lobortis quam. In turpis nibh, placerat id
+            mauris eu, placerat ornare nibh. Phasellus aliquam dolor lacus,
+            ultricies ultricies orci dignissim fermentum. Aenean congue non sem
+            ac facilisis. Nulla ac iaculis augue. Nam vitae tincidunt tortor.
+            Cras ut rutrum turpis, at suscipit dui. Aenean sodales pretium
+            lorem. Nunc a condimentum leo, sit amet gravida nisl. Duis libero
+            mi, scelerisque a purus id, condimentum sagittis odio. Proin
+            ultricies libero nec diam molestie aliquam. Nam commodo nulla sed
+            rutrum hendrerit. Vestibulum hendrerit maximus varius.
+          </div>
+        </div>
+        <div class="Button">
+          <input type="submit" value="다음으로" />
+        </div>
+      </form>
+      <div class="cancelBtn">
+        <input
+          type="button"
+          value="취소"
+          onclick="goBack()"
+          style="cursor: pointer"
+        />
+      </div>
+    </div>
+    <script src="/sign_up/script_sign_up.js"></script>
+  </body>
+</html>

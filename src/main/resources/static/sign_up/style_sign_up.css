@@ -1,0 +1,348 @@
+* {
+  box-sizing: border-box;
+}
+
+.p1 {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 200vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(#f0f0f0, #91b6fa);
+  text-align: center;
+}
+
+header {
+  width: 100%;
+  text-align: center;
+  margin-top: 0px;
+}
+
+.bg {
+  background-color: #ffffff;
+  color: black;
+  width: 600px;
+  height: 540px;
+  font-size: 15px;
+  border-radius: 25px;
+  box-shadow: 0px 0px 10px #313c6584,
+    -3px -3px 10px 3px inset rgb(214, 214, 214);
+  border: 1px solid rgb(54, 54, 54);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Change from space-between to flex-start */
+  align-items: center;
+  padding: 25px;
+  margin-top: 5px;
+}
+
+.bg2 {
+  background-color: #ffffff;
+  color: black;
+  width: 600px;
+  height: 940px;
+  font-size: 15px;
+  border-radius: 25px;
+  box-shadow: 0px 0px 10px #313c6584,
+    -3px -3px 10px 3px inset rgb(214, 214, 214);
+  border: 1px solid rgb(54, 54, 54);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Change from space-between to flex-start */
+  align-items: center;
+  padding: 25px;
+  margin-top: 5px;
+}
+
+form {
+  width: 100%;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  margin: 5px 0;
+}
+
+.ContractText-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 10px; /* Adjusted margin-bottom */
+}
+
+.ContractText {
+  display: flex;
+  background-color: white;
+  color: black;
+  width: 500px;
+  height: 80px;
+  font-size: 11px;
+  border: 1px solid rgb(54, 54, 54);
+  padding: 8px;
+  overflow-y: scroll;
+  border-radius: 5px;
+  text-align: left;
+}
+
+.ContractText::-webkit-scrollbar {
+  width: 8px;
+  overflow: hidden;
+}
+
+.ContractText::-webkit-scrollbar-thumb {
+  background-color: #91b6fa;
+  border-radius: 5px;
+  box-shadow: inset 0px 0px 2px white;
+  border: 1.5px solid transparent;
+  background-clip: padding-box;
+}
+
+.ContractText::-webkit-scrollbar-track {
+  background-color: #ffffff00;
+  border-radius: 5px;
+}
+
+.p1 {
+  padding: 0 10px;
+  font-size: 13px;
+  text-align: left;
+}
+
+input[type="button"] {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px; /* 예시로 추가 */
+  appearance: none;
+  background-color: transparent;
+  font-size: 13px;
+  color: #6b6b6b;
+  border: none; /* 기본 border 제거 */
+}
+
+.Button input[type="submit"] {
+  width: 490px;
+  height: 40px;
+  border: none;
+  border-radius: 20px;
+  background-color: #1c1c1c;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 20px 0 0 0;
+}
+
+.Button input[type="submit"]:hover {
+  background-color: #3a3a3a;
+}
+
+.signUpButton input[type="submit"] {
+  width: 490px;
+  height: 40px;
+  border: none;
+  border-radius: 20px;
+  background-color: #3d5af1;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 20px 0 0 0;
+}
+
+.signUpButton input[type="submit"]:hover {
+  background-color: #6781ff;
+}
+
+.input-group {
+  padding: 10px;
+}
+/* input-label */
+.input-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 10px; /* 간격 조정 */
+}
+
+.input-label label {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.email-input {
+  display: flex;
+  align-items: left;
+  margin-top: 5px; /* 입력 칸과 설명 사이의 간격 */
+}
+
+.email-input select {
+  padding: 6px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+}
+
+.nickname-input {
+  display: flex;
+  align-items: left;
+  margin-top: 5px; /* 입력 칸과 설명 사이의 간격 */
+}
+
+.nickname-input button {
+  appearance: none;
+  margin-left: 10px;
+  background-color: #3d5af1;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.nickname-input button:hover {
+  background-color: #6781ff;
+}
+
+.password-input {
+  display: flex;
+  align-items: left;
+  margin-top: 5px; /* 입력 칸과 설명 사이의 간격 */
+}
+
+.password-input button {
+  width: 40px; /* 버튼의 너비를 조정합니다. */
+  appearance: none;
+  margin-left: 3px;
+  background-color: white;
+  color: #bdbdbd;
+  border: none;
+  font-size: 19px; /* 아이콘의 크기를 조정합니다. */
+  cursor: pointer;
+  display: flex;
+  justify-content: center; /* 가운데 정렬을 설정합니다. */
+  align-items: center; /* 버튼 안에서 아이콘이 세로 가운데 정렬되도록 설정합니다. */
+}
+
+.password-input button i {
+  text-align: center; /* 아이콘 텍스트를 가운데 정렬합니다. */
+}
+
+.lastname-input {
+  display: flex;
+  align-items: left;
+  margin-top: 5px; /* 입력 칸과 설명 사이의 간격 */
+}
+
+.firstname-input {
+  display: flex;
+  align-items: left;
+  margin-top: 5px; /* 입력 칸과 설명 사이의 간격 */
+}
+
+.phone-number-input {
+  display: flex;
+  align-items: left;
+  margin-top: 5px; /* 입력 칸과 설명 사이의 간격 */
+}
+
+.phone-number-input select {
+  padding: 6px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.phone-number-input button {
+  appearance: none;
+  margin-left: 10px;
+  background-color: #3d5af1;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.phone-number-input button:hover {
+  background-color: #6781ff;
+}
+
+.authentication-input {
+  display: flex;
+  align-items: left;
+  margin-top: 5px; /* 입력 칸과 설명 사이의 간격 */
+}
+
+.authentication-input button {
+  appearance: none;
+  margin-left: 10px;
+  background-color: #3d5af1;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.authentication-input button:hover {
+  background-color: #6781ff;
+}
+
+.birth-input {
+  display: flex;
+  align-items: left;
+  margin-top: 5px; /* 입력 칸과 설명 사이의 간격 */
+}
+
+.sex-input {
+  display: flex;
+  align-items: left;
+  margin-top: 5px; /* 입력 칸과 설명 사이의 간격 */
+}
+
+.sex-input select {
+  padding: 6px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.description {
+  font-size: 12px;
+  color: #666;
+  text-align: left; /* 설명 텍스트를 왼쪽 정렬로 */
+  margin-top: 5px; /* 간격 조정 */
+}
+
+/* input field */
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="nickname"],
+input[type="number"] {
+  width: 270px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원가입_2</title>
+    <link rel="stylesheet" href="/sign_up/style_sign_up.css" />
+    <!-- FontAwesome CDN 추가 -->
+    <script
+      src="https://kit.fontawesome.com/9125fcc41c.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <header>
+      <img
+        src="/assets/signup_logo_white.png"
+        width="100px"
+        style="margin-top: 20px"
+      />
+      <div style="justify-content: center; margin-top: 10px">
+        <span style="color: #444444; font-size: 35px"><b>회원가입</b></span>
+        <span style="font-size: 20px; color: #6a88c0; margin-right: 330px"
+          >[정보입력]</span
+        >
+        <span style="color: #6a88c0; font-size: 25px"><b>2/2</b></span>
+      </div>
+    </header>
+    <div class="bg2">
+      <form action="/security-login/join2" method="post">
+        <!--입력 정보-->
+        <div class="input-group">
+          <!--이메일 입력-->
+          <div class="input-label">
+            <label for="email">이메일</label>
+            <span class="description">이메일 주소를 입력해 주세요.</span>
+          </div>
+          <div class="email-input">
+            <input
+              type="text"
+              id="email"
+              name="email"
+              required
+              placeholder="ex: seungyeon123"
+            />
+            <div style="font-size: 20px; text-align: center; width: 30px">
+              @
+            </div>
+            <select id="emailDomain">
+              <option value="gmail.com">gmail.com</option>
+              <option value="naver.com">naver.com</option>
+              <option value="daum.net">daum.net</option>
+              <option value="hanmail.net">hanmail.net</option>
+              <!-- 기타 추가할 도메인 옵션 -->
+            </select>
+          </div>
+        </div>
+        <div class="input-group">
+          <!--닉네임 입력-->
+          <div class="input-label">
+            <label for="nickname">닉네임</label>
+            <span class="description"
+              >2~10자, 한글/영어/숫자 입력 가능, 중복 불가</span
+            >
+          </div>
+          <div class="nickname-input">
+            <input type="text" id="nickname" name="nickname" required />
+            <button id="checkNicknameBtn">중복 확인</button>
+          </div>
+        </div>
+        <div class="input-group">
+          <!--비밀번호 입력-->
+          <div class="input-label">
+            <label for="password">비밀번호</label>
+            <span class="description"
+              >영어 대/소문자, 특수문자(~/!/@/#/*), 숫자 입력 가능</span
+            >
+          </div>
+          <div class="password-input">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              placeholder="비밀번호 입력"
+            />
+            <button id="showPassword" type="button">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+          <div class="password-input">
+            <input
+              type="password"
+              id="passwordCheck"
+              name="password"
+              required
+              placeholder="비밀번호 확인"
+            />
+            <button id="showPasswordCheck" type="button">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        <div class="input-group">
+          <!--이름 입력-->
+          <div class="input-label">
+            <label for="name">이름</label>
+          </div>
+          <div class="lastname-input">
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              required
+              placeholder="성"
+            />
+          </div>
+          <div class="firstname-input">
+            <input
+              type="text"
+              id="FirstName"
+              name="FirstName"
+              required
+              placeholder="이름"
+            />
+          </div>
+        </div>
+        <div class="input-group">
+          <!--전화번호 입력-->
+          <div class="input-label">
+            <label for="phoneNumber">전화번호</label>
+            <span class="description">-(하이픈)제외 모든 자리 입력</span>
+          </div>
+          <div class="phone-number-input">
+            <select id="carrierDomain">
+              <!--통신사 도메인-->
+              <option value="SKT">SKT</option>
+              <option value="KT">KT</option>
+              <option value="LG U+">LG U+</option>
+              <option value="알뜰폰">알뜰폰</option>
+              <!-- 기타 추가할 도메인 옵션 -->
+            </select>
+            <input
+              type="text"
+              id="phoneNumber"
+              name="phoneNumber"
+              required
+              placeholder="01012345678"
+            />
+            <button id="sendAuthentication">인증번호 발송</button>
+          </div>
+          <div class="authentication-input">
+            <input
+              type="text"
+              id="authenticationInput"
+              name="authenticationInput"
+              required
+              placeholder="인증번호 입력"
+            />
+            <button id="checkAuthentication" type="button">인증</button>
+          </div>
+        </div>
+        <div class="input-group">
+          <!--생년월일 입력-->
+          <div class="input-label">
+            <label for="birth">생년월일</label>
+          </div>
+          <div class="birth-input">
+            <input
+              type="date"
+              id="birthDate"
+              name="birthDate"
+              max="2050-12-31"
+              min="1900-01-01"
+              value="2003-09-13"
+              required
+            />
+          </div>
+        </div>
+        <div class="input-group">
+          <!--성별 입력-->
+          <div class="input-label">
+            <label for="sex-input">성별</label>
+          </div>
+          <div class="sex-input">
+            <select id="sexDomain" name="sexDomain" required>
+              <option value="">선택하세요</option>
+              <option value="여성">여성</option>
+              <option value="남성">남성</option>
+              <option value="선택 안함">선택 안함</option>
+            </select>
+          </div>
+        </div>
+        <!--입력 정보-->
+        <div class="signUpButton">
+          <input type="submit" value="가입하기" />
+        </div>
+      </form>
+      <div class="cancelBtn">
+        <input
+          type="button"
+          value="이전"
+          onclick="goBack()"
+          style="cursor: pointer"
+        />
+      </div>
+    </div>
+    <script src="/sign_up/script_sign_up.js"></script>
+  </body>
+</html>

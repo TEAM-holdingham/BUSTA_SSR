@@ -55,10 +55,16 @@ public class SecurityLoginController {
     @GetMapping("/join")
     public String joinPage(Model model) {
         model.addAttribute("joinRequest", new JoinRequest());
-        return "join";
+        return "sign_up_1";
     }
 
-    @PostMapping("/join")
+    @GetMapping("/join2")
+    public String join2Page(Model model) {
+        model.addAttribute("joinRequest", new JoinRequest());
+        return "sign_up_2";
+    }
+
+    @PostMapping("/join2")
     public String join(@Valid @ModelAttribute JoinRequest joinRequest, BindingResult bindingResult, Model model) {
 
         if(userService.checkLoginIdDuplicate(joinRequest.getLoginId())) {
@@ -75,11 +81,11 @@ public class SecurityLoginController {
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("joinRequest", joinRequest);
-            return "join";
+            return "sign_up_2";
         }
 
-        userService.join2(joinRequest);
-        return "redirect:/security-login";
+//        userService.join2(joinRequest);
+        return "redirect:/security-login/login";
     }
 
     @GetMapping("/login")
@@ -121,6 +127,7 @@ public class SecurityLoginController {
             return "login";
         }
     }
+
     @GetMapping("/home")
     public String home(Model model, Authentication auth) {
         if (auth != null) {

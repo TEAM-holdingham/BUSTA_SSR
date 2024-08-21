@@ -61,11 +61,10 @@ public class SecurityLoginController {
     @PostMapping("/join")
     public String join(@Valid @ModelAttribute JoinRequest joinRequest, BindingResult bindingResult, Model model) {
 
-        // loginId 중복 체크
         if(userService.checkLoginIdDuplicate(joinRequest.getLoginId())) {
             bindingResult.addError(new FieldError("joinRequest", "loginId", "로그인 아이디가 중복됩니다."));
         }
-        // 닉네임 중복 체크
+
         if(userService.checkNicknameDuplicate(joinRequest.getNickname())) {
             bindingResult.addError(new FieldError("joinRequest", "nickname", "닉네임이 중복됩니다."));
         }
@@ -89,67 +88,7 @@ public class SecurityLoginController {
         return "login";
     }
 
-    @GetMapping("/info")
-    //@PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
-    public String userInfo(Model model, Authentication auth) {
-        User loginUser = userService.getLoginUserByLoginId(auth.getName());
-        model.addAttribute("user", loginUser);
-
-        return "info";
-    }
-
-    @GetMapping("/admin")
-    //@PreAuthorize("hasAuthority('ADMIN')")
-    public String adminPage() {
-        return "admin";
-    }
-
-    @GetMapping("/authentication-fail")
-    public String authenticationFail() {
-        return "errorPage/authenticationFail";
-    }
-
-    @GetMapping("/authorization-fail")
-    public String authorizationFail() {
-        return "errorPage/authorizationFail";
-    }
-
-    @GetMapping("/nickname")
-    public String getNicknameByLoginId(@RequestParam("loginId") String loginId, Model model) {
-        try {
-            String nickname = userService.findNicknameByLoginId(loginId);
-            model.addAttribute("nickname", nickname);
-            return "nickname";
-        } catch (UserNotFoundException e) {
-            model.addAttribute("errorMessage", e.getMessage());
-            return "errorPage/userNotFound";
-        }
-    }
-
-    @GetMapping("/my_page")
-    public String myPage(Model model, Authentication authentication) {
-        String loginId = authentication.getName(); // 현재 로그인한 사용자 정보 가져오기
-        User user = userService.findByLoginId(loginId); // 유저 서비스에서 사용자 정보 조회
-        model.addAttribute("user", user);
-        return "my_page"; // my_page.html 템플릿 반환
-    }
-
-    @GetMapping("/confirm-delete")
-    public String confirmDelete(Model model, Authentication authentication) {
-        String loginId = authentication.getName(); // 현재 로그인한 사용자 정보 가져오기
-        model.addAttribute("loginId", loginId);
-        return "confirm_delete";
-    }
-
-    @PostMapping("/delete-account")
-    public String deleteAccount(HttpSession session, Authentication authentication) {
-        String loginId = authentication.getName(); // 현재 로그인한 사용자 정보 가져오기
-        userService.deleteAccount(loginId);
-        session.invalidate();  // 세션 무효화
-        return "redirect:/"; // 첫 화면으로 리다이렉트
-    }
-
-    @PostMapping("/api/login")
+    @PostMapping("/login")
     public String apiLogin(@ModelAttribute LoginRequest loginRequest, HttpServletRequest request, HttpServletResponse response, Model model) {
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -176,141 +115,150 @@ public class SecurityLoginController {
             response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
             model.addAttribute("user", user);
-            return "redirect:/security-login";
+            return "redirect:/security-login/home";
         } catch (AuthenticationException e) {
             model.addAttribute("errorMessage", "Invalid username/password");
             return "login";
         }
     }
+    @GetMapping("/home")
+    public String home(Model model, Authentication auth) {
+        if (auth != null) {
+            User loginUser = userService.getLoginUserByLoginId(auth.getName());
+            model.addAttribute("nickname", loginUser.getNickname());
+        }
+        return "home";  // home.html을 반환하도록 설정
+    }
 
-    @PostMapping("/api/logout")
+
+    @PostMapping("/logout")
     public String apiLogout(HttpSession session) {
         session.invalidate();  // 세션 무효화
         return "redirect:/";
     }
 
-    @GetMapping("/api/my-page")
-    public String apiMyPage(Model model, Authentication authentication) {
-        if (authentication == null) {
-            model.addAttribute("errorMessage", "인증되지 않은 사용자입니다.");
-            return "errorPage/unauthorized";
-        }
-
-        String loginId = authentication.getName();
-        User user = userService.findByLoginId(loginId);
-
-        if (user != null) {
-            model.addAttribute("user", user);
-            return "my_page";
-        } else {
-            model.addAttribute("errorMessage", "사용자 정보를 찾을 수 없습니다.");
-            return "errorPage/userNotFound";
-        }
-    }
-
-    @GetMapping("/api/info")
-    public String apiUserInfo(Model model, Authentication auth) {
-        String loginId = auth.getName();
-        User loginUser = userService.getLoginUserByLoginId(loginId);
-
-        if (loginUser != null) {
-            model.addAttribute("user", loginUser);
-            return "info";
-        } else {
-            model.addAttribute("errorMessage", "사용자 정보를 찾을 수 없습니다.");
-            return "errorPage/userNotFound";
-        }
-    }
-
-    @GetMapping(value = {"/api", "/api/"})
-    public String apiLoginHome(Model model, Authentication auth) {
-        if (auth != null) {
-            User loginUser = userService.getLoginUserByLoginId(auth.getName());
-
-            if (loginUser != null) {
-                model.addAttribute("nickname", loginUser.getNickname());
-                return "loginhome";
-            } else {
-                model.addAttribute("errorMessage", "사용자 정보를 찾을 수 없습니다.");
-                return "errorPage/userNotFound";
-            }
-        } else {
-            model.addAttribute("errorMessage", "인증된 사용자가 없습니다.");
-            return "errorPage/unauthorized";
-        }
-    }
-
-    @GetMapping("/api/join")
-    public String apiJoinPage(Model model) {
-        model.addAttribute("joinRequest", new JoinRequest());
-        return "join";
-    }
-
-    @PostMapping("/api/join")
-    public String apiJoin(@Valid @ModelAttribute JoinRequest joinRequest, BindingResult bindingResult, Model model) {
-
-        if (userService.checkLoginIdDuplicate(joinRequest.getLoginId())) {
-            bindingResult.addError(new FieldError("joinRequest", "loginId", "로그인 아이디가 중복됩니다."));
-        }
-        if (userService.checkNicknameDuplicate(joinRequest.getNickname())) {
-            bindingResult.addError(new FieldError("joinRequest", "nickname", "닉네임이 중복됩니다."));
-        }
-        if (!Objects.equals(joinRequest.getPassword(), joinRequest.getPasswordCheck())) {
-            bindingResult.addError(new FieldError("joinRequest", "passwordCheck", "비밀번호가 일치하지 않습니다."));
-        }
-
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("joinRequest", joinRequest);
-            return "join";
-        }
-
-        userService.join2(joinRequest);
-        return "redirect:/security-login";
-    }
-
-    @GetMapping("/api/admin")
-    public String apiAdminPage() {
-        return "admin";
-    }
-
-    @GetMapping("/api/authentication-fail")
-    public String apiAuthenticationFail(Model model) {
-        model.addAttribute("errorMessage", "인증에 실패했습니다.");
-        return "errorPage/authenticationFail";
-    }
-
-    @GetMapping("/api/authorization-fail")
-    public String apiAuthorizationFail(Model model) {
-        model.addAttribute("errorMessage", "권한이 부족하여 접근할 수 없습니다.");
-        return "errorPage/authorizationFail";
-    }
-
-    @GetMapping("/api/nickname")
-    public String apiGetNicknameByLoginId(@RequestParam("loginId") String loginId, Model model) {
-        try {
-            String nickname = userService.findNicknameByLoginId(loginId);
-            model.addAttribute("nickname", nickname);
-            return "nickname";
-        } catch (UserNotFoundException e) {
-            model.addAttribute("errorMessage", e.getMessage());
-            return "errorPage/userNotFound";
-        }
-    }
-
-    @GetMapping("/api/confirm-delete")
-    public String apiConfirmDelete(Model model, Authentication authentication) {
-        String loginId = authentication.getName(); // 현재 로그인한 사용자 정보 가져오기
-        model.addAttribute("loginId", loginId);
-        return "confirm_delete";
-    }
-
-    @PostMapping("/api/delete-account")
-    public String apiDeleteAccount(HttpSession session, Authentication authentication, Model model) {
-        String loginId = authentication.getName(); // 현재 로그인한 사용자 정보 가져오기
-        userService.deleteAccount(loginId);
-        session.invalidate();  // 세션 무효화
-
-        return "redirect:/";
-    }
+//    @GetMapping("/api/my-page")
+//    public String apiMyPage(Model model, Authentication authentication) {
+//        if (authentication == null) {
+//            model.addAttribute("errorMessage", "인증되지 않은 사용자입니다.");
+//            return "errorPage/unauthorized";
+//        }
+//
+//        String loginId = authentication.getName();
+//        User user = userService.findByLoginId(loginId);
+//
+//        if (user != null) {
+//            model.addAttribute("user", user);
+//            return "my_page";
+//        } else {
+//            model.addAttribute("errorMessage", "사용자 정보를 찾을 수 없습니다.");
+//            return "errorPage/userNotFound";
+//        }
+//    }
+//
+//    @GetMapping("/api/info")
+//    public String apiUserInfo(Model model, Authentication auth) {
+//        String loginId = auth.getName();
+//        User loginUser = userService.getLoginUserByLoginId(loginId);
+//
+//        if (loginUser != null) {
+//            model.addAttribute("user", loginUser);
+//            return "info";
+//        } else {
+//            model.addAttribute("errorMessage", "사용자 정보를 찾을 수 없습니다.");
+//            return "errorPage/userNotFound";
+//        }
+//    }
+//
+//    @GetMapping(value = {"/api", "/api/"})
+//    public String apiLoginHome(Model model, Authentication auth) {
+//        if (auth != null) {
+//            User loginUser = userService.getLoginUserByLoginId(auth.getName());
+//
+//            if (loginUser != null) {
+//                model.addAttribute("nickname", loginUser.getNickname());
+//                return "loginhome";
+//            } else {
+//                model.addAttribute("errorMessage", "사용자 정보를 찾을 수 없습니다.");
+//                return "errorPage/userNotFound";
+//            }
+//        } else {
+//            model.addAttribute("errorMessage", "인증된 사용자가 없습니다.");
+//            return "errorPage/unauthorized";
+//        }
+//    }
+//
+//    @GetMapping("/api/join")
+//    public String apiJoinPage(Model model) {
+//        model.addAttribute("joinRequest", new JoinRequest());
+//        return "join";
+//    }
+//
+//    @PostMapping("/api/join")
+//    public String apiJoin(@Valid @ModelAttribute JoinRequest joinRequest, BindingResult bindingResult, Model model) {
+//
+//        if (userService.checkLoginIdDuplicate(joinRequest.getLoginId())) {
+//            bindingResult.addError(new FieldError("joinRequest", "loginId", "로그인 아이디가 중복됩니다."));
+//        }
+//        if (userService.checkNicknameDuplicate(joinRequest.getNickname())) {
+//            bindingResult.addError(new FieldError("joinRequest", "nickname", "닉네임이 중복됩니다."));
+//        }
+//        if (!Objects.equals(joinRequest.getPassword(), joinRequest.getPasswordCheck())) {
+//            bindingResult.addError(new FieldError("joinRequest", "passwordCheck", "비밀번호가 일치하지 않습니다."));
+//        }
+//
+//        if (bindingResult.hasErrors()) {
+//            model.addAttribute("joinRequest", joinRequest);
+//            return "join";
+//        }
+//
+//        userService.join2(joinRequest);
+//        return "redirect:/security-login";
+//    }
+//
+//    @GetMapping("/api/admin")
+//    public String apiAdminPage() {
+//        return "admin";
+//    }
+//
+//    @GetMapping("/api/authentication-fail")
+//    public String apiAuthenticationFail(Model model) {
+//        model.addAttribute("errorMessage", "인증에 실패했습니다.");
+//        return "errorPage/authenticationFail";
+//    }
+//
+//    @GetMapping("/api/authorization-fail")
+//    public String apiAuthorizationFail(Model model) {
+//        model.addAttribute("errorMessage", "권한이 부족하여 접근할 수 없습니다.");
+//        return "errorPage/authorizationFail";
+//    }
+//
+//    @GetMapping("/api/nickname")
+//    public String apiGetNicknameByLoginId(@RequestParam("loginId") String loginId, Model model) {
+//        try {
+//            String nickname = userService.findNicknameByLoginId(loginId);
+//            model.addAttribute("nickname", nickname);
+//            return "nickname";
+//        } catch (UserNotFoundException e) {
+//            model.addAttribute("errorMessage", e.getMessage());
+//            return "errorPage/userNotFound";
+//        }
+//    }
+//
+//    @GetMapping("/api/confirm-delete")
+//    public String apiConfirmDelete(Model model, Authentication authentication) {
+//        String loginId = authentication.getName(); // 현재 로그인한 사용자 정보 가져오기
+//        model.addAttribute("loginId", loginId);
+//        return "confirm_delete";
+//    }
+//
+//    @PostMapping("/api/delete-account")
+//    public String apiDeleteAccount(HttpSession session, Authentication authentication, Model model) {
+//        String loginId = authentication.getName(); // 현재 로그인한 사용자 정보 가져오기
+//        userService.deleteAccount(loginId);
+//        session.invalidate();  // 세션 무효화
+//
+//        return "redirect:/";
+//    }
 
 }

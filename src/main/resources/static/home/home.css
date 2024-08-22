@@ -49,13 +49,16 @@ body {
   z-index: 10;
 }
 
-#timer {
-  font-size: 140px;
+.timer {
+  font-size: 180px; /* 타이머 글자 크기를 크게 설정 */
   font-weight: 900;
+  color: #333; /* 타이머 글자 색상 */
 }
 
 #timerCountDown {
-  font-size: 30px;
+  font-size: 24px; /* 카운트다운 글자 크기를 작게 설정 */
+  color: #666; /* 카운트다운 글자 색상 */
+  margin-top: 10px; /* 카운트다운과 타이머 사이의 여백 */
 }
 
 #bus {
@@ -175,8 +178,91 @@ body {
   border-radius: 50%;
 }
 
+.overlay {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+/* 팝업창의 스타일 변경 */
+#popup {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #f2f8f5; /* 연한 초록색 배경 */
+  border: 2px solid #c8e5d1; /* 조금 더 진한 초록색 테두리 */
+  border-radius: 15px; /* 모서리를 둥글게 */
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* 부드러운 그림자 효과 */
+  width: 80%;
+  max-width: 500px;
+  padding: 20px;
+  z-index: 1000;
+}
+
+#popup h2 {
+  font-size: 18px;
+  color: #4caf50; /* 제목에 녹색 사용 */
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#popup h2::before {
+  content: "📝"; /* 제목 옆에 아이콘 추가 */
+  font-size: 20px;
+}
+
+#popup textarea {
+  width: 100%;
+  height: 100px;
+  border: 1px solid #c8e5d1;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  background: #ffffff; /* 흰색 배경 */
+  color: #333333; /* 글자 색상 */
+}
+
+#popup button {
+  background-color: #4caf50; /* 버튼의 녹색 배경 */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  float: right;
+  margin-top: 10px;
+}
+
+#popup button:hover {
+  background-color: #45a049; /* 버튼 호버 시 더 진한 녹색 */
+}
+
+#popupOverlay {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* 반투명 검정 배경 */
+  z-index: 999;
+}
+
+
+
+
 #main.menu-closed {
-  margin-left: 0;
+  margin-left: 0; /* 사이드바가 닫힌 상태일 때 */
 }
 
 #main.menu-closed #bus {
@@ -192,11 +278,11 @@ body {
 }
 
 #main.menu-closed #timer {
-  font-size: 120px;
+  font-size: 150px;
 }
 
 #main.menu-closed #timerCountDown {
-  font-size: 24px;
+  font-size: 20px;
 }
 
 @media (max-width: 768px) {

@@ -9,41 +9,45 @@
 </head>
 <body>
 
-    <div id="mySidenav" class="sidenav">
-        <a href="#" class="closebtn" onclick="toggleNav()">
-            <img src="/assets/close.svg" alt="접기">
-            접기
-            </a>
-        <a href="#" class="home-link">홈</a>
-        <a href="#" class="record-link">나의 기록</a>
-        <a href="#" class="mypage-link">마이페이지</a>
-        <a href="#" class="friend-link">친구 관리</a>
-        <a href="#" class="setting-link">
-            <img src="/assets/setting.svg" alt="설정">
-                 설정
-        </a>
-        <a href="#" class="dm-link">
-            <img src="/assets/message.svg" alt="디엠">
-        </a>
-        <a href="#" class="alarm-link">
-            <img src="/assets/alarm.svg" alt="알람">
-        </a>
+<div id="mySidenav" class="sidenav">
+    <a href="#" class="closebtn" onclick="toggleNav()">
+        <img src="/assets/close.svg" alt="접기">
+        접기
+    </a>
+    <a href="/security-login/home" class="home-link">홈</a>
+    <a href="/security-login/goals" class="record-link">나의 기록</a>
+    <a href="/security-login/my-page" class="mypage-link">마이페이지</a>
+    <a href="/friends" class="friend-link">친구 관리</a>
+    <a href="/settings/main" class="setting-link">
+        <img src="/assets/setting.svg" alt="설정">
+        설정
+    </a>
+    <a href="#" class="dm-link">
+        <img src="/assets/message.svg" alt="디엠">
+    </a>
+    <a href="/notifications/main" class="alarm-link">
+        <img src="/assets/alarm.svg" alt="알람">
+    </a>
 
-        <a href="#" class="notify-link">
-            <img src="/assets/notify.svg" alt="공지">
-        </a>
+    <a href="/announcement/announcement-main" class="notify-link">
+        <img src="/assets/notify.svg" alt="공지">
+    </a>
 
-        <a href="#" class="profile-link">
-            <img src="/assets/logout.svg" alt="로그아웃">
-        </a>
+    <a href="/profile" class="profile-link">
+        <img src="/assets/logout.svg" alt="프로필 이미지">
+    </a>
 
-        <a href="#" class="logout-link">로그아웃</a>
+    <form action="/security-login/logout" method="POST" class="logout-form" style="display: inline;">
+        <button type="submit" class="logout-link" style="background: none; border: none; padding: 0; cursor: pointer;">
+            로그아웃
+        </button>
+    </form>
 
-    </div>
-    
+</div>
+
     <span class="arrow" onclick="toggleNav()">
         <img src="/assets/open.svg" alt="열기" class="openbtn">
-        
+
     </span>
 
 

@@ -77,6 +77,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        location.href = 'find_email-2.html';
+        location.href = '/security-login/find-email-2';
     });
 });

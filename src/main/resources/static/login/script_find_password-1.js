@@ -13,6 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        location.href = 'find_password-2.html';
+        location.href = '/security-login/find-password-2';
     });
 });

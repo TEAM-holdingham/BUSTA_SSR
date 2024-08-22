@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dm_main</title>
+    <link rel="stylesheet" href="/dm/style_dm_main.css">
+    <link rel="stylesheet" href="/sidebar/style_sidebar.css">
+</head>
+<body>
+
+    <div id="mySidenav" class="sidenav">
+        <a class="closebtn" onclick="toggleNav()">
+            <img src="/assets/close.svg" alt="접기">
+            접기
+            </a>
+        <a href="/security-login/home" class="home-link">홈</a>
+        <a href="/security-login/goals" class="record-link">나의 기록</a>
+        <a href="/security-login/my-page" class="mypage-link">마이페이지</a>
+        <a href="/friends" class="friend-link">친구 관리</a>
+        <a href="/settings/main" class="setting-link">
+            <img src="/assets/setting.svg" alt="설정">
+                 설정
+        </a>
+        <a href="/dm/dm_main.html" class="dm-link">
+            <img src="/assets/message.svg" alt="디엠">
+        </a>
+        <a href="/notifications/main" class="alarm-link">
+            <img src="/assets/alarm.svg" alt="알람">
+        </a>
+
+        <a href="/announcement/announcement-main" class="notify-link">
+            <img src="/assets/notify.svg" alt="공지">
+        </a>
+
+        <a href="#" class="profile-link">
+            <img src="/assets/logout.svg" alt="로그아웃">
+        </a>
+
+        <a href="#" class="logout-link">로그아웃</a>
+
+    </div>
+
+    <span class="arrow" onclick="toggleNav()">
+        <img src="/assets/open.svg" alt="열기" class="openbtn">
+    </span>
+
+    <!-- dm page 내용 -->
+    <div class="chat-container">
+        <div class="chat-list">
+            <h2>친구 목록</h2>
+            <div class="userprofile">
+                <div>
+                    <img src="/assets/허다닥.svg" alt="MainProfile">
+                    <div class="chat-info">
+                        <h3>허다닥</h3>
+                        <p>heodadadac@gmail.com</p>
+                        <button class="gotomypage" type="button" onClick="location.href='../my_page/my_page.html'">마이페이지>></button>
+                    </div>
+                </div>
+                <div class="my_info">"아무도 내 질주를 막지 마세요. 그 누구도"</div>
+            </div>
+            <div class="chat-list-items">
+                <div class="chat-list-item" onclick="showChat(1)">
+                    <img src="/assets/최강예현.svg" id="profileimg">
+                    <div>
+                        <div class="name">최강예현</div>
+                        <div class="preview">민공지능 최고~~><</div>
+                    </div>
+                </div>
+                <div class="chat-list-item" onclick="showChat(2)">
+                    <img src="/assets/나는채연.svg" id="profileimg">
+                    <div>
+                        <div class="name">나는채연아가야</div>
+                        <div class="preview">인증번호 확인을 확인해</div>
+                    </div>
+                </div>
+                <div class="chat-list-item" onclick="showChat(3)">
+                    <img src="/assets/지존예진.svg" id="profileimg">
+                    <div>
+                        <div class="name">지존예진-_-^</div>
+                        <div class="preview">우린 운명의 데스티니야 0.<</div>
+                    </div>
+                </div>
+                <div class="chat-list-item" onclick="showChat(4)">
+                    <img src="/assets/승연티비.svg" id="profileimg">
+                    <div>
+                        <div class="name">승연티비</div>
+                        <div class="preview">새벽은 자라고 있는 것이 아니라 피그마하라고 있는 것이야..</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-main">
+            <div id="chat-content" style="display: none;">
+                <div class="chatup">
+                    <h2 class="chat-title"><img src="/assets/채팅.svg" id="chatimg">채팅</h2>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <!-- 채팅 메시지들이 여기에 동적으로 들어갈 부분 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="input-container" style="display: none;">
+        <input type="text" id="messageInput" placeholder="메세지를 입력하세요..">
+        <button class="sendButton" onclick="sendMessage()"><img src="/assets/sendButton.svg" id="sendButton"></button>
+    </div>
+
+    <script src="/dm/script_dm_main.js"></script>
+</body>
+</html>

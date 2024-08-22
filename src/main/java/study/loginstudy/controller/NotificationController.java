@@ -39,6 +39,11 @@ public class NotificationController {
         return message;
     }
 
+    @GetMapping("/main")
+    public String notificationMainPage() {
+        return "notification_main";
+    }
+
 
 }
 

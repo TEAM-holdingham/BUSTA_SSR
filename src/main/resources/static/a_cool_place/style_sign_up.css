@@ -1,0 +1,67 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vh;
+  height: 100vh;
+  margin: auto;
+  text-align: center;
+}
+
+.bg {
+  background-color: #ffffff;
+  color: black;
+  width: 600px;
+  height: 500px;
+  font-size: 15px;
+  border-radius: 25px;
+  box-shadow: 0px 0px 10px #444444;
+  box-shadow: -3px -3px 10px 3px inset rgb(214, 214, 214);
+  border: 1px solid rgb(54, 54, 54);
+  margin: 0 auto;
+  text-align: left;
+  padding: 25px 25px 25px 25px;
+}
+.ContractText {
+  background-color: white;
+  color: black;
+  stroke: black;
+  width: 500px;
+  height: 80px;
+  font-size: 11px;
+  margin: 10px 10px 10px 10px;
+  border: 1px solid rgb(54, 54, 54);
+  padding: 8px;
+  overflow-y: scroll;
+  border-radius: 5px;
+  text-align: left;
+}
+
+.ContractText::-webkit-scrollbar {
+  width: 8px;
+  overflow: hidden;
+}
+.ContractText::-webkit-scrollbar-thumb {
+  background-color: #91b6fa;
+  border-radius: 5px;
+  box-shadow: inset 0px 0px 2px white;
+  border: 1.5px solid transparent;
+  background-clip: padding-box;
+}
+.ContractText::-webkit-scrollbar-track {
+  background-color: #ffffff00;
+  border-radius: 5px;
+}
+
+.p1 {
+  padding: 0px 10px 0px 10px;
+  font-size: 13px;
+  text-align: center;
+}
+
+/*
+.Button {
+
+}
+*/

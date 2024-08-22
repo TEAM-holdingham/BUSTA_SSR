@@ -199,6 +199,25 @@ public class SecurityLoginController {
         return "timelaps";  // timelaps.html 파일로 이동
     }
 
+    @GetMapping("/find-email-1")
+    public String findEmail1Page() {
+        return "find_email-1";  // find_email-1.html 파일로 이동
+    }
+
+    @GetMapping("/find-email-2")
+    public String findEmail2Page() {
+        return "find_email-2";  // find_email-2.html 파일로 이동
+    }
+
+    @GetMapping("/find-password-1")
+    public String findPassword1Page() {
+        return "find_password-1";  // find_password-1.html 파일로 이동
+    }
+
+    @GetMapping("/find-password-2")
+    public String findPassword2Page() {
+        return "find_password-2";  // find_password-2.html 파일로 이동
+    }
 
 
 

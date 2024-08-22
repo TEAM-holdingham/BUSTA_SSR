@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>notification_main</title>
+    <link rel="stylesheet" href="/notification/style_notification_main.css">
+    <link rel="stylesheet" href="/sidebar/style_sidebar.css">
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <a class="closebtn" onclick="toggleNav()">
+            <img src="/assets/close.svg" alt="접기">
+            접기
+            </a>
+        <a href="/security-login/home" class="home-link">홈</a>
+        <a href="/security-login/goals" class="record-link">나의 기록</a>
+        <a href="/security-login/my-page" class="mypage-link">마이페이지</a>
+        <a href="/friends" class="friend-link">친구 관리</a>
+        <a href="/settings/main" class="setting-link">
+            <img src="/assets/setting.svg" alt="설정">
+                 설정
+        </a>
+        <a href="../dm/dm_main.html" class="dm-link">
+            <img src="/assets/message.svg" alt="디엠">
+        </a>
+        <a href="/notifications/main" class="alarm-link">
+            <img src="/assets/alarm.svg" alt="알람">
+        </a>
+
+        <a href="/announcement/announcement-main" class="notify-link">
+            <img src="/assets/notify.svg" alt="공지">
+        </a>
+
+        <a href="#" class="profile-link">
+            <img src="/assets/logout.svg" alt="로그아웃">
+        </a>
+
+        <a href="#" class="logout-link">로그아웃</a>
+
+    </div>
+
+    <span class="arrow" onclick="toggleNav()">
+        <img src="/assets/open.svg" alt="열기" class="openbtn">
+    </span>
+    
+    <!-- 알림 page 내용이 들어갈 부분 -->
+    <div class="notification_main">
+        <div class="mainTitle">
+            <img src="/assets/알림.svg" alt="알림 아이콘">
+            <h1>알림</h1>
+        </div>
+        <div class="notification-container">
+            <div class="notification-scroll">
+                <div class="notification-list">
+                    <!-- 알림 내용은 JavaScript로 동적 생성됩니다 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+          <p id="modalText"></p>
+          <button id="confirmBtn">확인</button>
+          <button id="cancelBtn">취소</button>
+        </div>
+      </div>
+      
+    <script src="/notification/script_notification_main.js"></script>
+</body>
+</html>

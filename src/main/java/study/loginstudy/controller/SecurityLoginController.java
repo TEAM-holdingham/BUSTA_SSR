@@ -85,7 +85,7 @@ public class SecurityLoginController {
             return "sign_up_2";
         }
 
-//        userService.join2(joinRequest);
+        userService.join2(joinRequest);
         return "redirect:/security-login/login";
     }
 

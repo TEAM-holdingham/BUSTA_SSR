@@ -34,7 +34,7 @@ header {
   font-size: 15px;
   border-radius: 25px;
   box-shadow: 0px 0px 10px #313c6584,
-    -3px -3px 10px 3px inset rgb(214, 214, 214);
+  -3px -3px 10px 3px inset rgb(214, 214, 214);
   border: 1px solid rgb(54, 54, 54);
   display: flex;
   flex-direction: column;
@@ -52,7 +52,7 @@ header {
   font-size: 15px;
   border-radius: 25px;
   box-shadow: 0px 0px 10px #313c6584,
-    -3px -3px 10px 3px inset rgb(214, 214, 214);
+  -3px -3px 10px 3px inset rgb(214, 214, 214);
   border: 1px solid rgb(54, 54, 54);
   display: flex;
   flex-direction: column;
@@ -186,7 +186,7 @@ input[type="button"] {
 
 .email-input {
   display: flex;
-  align-items: left;
+  align-items: center;
   margin-top: 5px; /* 입력 칸과 설명 사이의 간격 */
 }
 
@@ -197,15 +197,11 @@ input[type="button"] {
   border-radius: 20px;
 }
 
-.nickname-input {
-  display: flex;
-  align-items: left;
-  margin-top: 5px; /* 입력 칸과 설명 사이의 간격 */
-}
-
-.nickname-input button {
+.email-input button,
+.nickname-input button,
+.authentication-input button,
+#verifyCode {
   appearance: none;
-  margin-left: 10px;
   background-color: #3d5af1;
   color: white;
   border: none;
@@ -213,15 +209,25 @@ input[type="button"] {
   padding: 8px 12px;
   font-size: 13px;
   cursor: pointer;
+  margin-left: 10px;
 }
 
-.nickname-input button:hover {
+.email-input button:hover,
+.nickname-input button:hover,
+.authentication-input button:hover,
+#verifyCode:hover {
   background-color: #6781ff;
+}
+
+.nickname-input {
+  display: flex;
+  align-items: center;
+  margin-top: 5px; /* 입력 칸과 설명 사이의 간격 */
 }
 
 .password-input {
   display: flex;
-  align-items: left;
+  align-items: center;
   margin-top: 5px; /* 입력 칸과 설명 사이의 간격 */
 }
 
@@ -245,77 +251,31 @@ input[type="button"] {
 
 .lastname-input {
   display: flex;
-  align-items: left;
+  align-items: center;
   margin-top: 5px; /* 입력 칸과 설명 사이의 간격 */
 }
 
 .firstname-input {
   display: flex;
-  align-items: left;
+  align-items: center;
   margin-top: 5px; /* 입력 칸과 설명 사이의 간격 */
-}
-
-.phone-number-input {
-  display: flex;
-  align-items: left;
-  margin-top: 5px; /* 입력 칸과 설명 사이의 간격 */
-}
-
-.phone-number-input select {
-  padding: 6px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  margin-right: 10px;
-}
-
-.phone-number-input button {
-  appearance: none;
-  margin-left: 10px;
-  background-color: #3d5af1;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 12px;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-.phone-number-input button:hover {
-  background-color: #6781ff;
 }
 
 .authentication-input {
   display: flex;
-  align-items: left;
+  align-items: center;
   margin-top: 5px; /* 입력 칸과 설명 사이의 간격 */
-}
-
-.authentication-input button {
-  appearance: none;
-  margin-left: 10px;
-  background-color: #3d5af1;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 12px;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-.authentication-input button:hover {
-  background-color: #6781ff;
 }
 
 .birth-input {
   display: flex;
-  align-items: left;
+  align-items: center;
   margin-top: 5px; /* 입력 칸과 설명 사이의 간격 */
 }
 
 .sex-input {
   display: flex;
-  align-items: left;
+  align-items: center;
   margin-top: 5px; /* 입력 칸과 설명 사이의 간격 */
 }
 

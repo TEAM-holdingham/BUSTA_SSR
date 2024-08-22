@@ -2,6 +2,13 @@ spring:
   server:
     port: 8080
 
+  thymeleaf:
+    enabled: true         # Thymeleaf 템플릿 엔진 사용 활성화
+    prefix: classpath:/templates/ # 템플릿 파일의 경로
+    suffix: .html         # 템플릿 파일의 확장자
+    mode: HTML            # 템플릿 모드 (HTML5, XML, TEXT 등)
+    cache: false          # 개발 시에는 캐시를 비활성화하여 변경사항 즉시 반영
+
 
 #  datasource:
 #    driver-class-name: com.mysql.cj.jdbc.Driver

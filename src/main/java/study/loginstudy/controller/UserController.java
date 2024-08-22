@@ -26,19 +26,23 @@ public class UserController {
 
     // 기존 코드: HTML 페이지 반환 및 리다이렉트
 
-    @GetMapping
-    public String getProfile(Model model) {
-        User user = userService.getCurrentUser(); // 현재 로그인된 사용자 정보 가져오기
+    @GetMapping("/my-page")
+    public String myPage(Model model) {
+        User user = userService.getCurrentUser();
         UserProfile userProfile = new UserProfile();
         userProfile.setNickname(user.getNickname());
         userProfile.setLoginId(user.getLoginId());
         userProfile.setIntroduction(user.getIntroduction());
-        userProfile.setPhoneNumber(String.valueOf(user.getPhoneNumber()));
+        userProfile.setPhoneNumber(user.getPhoneNumber());
         userProfile.setBirthDate(user.getBirthDate());
         userProfile.setGender(user.getGender());
+
         model.addAttribute("userProfile", userProfile);
-        return "my_page";
+        return "my_page";  // my_page.html 템플릿으로 데이터 전달
     }
+
+
+
 
     @PostMapping("/update")
     public String updateProfile(UserProfile userProfile, @RequestParam("profilePicture") MultipartFile profilePicture) {

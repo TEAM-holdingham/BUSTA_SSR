@@ -77,8 +77,8 @@ public class ChatController {
             return;
         }
         String sender = principal.getName();
-        chatMessage.setSender(sender);
-        chatMessage.setContent(sender + " joined!");
+//        chatMessage.setSender(sender);
+//        chatMessage.setContent(sender + " joined!");
         chatMessage.setType("JOIN");
         chatMessage.setRoomId(chatMessage.getRoomId());
 
@@ -105,9 +105,11 @@ public class ChatController {
             System.out.println("Principal is null in chatPage");
             return "redirect:/login";
         }
+        String username = principal.getName();
+        System.out.println("Current username: " + username); // 로그로 확인
+        model.addAttribute("username", username);
         model.addAttribute("friend", friend);
-        model.addAttribute("username", principal.getName());
-        return "Chat";
+        return "chat";
     }
 
     @GetMapping("/chat/history")

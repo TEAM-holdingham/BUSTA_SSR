@@ -6,7 +6,7 @@
 <br><br>
 
 ## 🧑‍🤝‍🧑 TEAM <햄듭니다>
-|<img src="https://github.com/~~~.png" width="80">|<img src="https://github.com/~~~.png" width="80">|<img src="https://github.com/~~~.png" width="80">|<img src="https://github.com/~~~.png" width="80">|<img src="https://github.com/~~~.png" width="80">|
+|<img src="src/main/resources/static/assets/시승연.png" width="80">|<img src="src/main/resources/static/assets/시승연.png" width="80">|<img src="src/main/resources/static/assets/시승연.png" width="80">|<img src="src/main/resources/static/assets/시승연.png" width="80">|<img src="src/main/resources/static/assets/시승연.png" width="80">|
 |:---:|:---:|:---:|:---:|:---:|
 |강예현|시승연|류예진|박채연|허다빈|
 |프론트엔드|프론트엔드|프론트엔드|백엔드|백엔드|

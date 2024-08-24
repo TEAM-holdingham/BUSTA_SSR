@@ -1,0 +1,300 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: row;
+}
+
+#sidebar {
+  height: 100vh;
+  overflow-y: auto;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out;
+}
+
+#main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  flex-grow: 1;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: #f5f5f5;
+  margin-left: 250px;
+  transition: margin-left 0.3s ease-in-out;
+  padding: 40px;
+  position: relative;
+}
+
+#timerContainer {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  text-align: right;
+  transition: all 0.3s ease-in-out;
+  z-index: 10;
+}
+
+.timer {
+  font-size: 180px; /* 타이머 글자 크기를 크게 설정 */
+  font-weight: 900;
+  color: #333; /* 타이머 글자 색상 */
+}
+
+#timerCountDown {
+  font-size: 24px; /* 카운트다운 글자 크기를 작게 설정 */
+  color: #666; /* 카운트다운 글자 색상 */
+  margin-top: 10px; /* 카운트다운과 타이머 사이의 여백 */
+}
+
+#bus {
+  width: 100%;
+  max-width: 850px;
+  aspect-ratio: 17 / 10;
+  background-image: url(../assets/bus.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom center;
+  margin-top: auto;
+  position: relative;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.bus-content {
+  position: absolute;
+  top: 27%;
+  left: 6%;
+  width: 87%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+}
+
+.control-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.control-btn {
+  font-size: clamp(12px, 2vw, 20px);
+  width: clamp(25px, 5vw, 40px);
+  height: clamp(25px, 5vw, 40px);
+  border: 2px solid #92b6fa;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #92b6fa;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.control-btn:disabled {
+  border-color: #ccc;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.control-btn.active {
+  background-color: #92b6fa;
+  color: white;
+}
+
+.button-label {
+  font-size: clamp(8px, 1.5vw, 12px);
+  margin-top: 3px;
+}
+
+.user-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-profile img {
+  width: 7vw;
+  height: 7vw;
+  border-radius: 50%;
+}
+
+.user-name {
+  font-size: clamp(10px, 2vw, 14px);
+  margin-top: 5px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: clamp(8px, 1.5vw, 12px);
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.progress {
+  width: 0%;
+  height: 100%;
+  background-color: #4a90e2;
+  transition: width 0.3s ease;
+}
+
+.friends {
+  display: flex;
+  justify-content: space-between;
+  gap: 1%;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.friends img {
+  width: 5vw;
+  height: 5vw;
+  border-radius: 50%;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+/* 팝업창의 스타일 변경 */
+#popup {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #f2f8f5; /* 연한 초록색 배경 */
+  border: 2px solid #c8e5d1; /* 조금 더 진한 초록색 테두리 */
+  border-radius: 15px; /* 모서리를 둥글게 */
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* 부드러운 그림자 효과 */
+  width: 80%;
+  max-width: 500px;
+  padding: 20px;
+  z-index: 1000;
+}
+
+#popup h2 {
+  font-size: 18px;
+  color: #4caf50; /* 제목에 녹색 사용 */
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#popup h2::before {
+  content: "📝"; /* 제목 옆에 아이콘 추가 */
+  font-size: 20px;
+}
+
+#popup textarea {
+  width: 100%;
+  height: 100px;
+  border: 1px solid #c8e5d1;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  background: #ffffff; /* 흰색 배경 */
+  color: #333333; /* 글자 색상 */
+}
+
+#popup button {
+  background-color: #4caf50; /* 버튼의 녹색 배경 */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  float: right;
+  margin-top: 10px;
+}
+
+#popup button:hover {
+  background-color: #45a049; /* 버튼 호버 시 더 진한 녹색 */
+}
+
+#popupOverlay {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* 반투명 검정 배경 */
+  z-index: 999;
+}
+
+
+
+
+#main.menu-closed {
+  margin-left: 0; /* 사이드바가 닫힌 상태일 때 */
+}
+
+#main.menu-closed #bus {
+  opacity: 0;
+  visibility: hidden;
+}
+
+#main.menu-closed #timerContainer {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+#main.menu-closed #timer {
+  font-size: 150px;
+}
+
+#main.menu-closed #timerCountDown {
+  font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  .bus-content {
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+  }
+
+  .friends {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

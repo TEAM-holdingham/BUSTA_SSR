@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>타이머 예제</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .timer {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            font-size: 1rem;
+            margin: 0 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border: 1px solid black;
+            z-index: 1000;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+<div class="timer">00:00:00</div>
+<div class="buttons">
+    <button id="startBtn" onclick="startTimer()">시작</button>
+    <button id="pauseBtn" onclick="pauseTimer()" disabled>일시정지</button>
+    <button id="stopBtn" onclick="stopTimer()" disabled>공부 종료</button>
+</div>
+
+<div class="overlay" id="overlay"></div>
+<div class="popup" id="popup">
+    <h2>무엇을 했나요?</h2>
+    <textarea id="activityDescription" rows="4" cols="50"></textarea>
+    <br><br>
+    <button onclick="submitActivity()">제출</button>
+</div>
+
+<script>
+    let timerInterval;
+    let timerRunning = false;
+    let startTime;
+    let elapsedTime = 0;
+    const resetHour = 16; // 리셋할 시간 (24시간 형식)
+    const resetMinute = 31
+    window.onload = function() {
+        let storedTime = localStorage.getItem('elapsedTime');
+        if (storedTime) {
+            elapsedTime = parseInt(storedTime, 10);
+            updateTimerDisplay();
+        }
+        scheduleNextReset(); // 다음 리셋 시간 설정
+    }
+
+    function startTimer() {
+        fetch('/timer/start', { method: 'POST' })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Timer started successfully');
+                    startTime = Date.now() - elapsedTime;
+                    timerInterval = setInterval(updateTimer, 1000);
+                    timerRunning = true;
+                    disableButton("startBtn");
+                    enableButton("pauseBtn");
+                    disableButton("stopBtn");
+                    scheduleNextReset(); // 다음 리셋 시간 설정
+                } else {
+                    console.error('Failed to start timer');
+                }
+            });
+    }
+
+    function pauseTimer() {
+        clearInterval(timerInterval);
+        timerRunning = false;
+        showPopup();
+    }
+
+    function stopTimer() {
+        fetch('/timer/stop', { method: 'POST' })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Timer stopped successfully');
+                    clearInterval(timerInterval);
+                    timerRunning = false;
+                    enableButton("startBtn");
+                    disableButton("pauseBtn");
+                    disableButton("stopBtn");
+                    localStorage.removeItem('elapsedTime'); // Optional: Clear stored time when stopped
+                } else {
+                    console.error('Failed to stop timer');
+                }
+            });
+    }
+
+    function showPopup() {
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("popup").style.display = "block";
+    }
+
+    function hidePopup() {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("popup").style.display = "none";
+    }
+
+    function submitActivity() {
+        const activityDescription = document.getElementById("activityDescription").value;
+        fetch('/timer/pause', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ activityDescription })
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Activity submitted successfully');
+                    hidePopup();
+                    enableButton("startBtn");
+                    disableButton("pauseBtn");
+                    enableButton("stopBtn");
+                } else {
+                    console.error('Failed to submit activity');
+                }
+            });
+    }
+
+    function updateTimer() {
+        elapsedTime = Date.now() - startTime;
+        updateTimerDisplay();
+
+        // Check for reset time every second
+        if (isResetTime()) {
+            clearInterval(timerInterval);
+            timerRunning = false;
+            elapsedTime = 0;
+            updateTimerDisplay();
+            localStorage.removeItem('elapsedTime');
+            scheduleNextReset();
+        }
+    }
+
+    function updateTimerDisplay() {
+        let seconds = Math.floor((elapsedTime / 1000) % 60);
+        let minutes = Math.floor((elapsedTime / (1000 * 60)) % 60);
+        let hours = Math.floor((elapsedTime / (1000 * 60 * 60)) % 24);
+
+        seconds = (seconds < 10) ? `0${seconds}` : `${seconds}`;
+        minutes = (minutes < 10) ? `0${minutes}` : `${minutes}`;
+        hours = (hours < 10) ? `0${hours}` : `${hours}`;
+
+        document.querySelector(".timer").textContent = `${hours}:${minutes}:${seconds}`;
+    }
+
+    function disableButton(id) {
+        document.getElementById(id).disabled = true;
+    }
+
+    function enableButton(id) {
+        document.getElementById(id).disabled = false;
+    }
+
+    // Schedule the next reset time
+    function scheduleNextReset() {
+        let now = new Date();
+        let resetTime = new Date();
+        resetTime.setHours(resetHour, resetMinute, 0, 0);
+
+        if (resetTime <= now) {
+            resetTime.setDate(resetTime.getDate() + 1); // Set for next day if time already passed
+        }
+
+        let timeUntilReset = resetTime - now;
+        setTimeout(resetTimer, timeUntilReset);
+    }
+
+    // Reset the timer at the specified time
+    function resetTimer() {
+        if (timerRunning) {
+            fetch('/timer/reset', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ elapsedTime: Math.floor(elapsedTime / 1000) }) // Send elapsed time in seconds
+            }).then(response => {
+                if (response.ok) {
+                    console.log('Timer reset successfully and elapsed time saved');
+                } else {
+                    console.error('Failed to reset timer');
+                }
+            });
+        }
+
+        clearInterval(timerInterval);
+        timerRunning = false;
+        elapsedTime = 0;
+        updateTimerDisplay();
+        localStorage.removeItem('elapsedTime');
+        scheduleNextReset();
+    }
+
+    // Check if the current time matches the reset time
+    function isResetTime() {
+        let now = new Date();
+        return now.getHours() === resetHour && now.getMinutes() === resetMinute && now.getSeconds() === 0;
+    }
+</script>
+</body>
+</html>

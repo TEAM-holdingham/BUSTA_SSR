@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import study.loginstudy.domain.entity.Timer;
@@ -13,6 +14,7 @@ import study.loginstudy.repository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -130,6 +132,21 @@ public class TimerController {
         } else {
             return "Timer is not running, no need to reset";
         }
+    }
+
+    @GetMapping("/timelaps")
+    public String showTimelapsPage(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String loginId = authentication.getName();
+        Optional<User> optionalUser = userRepository.findByLoginId(loginId);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            List<Timer> recentTimers = timerRepository.findByUserOrderByStartTimeDesc(user);
+            model.addAttribute("recentTimers", recentTimers);
+        }
+
+        return "timelaps";  // timelaps.html을 반환
     }
 
     // 새로 추가된 API: JSON 응답을 위한 메서드들

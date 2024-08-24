@@ -17,7 +17,7 @@ spring:
 #    password:  1022
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://svc.sel4.cloudtype.app:31310/test
+    url: jdbc:mariadb://svc.sel4.cloudtype.app:30248/test
 #    url: jdbc:mariadb://localhost:3306/test
     username: root
     password: 1204
@@ -38,7 +38,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     #구글 이메일 아이디
-    username:
+    username: 
     # 앱 비번
     password:
     properties:

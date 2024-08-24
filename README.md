@@ -2,7 +2,7 @@
 
 # 🚌 버스타 - Burning Study Timer
 ### 즐거운 몰입을 위한 웹 스터디 타이머, 버스타! ⏱️<br>
-🔗 https://busta.store
+🔗 https://.
 <br><br>
 
 ## 🧑‍🤝‍🧑 TEAM <햄듭니다>

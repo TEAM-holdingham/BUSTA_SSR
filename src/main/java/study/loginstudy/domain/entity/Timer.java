@@ -1,5 +1,7 @@
 package study.loginstudy.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -33,7 +35,8 @@ public class Timer {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;  // User 엔티티와의 관계 설정 추가
+    @JsonBackReference
+    private User user;
 
 
     public String getPauseDuration() {

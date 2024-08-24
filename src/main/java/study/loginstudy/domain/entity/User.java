@@ -64,6 +64,7 @@ public class User {
 
     // timer와 연동
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private Set<Timer> timers;
 
     // todolist와 연동

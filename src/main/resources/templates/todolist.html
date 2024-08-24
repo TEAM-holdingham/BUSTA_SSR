@@ -1,45 +1,207 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
-    <title>ToDo List</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 기록 - 오늘의 목표</title>
+    <link rel="stylesheet" href="/sidebar/style_sidebar.css">
+    <link rel="stylesheet" href="/my_record/style_goals.css">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .functionality-container {
+            margin-left: 260px;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #444;
+        }
+        .task-list {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px 0;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .task-list th, .task-list td {
+            padding: 16px;
+            text-align: left;
+        }
+        .task-list th {
+            background-color: #91B6FA;
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .task-list tr {
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .task-list tr:last-child {
+            border-bottom: none;
+        }
+        .task-list tr:hover {
+            background-color: #f5f5f5;
+        }
+        .task-list td {
+            font-size: 14px;
+            color: #555;
+        }
+        .task-list a {
+            color: #91B6FA;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .task-list a:hover {
+            text-decoration: underline;
+        }
+        #addForm {
+            margin-top: 30px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        #formTitle {
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        #todoForm label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #666;
+        }
+        #todoForm input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        #formButton {
+            background-color: #91B6FA;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        #formButton:hover {
+            background-color:
+                    #91B6FA;
+        }
+    </style>
 </head>
 <body>
-<h2>ToDo List</h2>
-<a href="#addForm" onclick="resetForm()">Add New ToDo</a>
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Description</th>
-        <th>Completed</th>
-        <th>Actions</th>
-    </tr>
-    <tr th:each="toDoList : ${listToDoLists}">
-        <td th:text="${toDoList.id}"></td>
-        <td th:text="${toDoList.description}"></td>
-        <!-- Complete 상태 표시 -->
-        <td th:text="${toDoList.completed != null ? (toDoList.completed ? '완료' : '미완료') : '미완료'}"></td>
-        <td>
-            <a href="#addForm"
-               th:attr="data-id=${toDoList.id},data-description=${toDoList.description},data-completed=${toDoList.completed}"
-               onclick="editToDo(this)">Edit</a> |
-            <a th:href="@{/delete/{id}(id=${toDoList.id})}">Delete</a> |
-            <a th:href="@{/complete/{id}(id=${toDoList.id})}">Complete</a>
-        </td>
-    </tr>
-</table>
 
-<hr/>
-
-<!-- Add/Edit Form -->
-<div id="addForm">
-    <h2 id="formTitle">Add ToDo</h2>
-    <form id="todoForm" action="#" th:action="@{/save}" th:object="${toDoList}" method="post">
-        <input type="hidden" id="id" th:field="*{id}" />
-        <label for="description">Description:</label>
-        <input type="text" id="description" name="description" th:field="*{description}" />
-        <button type="submit" id="formButton">Save</button>
+<div id="mySidenav" class="sidenav">
+    <a href="#" class="closebtn" onclick="toggleNav()">
+        <img src="/assets/close.svg" alt="접기">
+        접기
+    </a>
+    <a href="/time/home" class="home-link">홈</a>
+    <a href="/todolist" class="record-link">나의 기록</a>
+    <a href="/security-login/my-page" class="mypage-link">마이페이지</a>
+    <a href="/friends" class="friend-link">친구 관리</a>
+    <a href="/settings/main" class="setting-link">
+        <img src="/assets/setting.svg" alt="설정">
+        설정
+    </a>
+    <a href="#" class="dm-link">
+        <img src="/assets/message.svg" alt="디엠">
+    </a>
+    <a href="/notifications/main" class="alarm-link">
+        <img src="/assets/alarm.svg" alt="알람">
+    </a>
+    <a href="/announcement/announcement-main" class="notify-link">
+        <img src="/assets/notify.svg" alt="공지">
+    </a>
+    <a href="/profile" class="profile-link">
+        <img src="/assets/logout.svg" alt="프로필 이미지">
+    </a>
+    <form action="/security-login/logout" method="POST" class="logout-form" style="display: inline;">
+        <button type="submit" class="logout-link" style="background: none; border: none; padding: 0; cursor: pointer;">
+            로그아웃
+        </button>
     </form>
 </div>
+
+<span class="arrow" onclick="toggleNav()">
+    <img src="/assets/open.svg" alt="열기" class="openbtn">
+</span>
+
+<div class="container">
+    <header>
+        <h1>나의 기록</h1>
+        <nav>
+            <a href="/todolist" class="active">오늘의 목표</a>
+            <a href="/timer/timelaps">타임 랩스</a>
+        </nav>
+    </header>
+    <main class="functionality-container">
+        <!-- 날짜와 달력 아이콘을 "나의 기록" 텍스트와 동일한 열에 정렬 -->
+        <!--        <div class="date-container">-->
+        <!--            <div class="date-icon"><img src="/my_record/calendar.svg" alt="달력 아이콘"></div>-->
+        <!--            <span>2024.02.18.(일)</span>-->
+        <!--        </div>-->
+
+        <!-- 기존 기능을 유지한 테이블 -->
+        <table border="1" class="task-list">
+            <tr>
+                <th>ID</th>
+                <th>오늘의 목표 설명</th>
+                <th>완료 여부</th>
+                <th>동작</th>
+            </tr>
+            <tr th:each="toDoList : ${listToDoLists}">
+                <td th:text="${toDoList.id}"></td>
+                <td th:text="${toDoList.description}"></td>
+                <td th:text="${toDoList.completed != null ? (toDoList.completed ? '완료' : '미완료') : '미완료'}"></td>
+                <td>
+                    <a href="#addForm"
+                       th:attr="data-id=${toDoList.id},data-description=${toDoList.description},data-completed=${toDoList.completed}"
+                       onclick="editToDo(this)">수정</a> |
+                    <a th:href="@{/delete/{id}(id=${toDoList.id})}">삭제</a> |
+                    <a th:href="@{/complete/{id}(id=${toDoList.id})}">완료</a>
+                </td>
+            </tr>
+        </table>
+
+        <hr/>
+
+        <!-- Add/Edit Form -->
+        <div id="addForm">
+            <h2 id="formTitle">오늘의 목표 추가</h2>
+            <form id="todoForm" action="#" th:action="@{/save}" th:object="${toDoList}" method="post">
+                <input type="hidden" id="id" th:field="*{id}" />
+                <label for="description">설명:</label>
+                <input type="text" id="description" name="description" th:field="*{description}" />
+                <button type="submit" id="formButton">저장</button>
+            </form>
+        </div>
+    </main>
+</div>
+
+<script src="/my_record/script_goals.js"></script>
 
 <script>
     function editToDo(element) {
@@ -49,16 +211,16 @@
         document.getElementById("id").value = id;
         document.getElementById("description").value = description;
 
-        document.getElementById("formTitle").innerText = "Edit ToDo";
-        document.getElementById("formButton").innerText = "Update";
+        document.getElementById("formTitle").innerText = "오늘의 목표 수정";
+        document.getElementById("formButton").innerText = "업데이트";
     }
 
     function resetForm() {
         document.getElementById("id").value = "";
         document.getElementById("description").value = "";
 
-        document.getElementById("formTitle").innerText = "Add ToDo";
-        document.getElementById("formButton").innerText = "Save";
+        document.getElementById("formTitle").innerText = "오늘의 목표 추가";
+        document.getElementById("formButton").innerText = "저장";
     }
 </script>
 

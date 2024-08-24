@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나의 기록 - 타임 랩스</title>
     <link rel="stylesheet" href="/sidebar/style_sidebar.css">
@@ -37,17 +37,21 @@
             border: 1px solid #ddd; /* 얇은 테두리 */
             border-radius: 5px; /* 둥근 모서리 */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 */
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s, color 0.2s; /* 호버 시 스타일 변화를 위한 전환 효과 */
             overflow: hidden; /* 내용이 너무 길 때 숨김 */
             text-overflow: ellipsis; /* 생략 부호 추가 */
             white-space: nowrap; /* 한 줄로 표시 */
             max-width: 100%; /* 최대 너비 설정 */
+            cursor: pointer; /* 마우스 커서를 포인터로 변경 */
         }
 
         /* Hover 효과 */
         .activity-list li:hover {
             transform: translateY(-2px); /* 약간 떠오르는 효과 */
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Hover 시 더 진한 그림자 */
+            background-color:
+                    #91B6FA; /* Hover 시 배경 색상 변경 */
+            color: #333; /* 텍스트 색상 약간 진하게 */
         }
 
         /* 사이드바가 닫힌 상태에서의 컨텐츠 위치 */
@@ -57,6 +61,25 @@
 
         header h1 {
             margin: 0;
+        }
+
+        /* 버튼의 기본 스타일 */
+        button {
+            background-color: #4285f4; /* 기본 배경 색상 */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            font-weight: bold;
+        }
+
+        /* Hover 시 버튼 강조 효과 */
+        button:hover {
+            background-color: #3367d6; /* Hover 시 배경 색상 진하게 변경 */
+            transform: translateY(-2px); /* Hover 시 살짝 위로 이동 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Hover 시 그림자 진하게 */
         }
     </style>
 </head>
@@ -68,7 +91,7 @@
         접기
     </a>
     <a href="/time/home" class="home-link">홈</a>
-    <a href="/security-login/goals" class="record-link">나의 기록</a>
+    <a href="/todolist" class="record-link">나의 기록</a>
     <a href="/security-login/my-page" class="mypage-link">마이페이지</a>
     <a href="/friends" class="friend-link">친구 관리</a>
     <a href="/settings/main" class="setting-link">
@@ -81,15 +104,12 @@
     <a href="/notifications/main" class="alarm-link">
         <img src="/assets/alarm.svg" alt="알람">
     </a>
-
     <a href="/announcement/announcement-main" class="notify-link">
         <img src="/assets/notify.svg" alt="공지">
     </a>
-
     <a href="/profile" class="profile-link">
         <img src="/assets/logout.svg" alt="프로필 이미지">
     </a>
-
     <form action="/security-login/logout" method="POST" class="logout-form" style="display: inline;">
         <button type="submit" class="logout-link" style="background: none; border: none; padding: 0; cursor: pointer;">
             로그아웃
@@ -106,7 +126,7 @@
     <header>
         <h1>나의 기록</h1>
         <nav>
-            <a href="/security-login/goals">오늘의 목표</a>
+            <a href="/todolist">오늘의 목표</a>
             <a href="/timer/timelaps" class="active">타임 랩스</a>
         </nav>
     </header>
@@ -147,18 +167,6 @@
         document.getElementById("mySidenav").style.width = "0px";
         document.getElementById("main").style.marginLeft = "50px";
     }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const addTaskButton = document.querySelector('.add-task');
-
-        addTaskButton.addEventListener('click', function() {
-            const taskList = document.querySelector('.task-list');
-            const newTask = document.createElement('li');
-            newTask.className = 'task pending';
-            newTask.textContent = '새로운 목표 추가';
-            taskList.appendChild(newTask);
-        });
-    });
 </script>
 </body>
 </html>

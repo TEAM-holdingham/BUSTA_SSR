@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/sign_up/style_sign_up.css" />
+  <!-- FontAwesome CDN 추가 -->
+  <script src="https://kit.fontawesome.com/9125fcc41c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+  <img src="/assets/signup_logo_white.png" width="100px" style="margin-top: 20px" />
+  <div style="justify-content: center; margin-top: 10px">
+    <span style="color: #444444; font-size: 35px"><b>회원가입</b></span>
+    <span style="font-size: 20px; color: #6a88c0; margin-right: 330px">[정보입력]</span>
+    <span style="color: #6a88c0; font-size: 25px"><b>2/2</b></span>
+  </div>
+</header>
+<div>
+  <form th:method="post" th:action="@{/security-login/join2}" th:object="${joinRequest}">
+    <div>
+      <label th:for="loginId">로그인 아이디 (이메일): </label>
+      <input type="text" th:field="*{loginId}" th:errorclass="error-input"/>
+      <div class="error-class" th:errors="*{loginId}"></div>
+      <button type="button" onclick="sendVerificationEmail()">인증 메일 보내기</button>
+    </div>
+    <br/>
+    <div>
+      <label th:for="emailToken">이메일 인증 토큰: </label>
+      <input type="text" id="emailToken" name="emailToken"/>
+      <button type="button" onclick="verifyEmailToken()">인증 토큰 확인</button>
+    </div>
+    <br/>
+    <div>
+      <label th:for="username">사용자 이름 : </label>
+      <input type="text" th:field="*{username}" th:errorclass="error-input"/>
+      <div class="error-class" th:errors="*{username}"></div>
+    </div>
+    <br/>
+    <div>
+      <label th:for="password">비밀번호 : </label>
+      <input type="password" th:field="*{password}" th:errorclass="error-input"/>
+      <div class="error-class" th:errors="*{password}"></div>
+    </div>
+    <br/>
+    <div>
+      <label th:for="passwordCheck">비밀번호 체크 : </label>
+      <input type="password" th:field="*{passwordCheck}" th:errorclass="error-input"/>
+      <div class="error-class" th:errors="*{passwordCheck}"></div>
+    </div>
+    <br/>
+    <div>
+      <label th:for="nickname">닉네임 : </label>
+      <input type="text" th:field="*{nickname}" th:errorclass="error-input"/>
+      <div class="error-class" th:errors="*{nickname}"></div>
+    </div>
+    <br/>
+    <div>
+      <label th:for="phoneNumber">전화번호 : </label>
+      <input type="text" th:field="*{phoneNumber}" th:errorclass="error-input"/>
+      <div class="error-class" th:errors="*{phoneNumber}"></div>
+    </div>
+    <br/>
+    <div>
+      <label th:for="birthDate">생년월일 : </label>
+      <input type="date" th:field="*{birthDate}" th:errorclass="error-input"/>
+      <div class="error-class" th:errors="*{birthDate}"></div>
+    </div>
+    <br/>
+    <div>
+      <label th:for="gender">성별 : </label>
+      <select th:field="*{gender}">
+        <option value="male">남성</option>
+        <option value="female">여성</option>
+        <option value="other">기타</option>
+      </select>
+      <div class="error-class" th:errors="*{gender}"></div>
+    </div>
+    <br/>
+
+    <button type="submit">회원 가입</button>
+  </form>
+
+  <script>
+    function sendVerificationEmail() {
+      const loginId = document.querySelector('[name="loginId"]').value;
+      fetch('/api/sendVerificationEmail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ loginId: loginId })
+      })
+              .then(response => response.text())
+              .then(data => {
+                alert(data);
+                // 성공 시 폼 제출 허용
+                document.querySelector('form').submit();
+              })
+              .catch(error => console.error('Error:', error));
+    }
+
+
+    function verifyEmailToken() {
+      const token = document.getElementById('emailToken').value;
+      fetch('/api/verifyEmail?token=' + token, {
+        method: 'GET'
+      })
+              .then(response => response.text())
+              .then(data => alert(data))
+              .catch(error => console.error('Error:', error));
+    }
+  </script>
+</div>
+</body>
+</html>

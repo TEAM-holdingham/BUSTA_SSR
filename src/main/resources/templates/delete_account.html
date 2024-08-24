@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 탈퇴</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .warning-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #fff7f7;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        .warning-box h2 {
+            font-size: 18px;
+            color: #000;
+            margin-bottom: 10px;
+        }
+
+        .warning-box p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .warning-box .red-text {
+            color: red;
+        }
+
+        .confirmation {
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .checkbox input {
+            margin-right: 10px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .buttons button, .buttons a {
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: not-allowed;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .buttons button.active, .buttons a.active {
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+        }
+
+        .buttons a {
+            background-color: #ccc;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .buttons button {
+            background-color: #ccc;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>회원탈퇴</h1>
+    <p>회원 탈퇴하기에 앞서 안내사항을 반드시 확인해주세요.</p>
+    <div class="warning-box">
+        <h2>1. 탈퇴 신청한 이메일 30일 재가입 불가</h2>
+        <p>탈퇴한 이메일은 탈퇴한 일로부터 30일 동안 재가입이 불가능합니다. 신중히 선택하신 후 결정해 주세요.</p>
+        <h2 class="red-text">2. 내 정보 및 서비스 이용 기록 삭제</h2>
+        <p>사이트에 등록된 회원정보, 이용정보 등 모든 내용이 삭제되며, 삭제된 데이터는 복구되지 않습니다. 필요한 데이터는 미리 백업을 해주세요.</p>
+    </div>
+    <div class="checkbox">
+        <input type="checkbox" id="confirmation" name="confirmation" onclick="toggleButton()">
+        <label for="confirmation">안내사항을 모두 확인하였으며, 이에 동의합니다.</label>
+    </div>
+    <div class="buttons">
+
+        <form action="/security-login/delete-account" method="POST" style="display: inline;">
+            <button type="submit" id="deleteButton" disabled>탈퇴하기</button>
+        </form>
+        <a href="/security-login/my-page" class="active">취소</a>
+    </div>
+</div>
+
+<script>
+    function toggleButton() {
+        const checkbox = document.getElementById('confirmation');
+        const deleteButton = document.getElementById('deleteButton');
+        if (checkbox.checked) {
+            deleteButton.disabled = false;
+            deleteButton.classList.add('active');
+        } else {
+            deleteButton.disabled = true;
+            deleteButton.classList.remove('active');
+        }
+    }
+</script>
+</body>
+</html>

@@ -218,4 +218,24 @@ public class UserService {
         return user.isPresent() ? user.get().getNickname() : null;
     }
 
+    public void updateUserProfile(UserProfile userProfile) {
+        User user = getCurrentUser();
+
+        user.setNickname(userProfile.getNickname());
+        user.setBirthDate(userProfile.getBirthDate());
+        user.setGender(userProfile.getGender());
+
+        userRepository.save(user);
+    }
+    public void save(User user) {
+        userRepository.save(user);  // 변경 사항을 DB에 저장
+    }
+    @Transactional
+    public void deleteUserByLoginId(String loginId) {
+        userRepository.deleteByLoginId(loginId); // 사용자 삭제
+    }
+
+
+
+
 }

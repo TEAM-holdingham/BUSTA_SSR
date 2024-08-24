@@ -1,0 +1,67 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+
+/* 여기서부터 announcement_main_style */
+.announcement_main {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  height: 100vh;
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  transition: 0.5s;
+  box-sizing: border-box;
+}
+
+/* 제목 */
+.mainTitle {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.mainTitle img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+
+.mainTitle h1 {
+  margin-top: 20px;
+  font-size: 24px;
+}
+
+/* 공지 사항들 */
+.announcements {
+  background-color: transparent;
+  font-size: 15px;
+}
+
+.announcement {
+  margin-bottom: 5px;
+  padding: 10px;
+  background-color: #EEF0F4;
+  border-radius: 3px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.announcement:hover {
+  background-color: #f0f0f0;
+}
+
+.announcement p {
+  margin: 0;
+}
+
+.date {
+  font-size: 12px;
+  color: #000000;
+}

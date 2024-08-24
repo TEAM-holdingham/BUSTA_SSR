@@ -5,71 +5,159 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나의 기록 - 타임 랩스</title>
     <link rel="stylesheet" href="/sidebar/style_sidebar.css">
-    <link rel="stylesheet" href="/my_record/style_timelaps.css">
+    <link rel="stylesheet" href="/my_record/style_goals.css">
+    <style>
+        /* 페이지 컨테이너 */
+        .container {
+            margin-left: 250px; /* 사이드바 기본 위치 */
+            transition: margin-left 0.3s; /* 사이드바 열고 닫을 때 부드럽게 이동 */
+            padding-left: 20px; /* 왼쪽 패딩 추가 */
+        }
+
+        /* 스크롤 가능한 리스트 영역 */
+        .activity-list {
+            max-height: 400px; /* 원하는 높이로 조절 */
+            overflow-y: auto; /* 세로 스크롤 추가 */
+            border: 1px solid #ccc; /* 리스트 경계 */
+            padding: 10px;
+            margin-top: 20px; /* "나의 기록"과 일정 간격을 유지 */
+            margin-right: 20px; /* 오른쪽 여백 추가 */
+            background-color: #f9f9f9; /* 배경색 추가 */
+            border-radius: 8px; /* 둥근 모서리 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+        }
+
+        /* 각 activity-description 아이템 스타일 */
+        .activity-list li {
+            list-style: none; /* 기본 리스트 스타일 제거 */
+            padding: 15px; /* 패딩 추가 */
+            margin-bottom: 15px; /* 여백 증가 */
+            background-color: #ffffff; /* 흰색 배경 */
+            border: 1px solid #ddd; /* 얇은 테두리 */
+            border-radius: 5px; /* 둥근 모서리 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 */
+            transition: transform 0.2s, box-shadow 0.2s;
+            overflow: hidden; /* 내용이 너무 길 때 숨김 */
+            text-overflow: ellipsis; /* 생략 부호 추가 */
+            white-space: nowrap; /* 한 줄로 표시 */
+            max-width: 100%; /* 최대 너비 설정 */
+        }
+
+        /* Hover 효과 */
+        .activity-list li:hover {
+            transform: translateY(-2px); /* 약간 떠오르는 효과 */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Hover 시 더 진한 그림자 */
+        }
+
+        /* 사이드바가 닫힌 상태에서의 컨텐츠 위치 */
+        .sidenav.closed + .container {
+            margin-left: 50px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
 
-    <div id="mySidenav" class="sidenav">
-        <a href="#" class="closebtn" onclick="toggleNav()">
-            <img src="/assets/close.svg" alt="접기">
-            접기
-            </a>
-        <a href="#" class="home-link">홈</a>
-        <a href="#" class="record-link">나의 기록</a>
-        <a href="#" class="mypage-link">마이페이지</a>
-        <a href="#" class="friend-link">친구 관리</a>
-        <a href="#" class="setting-link">
-            <img src="/assets/setting.svg" alt="설정">
-                 설정
-        </a>
-        <a href="#" class="dm-link">
-            <img src="/assets/message.svg" alt="디엠">
-        </a>
-        <a href="#" class="alarm-link">
-            <img src="/assets/alarm.svg" alt="알람">
-        </a>
+<div id="mySidenav" class="sidenav">
+    <a href="#" class="closebtn" onclick="toggleNav()">
+        <img src="/assets/close.svg" alt="접기">
+        접기
+    </a>
+    <a href="/time/home" class="home-link">홈</a>
+    <a href="/security-login/goals" class="record-link">나의 기록</a>
+    <a href="/security-login/my-page" class="mypage-link">마이페이지</a>
+    <a href="/friends" class="friend-link">친구 관리</a>
+    <a href="/settings/main" class="setting-link">
+        <img src="/assets/setting.svg" alt="설정">
+        설정
+    </a>
+    <a href="#" class="dm-link">
+        <img src="/assets/message.svg" alt="디엠">
+    </a>
+    <a href="/notifications/main" class="alarm-link">
+        <img src="/assets/alarm.svg" alt="알람">
+    </a>
 
-        <a href="#" class="notify-link">
-            <img src="/assets/notify.svg" alt="공지">
-        </a>
+    <a href="/announcement/announcement-main" class="notify-link">
+        <img src="/assets/notify.svg" alt="공지">
+    </a>
 
-        <a href="#" class="profile-link">
-            <img src="/assets/logout.svg" alt="로그아웃">
-        </a>
+    <a href="/profile" class="profile-link">
+        <img src="/assets/logout.svg" alt="프로필 이미지">
+    </a>
 
-        <a href="#" class="logout-link">로그아웃</a>
+    <form action="/security-login/logout" method="POST" class="logout-form" style="display: inline;">
+        <button type="submit" class="logout-link" style="background: none; border: none; padding: 0; cursor: pointer;">
+            로그아웃
+        </button>
+    </form>
 
-    </div>
-    
-    <span class="arrow" onclick="toggleNav()">
-        <img src="/assets/open.svg" alt="열기" class="openbtn">
-        
-    </span>
+</div>
 
+<span class="arrow" onclick="toggleNav()">
+    <img src="/assets/open.svg" alt="열기" class="openbtn">
+</span>
 
-
-    <div class="container">
-        <header>
-            <h1>나의 기록</h1>
-            <nav>
-                <a href="/security-login/goals">오늘의 목표</a>
-                <a href="timelaps.html" class="active">타임 랩스</a>
-            </nav>
-        </header>
-        <main>
-            <div class="date">
-                <div class="date-icon"></div>
-                <span>2024.02.18.(일)</span>
-            </div>
-            <ul class="task-list">
-                <li class="task">총알 오징어 (1/4) 7:39 까지 들음</li>
-                <li class="task">화장실 갔다가 물 마심</li>
-                <li class="task">총알 오징어 (1/4) 다 듣고 노션에 정리 시작</li>
-                <li class="task">잠깐 핸드폰 사용</li>
-                <li class="task">총알 오징어 (1/4) 정리 완료</li>
+<div id="main" class="container">
+    <header>
+        <h1>나의 기록</h1>
+        <nav>
+            <a href="/security-login/goals">오늘의 목표</a>
+            <a href="/timer/timelaps" class="active">타임 랩스</a>
+        </nav>
+    </header>
+    <main>
+        <div class="activity-list">
+            <ul>
+                <!-- 모든 타이머의 activity_description을 리스트로 표시 -->
+                <th:block th:each="timer : ${recentTimers}">
+                    <li th:text="${timer.activityDescription}">Activity Description</li>
+                </th:block>
             </ul>
-        </main>
-    </div>
-    <script src="/my_record/style_timelaps.js"></script>
+        </div>
+    </main>
+</div>
+
+<script>
+    window.onload = function() {
+        openNav(); // 초기에 사이드바가 열려있도록 설정
+    }
+
+    function toggleNav() {
+        const sidenav = document.getElementById("mySidenav");
+        const isOpen = sidenav.style.width === "250px";
+
+        if (isOpen) {
+            closeNav();
+        } else {
+            openNav();
+        }
+    }
+
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0px";
+        document.getElementById("main").style.marginLeft = "50px";
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const addTaskButton = document.querySelector('.add-task');
+
+        addTaskButton.addEventListener('click', function() {
+            const taskList = document.querySelector('.task-list');
+            const newTask = document.createElement('li');
+            newTask.className = 'task pending';
+            newTask.textContent = '새로운 목표 추가';
+            taskList.appendChild(newTask);
+        });
+    });
+</script>
 </body>
 </html>

@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
   // 사이드바 상태를 기본적으로 열려 있도록 설정
+  window.onload = function() {
+    openNav(); // 초기에 사이드바가 열려있도록 설정
+  }
   const mainElement = document.getElementById("main");
 
 

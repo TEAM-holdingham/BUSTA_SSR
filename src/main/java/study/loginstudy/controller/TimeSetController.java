@@ -1,16 +1,16 @@
 package study.loginstudy.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import study.loginstudy.UserNotFoundException;
 import study.loginstudy.domain.entity.TimeSet;
 import study.loginstudy.domain.entity.User;
 import study.loginstudy.service.TimeSetService;
 import study.loginstudy.service.UserService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -49,13 +49,14 @@ public class TimeSetController {
                 int remainingTimeInSeconds = (targetHours * 3600) + (targetMinutes * 60);
 
                 // 모델에 데이터 추가하여 View로 전달
+                model.addAttribute("hours", targetHours);
+                model.addAttribute("minutes", targetMinutes);
                 model.addAttribute("remainingTimeInSeconds", remainingTimeInSeconds);
 
                 return "home"; // home.html 템플릿 반환
             }
         } catch (UserNotFoundException e) {
             // 사용자 인증 실패 또는 사용자 정보 불러오기 실패
-
             return "redirect:/login"; // 로그인 페이지로 리다이렉트
         }
     }
@@ -77,7 +78,6 @@ public class TimeSetController {
         // 설정이 완료된 후 home 페이지로 리다이렉트
         return "redirect:/time/home";
     }
-
 
 
 }

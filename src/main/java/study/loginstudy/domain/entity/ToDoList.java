@@ -1,5 +1,7 @@
 package study.loginstudy.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -29,6 +31,7 @@ public class ToDoList {
     // User와의 관계 추가
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
     // Getter와 Setter

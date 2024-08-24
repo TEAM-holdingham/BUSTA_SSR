@@ -92,14 +92,14 @@ public class FriendController {
         return ResponseEntity.ok(users);
     }
 
-    // API 엔드포인트
-    @GetMapping("/api/friends")
-    public ResponseEntity<Map<String, Object>> apiFriendsPage() {
-        Map<String, Object> response = new HashMap<>();
-        response.put("status", "success");
-        response.put("page", "friends");
-
-        return ResponseEntity.ok(response);
-    }
+//    // API 엔드포인트
+//    @GetMapping("/api/friends")
+//    public ResponseEntity<Map<String, Object>> apiFriendsPage() {
+//        Map<String, Object> response = new HashMap<>();
+//        response.put("status", "success");
+//        response.put("page", "friends");
+//
+//        return ResponseEntity.ok(response);
+//    }
 
 }

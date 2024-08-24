@@ -34,7 +34,9 @@ public class User {
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
-
+//    @OneToMany(mappedBy = "user")
+//    @JsonManagedReference
+//    private List<ToDoList> toDoLists;
     private LocalDate birthDate;
 
     public void setGender(String gender) {

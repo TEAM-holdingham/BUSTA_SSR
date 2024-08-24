@@ -1,6 +1,7 @@
 package study.loginstudy.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -121,6 +122,14 @@ public class UserService {
         friendRequestRepository.deleteByReceiverId(user.getId());
 
         userRepository.delete(user);
+    }
+    @Autowired
+    private PasswordResetTokenRepository tokenRepository;
+    public boolean verifyToken(String token) {
+        // 토큰을 데이터베이스에서 조회
+        return tokenRepository.findByToken(token)
+                .map(tokenEntity -> !tokenEntity.getExpiryDate().isBefore(LocalDateTime.now()))
+                .orElse(false);
     }
 
     public void sendPasswordResetEmail(String loginId) {

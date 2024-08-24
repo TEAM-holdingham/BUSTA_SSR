@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import study.loginstudy.service.EmailVerificationService;
 import study.loginstudy.service.UserService;
 
 import java.util.HashMap;
@@ -25,6 +26,14 @@ public class PasswordResetController {
         userService.sendPasswordResetEmail(loginId);
         return "Password reset email sent.";
     }
+
+    @PostMapping("/verify-token")
+    @ResponseBody
+    public String verifyToken(@RequestParam String token) {
+        boolean isValid = userService.verifyToken(token);
+        return isValid ? "Valid token" : "Invalid or expired token";
+    }
+
 
     @GetMapping("/reset")
     public String showResetForm(@RequestParam String token, Model model) {

@@ -1,21 +1,22 @@
+<img src="src/main/resources/static/assets/signup_logo_white.png">
 
 # 🚌 버스타 - Burning Study Timer
 ### 즐거운 몰입을 위한 웹 스터디 타이머, 버스타! ⏱️<br>
 🔗 https://busta.store
 <br><br>
 
-## TEAM <햄듭니다>
+## 🧑‍🤝‍🧑 TEAM <햄듭니다>
 |<img src="https://github.com/~~~.png" width="80">|<img src="https://github.com/~~~.png" width="80">|<img src="https://github.com/~~~.png" width="80">|<img src="https://github.com/~~~.png" width="80">|<img src="https://github.com/~~~.png" width="80">|
 |:---:|:---:|:---:|:---:|:---:|
 |강예현|시승연|류예진|박채연|허다빈|
 |프론트엔드|프론트엔드|프론트엔드|백엔드|백엔드|
 
 
-## 시연영상 바로가기
+## 🎥 시연영상 바로가기
 ![youtube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)
 <br>
 
-## 프로젝트에 사용했어요
+## ⚙️ 프로젝트에 사용했어요
 ![slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)
 ![notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white)
 ![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)

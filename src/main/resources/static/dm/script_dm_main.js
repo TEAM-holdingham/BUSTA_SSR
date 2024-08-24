@@ -17,17 +17,13 @@ function connect() {
             stompClient.connect({}, function (frame) {
                 console.log('Connected: ' + frame);
 
-                // roomId를 받은 후 메시지 구독
                 stompClient.subscribe('/topic/messages/' + roomId, function (messageOutput) {
                     var message = JSON.parse(messageOutput.body);
                     console.log('Received message: ' + messageOutput.body);
                     showMessage(message);
+                    scrollToBottom();
                 });
 
-                // 사용자 추가 메시지 전송
-                // stompClient.send("/app/chat.addUser", {}, JSON.stringify({sender: username, type: 'JOIN', roomId: roomId}));
-
-                // Load chat history
                 loadChatHistory();
             }, function (error) {
                 console.log('STOMP error: ' + error);
@@ -39,7 +35,8 @@ function connect() {
 }
 
 function sendMessage() {
-    var messageContent = document.getElementById('message').value;
+    var messageInput = document.getElementById('message');
+    var messageContent = messageInput.value.trim();
     if (messageContent && stompClient && roomId) {
         var chatMessage = {
             sender: username,
@@ -50,14 +47,14 @@ function sendMessage() {
         };
         stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
         console.log('Sent message: ' + JSON.stringify(chatMessage));
-        document.getElementById('message').value = '';
+        messageInput.value = '';
+        scrollToBottom();
     } else {
         console.log('Message content is empty or STOMP client is not connected.');
     }
 }
 
 function showMessage(message) {
-
     var messageArea = document.getElementById('messageArea');
     var messageElement = document.createElement('li');
     messageElement.classList.add('list-group-item', 'message');
@@ -70,7 +67,6 @@ function showMessage(message) {
 
     messageElement.textContent = message.content;
     messageArea.appendChild(messageElement);
-    messageArea.scrollTop = messageArea.scrollHeight;
 }
 
 function loadChatHistory() {
@@ -85,12 +81,25 @@ function loadChatHistory() {
             messages.forEach(message => {
                 showMessage(message);
             });
+            scrollToBottom();
         })
         .catch(error => {
             console.error('Error loading chat history:', error);
         });
 }
 
+function scrollToBottom() {
+    var messageArea = document.getElementById('messageArea');
+    messageArea.scrollTop = messageArea.scrollHeight;
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     connect();
+});
+
+// Enter 키로 메시지 보내기
+document.getElementById('message').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
 });

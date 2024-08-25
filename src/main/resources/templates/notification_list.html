@@ -1,24 +1,129 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notifications</title>
+    <title>공지사항 목록</title>
+    <style>
+        /* Reset some default styles */
+        body, h1, h2, p, ul, table, th, td {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #444;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        button:hover {
+            background-color: #c82333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .header h2 {
+            color: #007BFF;
+            font-weight: 400;
+        }
+    </style>
 </head>
 <body>
-<h1>Notifications</h1>
-
-<div>
-    <h2>Hello, <span th:text="${nickname}">User</span>!</h2>
-</div>
-
-<div>
-    <ul>
-        <li th:each="notification : ${notifications}">
-            <strong th:text="${notification.formattedCreatedAt}">[Date]</strong>
-            <span th:text="${notification.message}">Notification message</span>
-        </li>
-    </ul>
+<div class="container">
+    <div class="header">
+        <h1>공지사항 목록</h1>
+        <h2 th:text="'안녕하세요 관리자님!'">Hello, User!</h2>
+    </div>
+    <table>
+        <tr>
+            <th>제목</th>
+            <th>작성일</th>
+            <th>수정</th>
+            <th>삭제</th>
+        </tr>
+        <tr th:each="notification : ${notifications}">
+            <td><a th:href="@{/notifications/{id}(id=${notification.id})}" th:text="${notification.title}"></a></td>
+            <td th:text="${notification.formattedCreatedAt}"></td>
+            <td><a th:href="@{/notifications/edit/{id}(id=${notification.id})}">수정</a></td>
+            <td>
+                <form th:action="@{/notifications/delete/{id}(id=${notification.id})}" method="post">
+                    <button type="submit">삭제</button>
+                </form>
+            </td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>

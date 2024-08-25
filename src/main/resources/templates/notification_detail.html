@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>공지사항 상세</title>
+</head>
+<body>
+<h1 th:text="${notification.title}"></h1>
+<p th:text="${notification.formattedCreatedAt}"></p>
+<p th:utext="${notification.message}"></p>
+<a href="/notifications">목록으로 돌아가기</a>
+</body>
+</html>

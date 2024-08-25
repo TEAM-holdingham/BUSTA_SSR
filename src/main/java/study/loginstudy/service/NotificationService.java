@@ -68,5 +68,24 @@ public class NotificationService {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid notification ID: " + id));
     }
 
+    // 공지사항 수정
+    public void updateNotification(Long id, String title, String message) {
+        Notification notification = getNotificationById(id);
+        if (notification != null) {
+            notification.setTitle(title);
+            notification.setMessage(message);
+            notificationRepository.save(notification);
+        }
+    }
+
+    // 공지사항 삭제
+    public void deleteNotification(Long id) {
+        notificationRepository.deleteById(id);
+    }
+
+
+
+
+
 
 }

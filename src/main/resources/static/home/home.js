@@ -1,3 +1,6 @@
+const resetHour = 5; // 리셋할 시간 (24시간 형식)
+const resetMinute = 0;
+
 document.addEventListener("DOMContentLoaded", function () {
   // 초기 변수 및 요소 설정
   const timerElement = document.querySelector(".timer");
@@ -20,18 +23,23 @@ document.addEventListener("DOMContentLoaded", function () {
   const minutes = parseInt(document.getElementById('minutes').textContent, 10);
   const targetTime = (hours * 3600) + (minutes * 60); // 목표 시간을 초로 변환
 
-  // 서버에서 기록된 경과 시간을 불러오는 함수
   function loadElapsedTimeFromDB() {
-    fetch('/timer/load')  // 경과 시간을 로드하는 서버 엔드포인트 호출
+    const storedElapsedTime = localStorage.getItem('elapsedTime');
+
+    fetch('/timer/load')  // 서버에서 경과 시간 로드
         .then(response => response.json())
         .then(data => {
-          elapsedTime = data.elapsedTime || 0;
+          elapsedTime = Math.max(data.elapsedTime || 0, storedElapsedTime || 0); // 클라이언트와 서버 중 더 큰 값을 사용
           updateTimerDisplay(elapsedTime);
           updateCountdownDisplay(targetTime - elapsedTime);
           updateProgressBar(elapsedTime);
         })
         .catch(error => {
           console.error('Failed to load elapsed time:', error);
+          elapsedTime = storedElapsedTime || 0; // 서버 호출 실패 시 클라이언트 저장 값 사용
+          updateTimerDisplay(elapsedTime);
+          updateCountdownDisplay(targetTime - elapsedTime);
+          updateProgressBar(elapsedTime);
         });
   }
 

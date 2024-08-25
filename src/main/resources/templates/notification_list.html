@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+</head>
+<body>
+<h1>Notifications</h1>
+
+<div>
+    <h2>Hello, <span th:text="${nickname}">User</span>!</h2>
+</div>
+
+<div>
+    <ul>
+        <li th:each="notification : ${notifications}">
+            <strong th:text="${notification.formattedCreatedAt}">[Date]</strong>
+            <span th:text="${notification.message}">Notification message</span>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

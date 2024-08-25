@@ -45,9 +45,10 @@ public class NotificationService {
         emitters.removeAll(deadEmitters);
     }
 
-    public void sendAdminNotification(String message) {
+    public void sendAdminNotification(String title, String message) {  // 올바르게 수정된 메서드 시그니처
         Notification notification = new Notification();
-        notification.setMessage("Admin: " + message);
+        notification.setTitle(title);  // 제목 설정
+        notification.setMessage(message);
         notification.setCreatedAt(LocalDateTime.now());
         notificationRepository.save(notification);
     }
@@ -55,6 +56,16 @@ public class NotificationService {
 
     public void sendFriendRequestNotification(String message) {
         sendNotification("Friend Request: " + message);
+    }
+
+
+    public List<Notification> getAllNotifications() {
+        return notificationRepository.findAllByOrderByCreatedAtDesc();
+    }
+
+    public Notification getNotificationById(Long id) {
+        return notificationRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid notification ID: " + id));
     }
 
 

@@ -9,9 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import study.loginstudy.domain.dto.NotificationRequest;
+import study.loginstudy.domain.entity.Notification;
 import study.loginstudy.domain.entity.User;
 import study.loginstudy.service.NotificationService;
 import study.loginstudy.service.UserService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/notifications")
@@ -42,10 +45,24 @@ public class NotificationController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/admin")
     public String sendAdminNotification(@ModelAttribute NotificationRequest request, Model model) {
-        notificationService.sendAdminNotification(request.getMessage());
+        notificationService.sendAdminNotification(request.getTitle(), request.getMessage());
         model.addAttribute("message", "공지사항이 성공적으로 등록되었습니다.");
         return "admin_notification";  // 작업 후 같은 페이지로 리다이렉트하거나 결과 페이지로 이동
     }
+
+    @GetMapping("/list")
+    public String listNotifications(Model model, Authentication auth) {
+        if (auth != null) {
+            User loginUser = userService.getLoginUserByLoginId(auth.getName());
+            if (loginUser != null) {
+                model.addAttribute("nickname", loginUser.getNickname());
+            }
+        }
+        List<Notification> notifications = notificationService.getAllNotifications();
+        model.addAttribute("notifications", notifications);
+        return "notification_list"; // notification_list.html로 이동
+    }
+
 
     @PostMapping("/friend-request")
     public String sendFriendRequestNotification(@RequestBody NotificationRequest request) {

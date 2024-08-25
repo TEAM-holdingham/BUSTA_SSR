@@ -7,8 +7,12 @@
 <body>
 <h1>공지사항 작성</h1>
 <form action="/notifications/admin" method="post">
-    <label for="message">공지사항:</label>
+    <label for="title">제목:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="message">공지사항 내용:</label>
     <input type="text" id="message" name="message" required>
+
     <button type="submit">공지사항 전송</button>
 </form>
 <div th:if="${message}">

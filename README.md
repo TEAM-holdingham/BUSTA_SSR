@@ -1,8 +1,8 @@
-<img src="src/main/resources/static/assets/signup_logo_white.png">
+<img src="src/main/resources/static/assets/배너-작업중web.png">
 
 # 🚌 버스타 - Burning Study Timer
 ### 즐거운 몰입을 위한 웹 스터디 타이머, 버스타! ⏱️<br>
-🔗 https://.
+🔗 https://busta.store
 <br><br>
 
 ## 🧑‍🤝‍🧑 TEAM <햄듭니다>

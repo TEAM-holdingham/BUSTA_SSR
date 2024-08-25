@@ -9,10 +9,67 @@ document.addEventListener("DOMContentLoaded", function () {
   const overlay = document.getElementById("popupOverlay");
   const popup = document.getElementById("popup");
 
-  const startBtn = document.getElementById("startBtn");
-  const pauseBtn = document.getElementById("pauseBtn");
-  const stopBtn = document.getElementById("stopBtn");
+  // 시간 설정 모달 관련 요소 설정
+  const modal = document.getElementById("setTimeModal");
+  const openModalButton = document.querySelector(".set-time-container button");
+  const closeModalButton = document.getElementsByClassName("close")[0];
+  const saveButton = document.getElementById("saveTimeButton");
+  const hoursInput = document.getElementById("hoursInput");
+  const minutesInput = document.getElementById("minutesInput");
 
+  // 모달을 열 때 현재 날짜 업데이트
+  function updateCurrentDate() {
+    const now = new Date();
+    const year = now.getFullYear().toString().slice(-2);
+    const month = (now.getMonth() + 1).toString().padStart(2, "0");
+    const date = now.getDate().toString().padStart(2, "0");
+    const days = ["일", "월", "화", "수", "목", "금", "토"];
+    const day = days[now.getDay()];
+
+    const dateString = `${year}년 ${month}월 ${date}일 ${day}요일`;
+    document.getElementById("currentDate").textContent = dateString;
+  }
+
+  // 모달 열기 버튼 클릭 이벤트
+  openModalButton.onclick = function () {
+    modal.style.display = "block";
+    updateCurrentDate();
+  };
+
+  // 모달 닫기 버튼 클릭 이벤트
+  closeModalButton.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  // 모달 외부 클릭 시 모달 닫기
+  window.onclick = function (event) {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  };
+
+  // 시간 업데이트 함수
+  function updateTime(input, increment, max, step) {
+    let value = parseInt(input.value);
+    if (increment) {
+      value = (value + step) % (max + step);
+    } else {
+      value = (value - step + max + step) % (max + step);
+    }
+    input.value = value.toString().padStart(2, "0");
+  }
+
+  // 시간 증감 버튼 클릭 이벤트
+  document.querySelectorAll(".time-unit button").forEach((button) => {
+    button.addEventListener("click", function () {
+      const input = this.parentNode.querySelector("input");
+      const isIncrement = this.classList.contains("increment");
+      const isHours = input.id === "hoursInput";
+      updateTime(input, isIncrement, isHours ? 23 : 55, isHours ? 1 : 5);
+    });
+  });
+
+  // 타이머 관련 변수 및 함수
   let timerInterval;
   let timerRunning = false;
   let startTime;
@@ -43,7 +100,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
   }
 
-  // 타이머 시작 함수
   function startTimer() {
     fetch('/timer/start', { method: 'POST' })
         .then(response => {
@@ -61,7 +117,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
   }
 
-  // 타이머 일시 정지 함수
   function pauseTimer() {
     if (timerRunning) {
       clearInterval(timerInterval);
@@ -76,7 +131,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // 타이머 중지 함수
   function stopTimer() {
     fetch('/timer/stop', { method: 'POST' })
         .then(response => {
@@ -96,19 +150,16 @@ document.addEventListener("DOMContentLoaded", function () {
         });
   }
 
-  // 팝업 표시 함수
   function showPopup() {
     overlay.style.display = "block";
     popup.style.display = "block";
   }
 
-  // 팝업 숨기기 함수
   function hidePopup() {
     overlay.style.display = "none";
     popup.style.display = "none";
   }
 
-  // 활동 제출 함수
   function submitActivity() {
     const activityDescription = document.getElementById("activityDescription").value;
     fetch('/timer/pause', {
@@ -129,7 +180,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
   }
 
-  // 타이머 업데이트 함수
   function updateTimer() {
     const currentTime = Date.now();
     const runningTime = Math.floor((currentTime - startTime) / 1000);
@@ -147,7 +197,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // 타이머 표시 업데이트 함수
   function updateTimerDisplay(totalElapsedTime) {
     const hours = Math.floor(totalElapsedTime / 3600);
     const minutes = Math.floor((totalElapsedTime % 3600) / 60);
@@ -156,7 +205,6 @@ document.addEventListener("DOMContentLoaded", function () {
     timerElement.textContent = `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
   }
 
-  // 카운트다운 표시 업데이트 함수
   function updateCountdownDisplay(remainingTime) {
     const remainingHours = Math.floor(remainingTime / 3600);
     const remainingMinutes = Math.floor((remainingTime % 3600) / 60);
@@ -165,18 +213,15 @@ document.addEventListener("DOMContentLoaded", function () {
     timerCountDown.textContent = `목적지까지 ${padZero(remainingHours)}시간 ${padZero(remainingMinutes)}분 ${padZero(remainingSeconds)}초 남았습니다.`;
   }
 
-  // 진행 바 업데이트 함수
   function updateProgressBar(totalElapsedTime) {
     const progress = (totalElapsedTime / targetTime) * 100;
     progressBar.style.width = `${progress}%`;
   }
 
-  // 2자리 숫자로 포맷팅하는 함수
   function padZero(num) {
     return num.toString().padStart(2, "0");
   }
 
-  // 다음 리셋 시간 예약
   function scheduleNextReset() {
     let now = new Date();
     let resetTime = new Date();
@@ -190,7 +235,6 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(resetTimer, timeUntilReset);
   }
 
-  // 타이머 리셋 함수
   function resetTimer() {
     fetch('/timer/reset', {
       method: 'POST',
@@ -215,7 +259,6 @@ document.addEventListener("DOMContentLoaded", function () {
     scheduleNextReset();
   }
 
-  // 리셋 시간 확인 함수
   function isResetTime() {
     let now = new Date();
     return now.getHours() === resetHour && now.getMinutes() === resetMinute && now.getSeconds() === 0;

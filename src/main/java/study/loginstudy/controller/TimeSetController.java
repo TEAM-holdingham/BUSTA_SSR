@@ -66,18 +66,17 @@ public class TimeSetController {
         // 현재 사용자 가져오기
         User currentUser = userService.getCurrentUser();
 
-        // TimeSet 객체 생성 및 저장
+        // TimeSet 객체 생성
         TimeSet timeSet = new TimeSet();
         timeSet.setUser(currentUser);
         timeSet.setTargetHours(hours);
         timeSet.setTargetMinutes(minutes);
         timeSet.setCreatedTime(LocalDateTime.now());
 
-        timeSetService.saveTimeSet(timeSet);
+        // 기존 TimeSet을 업데이트하거나 새로 저장
+        timeSetService.saveOrUpdateTimeSet(timeSet);
 
         // 설정이 완료된 후 home 페이지로 리다이렉트
         return "redirect:/time/home";
     }
-
-
 }

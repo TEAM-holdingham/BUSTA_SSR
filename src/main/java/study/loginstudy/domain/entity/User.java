@@ -56,6 +56,15 @@ public class User {
 
     private String introduction; // 한줄 소개
 
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
+    @Enumerated(EnumType.STRING)
     private UserRole role;
 
     // OAuth 로그인에 사용

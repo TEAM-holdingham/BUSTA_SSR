@@ -3,6 +3,7 @@ package study.loginstudy.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,11 +26,25 @@ public class NotificationController {
         this.userService = userService;
     }
 
+//    @PostMapping("/admin")
+//    public String sendAdminNotification(@RequestBody NotificationRequest request) {
+//        String message = "Admin: " + request.getMessage();
+//        notificationService.sendAdminNotification(request.getMessage());
+//        return message;
+//    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/admin")
+    public String adminNotificationPage() {
+        return "admin_notification";  // admin_notification.html을 가리킴
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/admin")
+    @ResponseBody
     public String sendAdminNotification(@RequestBody NotificationRequest request) {
-        String message = "Admin: " + request.getMessage();
         notificationService.sendAdminNotification(request.getMessage());
-        return message;
+        return "공지사항이 등록되었습니다.";
     }
 
     @PostMapping("/friend-request")

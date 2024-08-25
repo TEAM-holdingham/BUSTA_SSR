@@ -43,4 +43,6 @@ public class NotificationService {
     public void sendFriendRequestNotification(String message) {
         sendNotification("Friend Request: " + message);
     }
+
+
 }

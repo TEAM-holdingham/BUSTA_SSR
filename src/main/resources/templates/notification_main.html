@@ -2,76 +2,81 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>notification_main</title>
     <link rel="stylesheet" href="/notification/style_notification_main.css">
     <link rel="stylesheet" href="/sidebar/style_sidebar.css">
 </head>
 <body>
-    <div id="mySidenav" class="sidenav">
-        <a class="closebtn" onclick="toggleNav()">
-            <img src="/assets/close.svg" alt="접기">
-            접기
-            </a>
-        <a href="/time/home" class="home-link">홈</a>
-        <a href="/todolist" class="record-link">나의 기록</a>
-        <a href="/security-login/my-page" class="mypage-link">마이페이지</a>
-        <a href="/friends" class="friend-link">친구 관리</a>
-        <a href="/settings/main" class="setting-link">
-            <img src="/assets/setting.svg" alt="설정">
-                 설정
-        </a>
-        <a href="../dm/dm_main.html" class="dm-link">
-            <img src="/assets/message.svg" alt="디엠">
-        </a>
-        <a href="/notifications/main" class="alarm-link">
-            <img src="/assets/alarm.svg" alt="알람">
-        </a>
+<div id="mySidenav" class="sidenav">
+    <a class="closebtn" onclick="toggleNav()">
+        <img src="/assets/close.svg" alt="접기">
+        접기
+    </a>
+    <a href="/time/home" class="home-link">홈</a>
+    <a href="/todolist" class="record-link">나의 기록</a>
+    <a href="/security-login/my-page" class="mypage-link">마이페이지</a>
+    <a href="/friends" class="friend-link">친구 관리</a>
+    <a href="/settings/main" class="setting-link">
+        <img src="/assets/setting.svg" alt="설정">
+        설정
+    </a>
+    <a href="../dm/dm_main.html" class="dm-link">
+        <img src="/assets/message.svg" alt="디엠">
+    </a>
+    <a href="/notifications/main" class="alarm-link">
+        <img src="/assets/alarm.svg" alt="알람">
+    </a>
 
-        <a href="/announcement/announcement-main" class="notify-link">
-            <img src="/assets/notify.svg" alt="공지">
-        </a>
+    <a href="/announcement/announcement-main" class="notify-link">
+        <img src="/assets/notify.svg" alt="공지">
+    </a>
 
-        <a href="/profile" class="profile-link">
-            <img src="/assets/logout.svg" alt="프로필 이미지">
-        </a>
+    <a href="/profile" class="profile-link">
+        <img src="/assets/logout.svg" alt="프로필 이미지">
+    </a>
 
-        <form action="/security-login/logout" method="POST" class="logout-form" style="display: inline;">
-            <button type="submit" class="logout-link" style="background: none; border: none; padding: 0; cursor: pointer;">
-                로그아웃
-            </button>
-        </form>
+    <form action="/security-login/logout" method="POST" class="logout-form" style="display: inline;">
+        <button type="submit" class="logout-link" style="background: none; border: none; padding: 0; cursor: pointer;">
+            로그아웃
+        </button>
+    </form>
 
-    </div>
+</div>
 
-    <span class="arrow" onclick="toggleNav()">
+<span class="arrow" onclick="toggleNav()">
         <img src="/assets/open.svg" alt="열기" class="openbtn">
     </span>
-    
-    <!-- 알림 page 내용이 들어갈 부분 -->
-    <div class="notification_main">
-        <div class="mainTitle">
-            <img src="/assets/알림.svg" alt="알림 아이콘">
-            <h1>알림</h1>
-        </div>
-        <div class="notification-container">
-            <div class="notification-scroll">
-                <div class="notification-list">
-                    <!-- 알림 내용은 JavaScript로 동적 생성됩니다 -->
-                </div>
-            </div>
-        </div>
+
+<!-- 알림 page 내용이 들어갈 부분 -->
+<div class="notification_main">
+    <div class="mainTitle">
+        <img src="/assets/알림.svg" alt="알림 아이콘">
+        <h1>알림</h1>
     </div>
 
-    <div id="modal" class="modal">
-        <div class="modal-content">
-          <p id="modalText"></p>
-          <button id="confirmBtn">확인</button>
-          <button id="cancelBtn">취소</button>
-        </div>
-      </div>
-      
-    <script src="/notification/script_notification_main.js"></script>
+    <div class="load-requests-container">
+        <button id="load-requests-button">
+            <img src="/friends_list/newfriend.svg" alt="새친구" />
+        </button>
+        <h3>친구 요청</h3>
+        <ul id="pending-requests">
+            <!-- 대기 중인 요청들이 여기에 나옴 -->
+        </ul>
+    </div>
+</div>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <p id="modalText"></p>
+        <button id="confirmBtn">확인</button>
+        <button id="cancelBtn">취소</button>
+    </div>
+</div>
+
+<script src="/sidebar/script_sidebar.js"></script>
+<script src="/notification/script_notification_main.js"></script>
+<script src="/friends_list/friends_script.js"></script>
 </body>
 </html>

@@ -39,6 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/timer/**").authenticated()
                 .antMatchers("/security-login/api/admin/**").hasAuthority(UserRole.ADMIN.name())
                 .antMatchers("/profile/api/**").authenticated()
+                .antMatchers("/notifications/admin").hasAuthority(UserRole.ADMIN.name()) // 추가된 관리자 페이지 접근 권한
+                .antMatchers("/notifications/**").authenticated() // 다른 notifications 관련 페이지는 인증된 사용자만 접근 가능
                 .anyRequest().permitAll()
                 .and()
                 .sessionManagement()

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Notification</title>
+</head>
+<body>
+<h1>공지사항 작성</h1>
+<form action="/notifications/admin" method="post">
+    <label for="message">공지사항:</label>
+    <input type="text" id="message" name="message" required>
+    <button type="submit">공지사항 전송</button>
+</form>
+</body>
+</html>

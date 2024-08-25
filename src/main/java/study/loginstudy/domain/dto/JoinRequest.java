@@ -36,6 +36,8 @@ public class JoinRequest {
     private String home;
     private String school;
 
+
+
     public User toEntity() {
         return User.builder()
                 .loginId(this.loginId)

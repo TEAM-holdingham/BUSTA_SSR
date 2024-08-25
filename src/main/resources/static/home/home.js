@@ -20,6 +20,22 @@ document.addEventListener("DOMContentLoaded", function () {
   const minutes = parseInt(document.getElementById('minutes').textContent, 10);
   const targetTime = (hours * 3600) + (minutes * 60); // 목표 시간을 초로 변환
 
+  // 서버에서 기록된 경과 시간을 불러오는 함수
+  function loadElapsedTimeFromDB() {
+    fetch('/timer/load')  // 경과 시간을 로드하는 서버 엔드포인트 호출
+        .then(response => response.json())
+        .then(data => {
+          elapsedTime = data.elapsedTime || 0;
+          updateTimerDisplay(elapsedTime);
+          updateCountdownDisplay(targetTime - elapsedTime);
+          updateProgressBar(elapsedTime);
+        })
+        .catch(error => {
+          console.error('Failed to load elapsed time:', error);
+        });
+  }
+
+  // 타이머 시작 함수
   function startTimer() {
     fetch('/timer/start', { method: 'POST' })
         .then(response => {
@@ -28,7 +44,6 @@ document.addEventListener("DOMContentLoaded", function () {
             timerRunning = true;
             startTime = Date.now();
             timerInterval = setInterval(updateTimer, 1000);
-            // 버튼 상태 업데이트
             startBtn.disabled = true;
             pauseBtn.disabled = false;
             stopBtn.disabled = false;
@@ -38,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
   }
 
+  // 타이머 일시 정지 함수
   function pauseTimer() {
     if (timerRunning) {
       clearInterval(timerInterval);
@@ -52,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // 타이머 중지 함수
   function stopTimer() {
     fetch('/timer/stop', { method: 'POST' })
         .then(response => {
@@ -59,11 +76,8 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log('Timer stopped successfully');
             clearInterval(timerInterval);
             timerRunning = false;
-            elapsedTime = 0;
-            updateTimerDisplay(elapsedTime);
-            updateCountdownDisplay(targetTime);
-            updateProgressBar(0);
-            localStorage.removeItem('elapsedTime');
+            startTime = null;
+            localStorage.setItem('elapsedTime', elapsedTime);  // Save the elapsed time in local storage
             localStorage.removeItem('startTime');
             startBtn.disabled = false;
             pauseBtn.disabled = true;
@@ -74,23 +88,24 @@ document.addEventListener("DOMContentLoaded", function () {
         });
   }
 
+  // 팝업 표시 함수
   function showPopup() {
     overlay.style.display = "block";
     popup.style.display = "block";
   }
 
+  // 팝업 숨기기 함수
   function hidePopup() {
     overlay.style.display = "none";
     popup.style.display = "none";
   }
 
+  // 활동 제출 함수
   function submitActivity() {
     const activityDescription = document.getElementById("activityDescription").value;
     fetch('/timer/pause', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ activityDescription })
     })
         .then(response => {
@@ -106,6 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
   }
 
+  // 타이머 업데이트 함수
   function updateTimer() {
     const currentTime = Date.now();
     const runningTime = Math.floor((currentTime - startTime) / 1000);
@@ -118,12 +134,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     localStorage.setItem('elapsedTime', totalElapsedTime);
 
-    // 매 초마다 리셋 시간 확인
     if (isResetTime()) {
       resetTimer();
     }
   }
 
+  // 타이머 표시 업데이트 함수
   function updateTimerDisplay(totalElapsedTime) {
     const hours = Math.floor(totalElapsedTime / 3600);
     const minutes = Math.floor((totalElapsedTime % 3600) / 60);
@@ -132,6 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
     timerElement.textContent = `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
   }
 
+  // 카운트다운 표시 업데이트 함수
   function updateCountdownDisplay(remainingTime) {
     const remainingHours = Math.floor(remainingTime / 3600);
     const remainingMinutes = Math.floor((remainingTime % 3600) / 60);
@@ -140,15 +157,18 @@ document.addEventListener("DOMContentLoaded", function () {
     timerCountDown.textContent = `목적지까지 ${padZero(remainingHours)}시간 ${padZero(remainingMinutes)}분 ${padZero(remainingSeconds)}초 남았습니다.`;
   }
 
+  // 진행 바 업데이트 함수
   function updateProgressBar(totalElapsedTime) {
     const progress = (totalElapsedTime / targetTime) * 100;
     progressBar.style.width = `${progress}%`;
   }
 
+  // 2자리 숫자로 포맷팅하는 함수
   function padZero(num) {
     return num.toString().padStart(2, "0");
   }
 
+  // 다음 리셋 시간 예약
   function scheduleNextReset() {
     let now = new Date();
     let resetTime = new Date();
@@ -162,12 +182,11 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(resetTimer, timeUntilReset);
   }
 
+  // 타이머 리셋 함수
   function resetTimer() {
     fetch('/timer/reset', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ elapsedTime: Math.floor(elapsedTime / 1000) })
     }).then(response => {
       if (response.ok) {
@@ -188,6 +207,7 @@ document.addEventListener("DOMContentLoaded", function () {
     scheduleNextReset();
   }
 
+  // 리셋 시간 확인 함수
   function isResetTime() {
     let now = new Date();
     return now.getHours() === resetHour && now.getMinutes() === resetMinute && now.getSeconds() === 0;
@@ -197,4 +217,7 @@ document.addEventListener("DOMContentLoaded", function () {
   pauseBtn.addEventListener("click", pauseTimer);
   stopBtn.addEventListener("click", stopTimer);
   document.getElementById("submitActivityBtn").addEventListener("click", submitActivity);
+
+  // 페이지 로드 시 서버에서 경과 시간 불러오기
+  loadElapsedTimeFromDB();
 });

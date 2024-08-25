@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Admin Notification</title>
 </head>
 <body>
@@ -10,5 +11,8 @@
     <input type="text" id="message" name="message" required>
     <button type="submit">공지사항 전송</button>
 </form>
+<div th:if="${message}">
+    <p th:text="${message}"></p>
+</div>
 </body>
 </html>

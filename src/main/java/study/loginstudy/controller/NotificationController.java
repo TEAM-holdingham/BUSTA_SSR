@@ -36,15 +36,15 @@ public class NotificationController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/admin")
     public String adminNotificationPage() {
-        return "admin_notification";  // admin_notification.html을 가리킴
+        return "admin_notification";  // admin_notification.html 페이지를 가리킴
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/admin")
-    @ResponseBody
-    public String sendAdminNotification(@RequestBody NotificationRequest request) {
+    public String sendAdminNotification(@ModelAttribute NotificationRequest request, Model model) {
         notificationService.sendAdminNotification(request.getMessage());
-        return "공지사항이 등록되었습니다.";
+        model.addAttribute("message", "공지사항이 성공적으로 등록되었습니다.");
+        return "admin_notification";  // 작업 후 같은 페이지로 리다이렉트하거나 결과 페이지로 이동
     }
 
     @PostMapping("/friend-request")

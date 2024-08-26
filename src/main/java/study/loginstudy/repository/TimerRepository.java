@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public interface TimerRepository extends JpaRepository<Timer, Long> {
     List<Timer> findByUserAndCompletedFalse(User user);
-    Optional<Timer> findTopByUserOrderByStartTimeDesc(User user);
+    //Optional<Timer> findTopByUserOrderByStartTimeDesc(User user);
 
 
     // 추가적인 쿼리 메소드가 필요하면 여기에 정의할 수 있습니다.
@@ -30,5 +30,10 @@ public interface TimerRepository extends JpaRepository<Timer, Long> {
     List<Timer> findByUser(User user, Pageable pageable);
 
     List<Timer> findByUserOrderByStartTimeDesc(User user);
+
+    Timer findByUserId(String userId);  // 사용자 ID로 타이머 데이터 조회
+
+    // 가장 최근의 타이머 기록을 가져오는 메서드 (User 기준)
+    Optional<Timer> findTopByUserOrderByStartTimeDesc(User user);
 
 }

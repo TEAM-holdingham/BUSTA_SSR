@@ -11,6 +11,7 @@ import study.loginstudy.domain.entity.Timer;
 import study.loginstudy.domain.entity.User;
 import study.loginstudy.repository.TimerRepository;
 import study.loginstudy.repository.UserRepository;
+import study.loginstudy.service.TimerService;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -29,6 +30,9 @@ public class TimerController {
     private UserRepository userRepository;
 
     private Timer currentTimer;
+
+    @Autowired
+    private TimerService timerService;  // TimerService를 통해 데이터베이스와 상호작용
 
     // 기존 코드: HTML 페이지 반환 및 단순 문자열 응답
 
@@ -147,6 +151,22 @@ public class TimerController {
         }
 
         return "timelaps";  // timelaps.html을 반환
+    }
+
+
+
+    public TimerController(TimerService timerService) {
+        this.timerService = timerService;
+    }
+
+    @GetMapping("/load")
+    public ResponseEntity<Map<String, String>> loadElapsedTime(@RequestParam("userId") String userId) {
+        String elapsedTime = timerService.getElapsedTimeForUser(userId);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("elapsedTime", elapsedTime);
+
+        return ResponseEntity.ok(response);
     }
 
 //    // 새로 추가된 API: JSON 응답을 위한 메서드들

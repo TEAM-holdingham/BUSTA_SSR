@@ -2,6 +2,10 @@ const resetHour = 5; // 리셋할 시간 (24시간 형식)
 const resetMinute = 0;
 
 document.addEventListener("DOMContentLoaded", function () {
+  // 사용자 고유 ID 설정 (이 값을 실제 사용자 ID로 교체해야 합니다)
+
+  console.log("User ID: ", userId);  // 이 값을 사용자가 로그인할 때 올바르게 받는지 확인
+
   // 초기 변수 및 요소 설정
   const timerElement = document.querySelector(".timer");
   const timerCountDown = document.getElementById("timerCountDown");
@@ -81,12 +85,21 @@ document.addEventListener("DOMContentLoaded", function () {
   const targetTime = (hours * 3600) + (minutes * 60); // 목표 시간을 초로 변환
 
   function loadElapsedTimeFromDB() {
-    const storedElapsedTime = localStorage.getItem('elapsedTime');
+    const storedElapsedTime = parseInt(localStorage.getItem(`${userId}_elapsedTime`) || '0', 10);
 
-    fetch('/timer/load')  // 서버에서 경과 시간 로드
+    fetch(`/timer/load?userId=${userId}`)  // 서버에서 경과 시간 로드
         .then(response => response.json())
         .then(data => {
-          elapsedTime = Math.max(data.elapsedTime || 0, storedElapsedTime || 0); // 클라이언트와 서버 중 더 큰 값을 사용
+          let serverElapsedTime = 0;
+
+          // 서버에서 받은 elapsedTime이 숫자 형식인지 확인 후 사용
+          if (typeof data.elapsedTime === 'string' && data.elapsedTime.includes(":")) {
+            serverElapsedTime = convertElapsedTimeToSeconds(data.elapsedTime);
+          } else if (typeof data.elapsedTime === 'number') {
+            serverElapsedTime = data.elapsedTime;
+          }
+
+          elapsedTime = Math.max(serverElapsedTime, storedElapsedTime || 0); // 클라이언트와 서버 중 더 큰 값을 사용
           updateTimerDisplay(elapsedTime);
           updateCountdownDisplay(targetTime - elapsedTime);
           updateProgressBar(elapsedTime);
@@ -100,6 +113,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
   }
 
+  function convertElapsedTimeToSeconds(elapsedTime) {
+    const [hours, minutes, seconds] = elapsedTime.split(":").map(Number);
+    return (hours * 3600) + (minutes * 60) + seconds;
+  }
+
   function startTimer() {
     fetch('/timer/start', { method: 'POST' })
         .then(response => {
@@ -107,6 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log('Timer started successfully');
             timerRunning = true;
             startTime = Date.now();
+            localStorage.setItem(`${userId}_startTime`, startTime); // 사용자별 시작 시간 저장
             timerInterval = setInterval(updateTimer, 1000);
             startBtn.disabled = true;
             pauseBtn.disabled = false;
@@ -122,8 +141,8 @@ document.addEventListener("DOMContentLoaded", function () {
       clearInterval(timerInterval);
       timerRunning = false;
       elapsedTime += Math.floor((Date.now() - startTime) / 1000);
-      localStorage.setItem('elapsedTime', elapsedTime);
-      localStorage.removeItem('startTime');
+      localStorage.setItem(`${userId}_elapsedTime`, elapsedTime); // 사용자별 경과 시간 저장
+      localStorage.removeItem(`${userId}_startTime`);
       showPopup();
       startBtn.disabled = false;
       pauseBtn.disabled = true;
@@ -139,8 +158,8 @@ document.addEventListener("DOMContentLoaded", function () {
             clearInterval(timerInterval);
             timerRunning = false;
             startTime = null;
-            localStorage.setItem('elapsedTime', elapsedTime);  // Save the elapsed time in local storage
-            localStorage.removeItem('startTime');
+            localStorage.setItem(`${userId}_elapsedTime`, elapsedTime);  // 사용자별 경과 시간 저장
+            localStorage.removeItem(`${userId}_startTime`);
             startBtn.disabled = false;
             pauseBtn.disabled = true;
             stopBtn.disabled = true;
@@ -190,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function () {
     updateCountdownDisplay(remainingTime);
     updateProgressBar(totalElapsedTime);
 
-    localStorage.setItem('elapsedTime', totalElapsedTime);
+    localStorage.setItem(`${userId}_elapsedTime`, totalElapsedTime); // 사용자별 경과 시간 저장
 
     if (isResetTime()) {
       resetTimer();
@@ -198,6 +217,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function updateTimerDisplay(totalElapsedTime) {
+    if (isNaN(totalElapsedTime)) {
+      totalElapsedTime = 0; // NaN을 방지하기 위한 기본값 설정
+    }
+
     const hours = Math.floor(totalElapsedTime / 3600);
     const minutes = Math.floor((totalElapsedTime % 3600) / 60);
     const seconds = totalElapsedTime % 60;
@@ -254,8 +277,8 @@ document.addEventListener("DOMContentLoaded", function () {
     updateTimerDisplay(elapsedTime);
     updateCountdownDisplay(targetTime);
     updateProgressBar(0);
-    localStorage.removeItem('elapsedTime');
-    localStorage.removeItem('startTime');
+    localStorage.removeItem(`${userId}_elapsedTime`);
+    localStorage.removeItem(`${userId}_startTime`);
     scheduleNextReset();
   }
 

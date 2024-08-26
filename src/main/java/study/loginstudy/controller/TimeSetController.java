@@ -1,5 +1,7 @@
 package study.loginstudy.controller;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,6 +55,9 @@ public class TimeSetController {
                 model.addAttribute("minutes", targetMinutes);
                 model.addAttribute("remainingTimeInSeconds", remainingTimeInSeconds);
 
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                String userId = authentication.getName();  // 로그인된 사용자의 ID를 가져옴
+                model.addAttribute("userId", userId);  // 사용자 ID를 모델에 추가
                 return "home"; // home.html 템플릿 반환
             }
         } catch (UserNotFoundException e) {

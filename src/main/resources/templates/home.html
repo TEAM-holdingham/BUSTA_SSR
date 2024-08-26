@@ -9,7 +9,12 @@
   <link rel="stylesheet" href="/home_set_time/style_home_set_time.css" />
   <script src="https://kit.fontawesome.com/9125fcc41c.js" crossorigin="anonymous"></script>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>">
-  <script src="../static/sidebar/script_sidebar.js"></script>
+  <script src="/sidebar/script_sidebar.js"></script>
+  <!-- home.html에서 Thymeleaf를 사용해 사용자 ID를 JavaScript에 전달 -->
+  <script th:inline="javascript">
+    const userId = /*[[${userId}]]*/ 'anonymousUser';
+  </script>
+
 </head>
 <body>
 <div id="mySidenav" class="sidenav">

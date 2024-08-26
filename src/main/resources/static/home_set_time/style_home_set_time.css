@@ -85,7 +85,7 @@ body {
 .top-section {
   display: flex;
   flex-direction: row;
-  justify-content: right;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
 }
@@ -125,7 +125,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .set-time-container button {

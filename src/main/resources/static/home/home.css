@@ -50,15 +50,15 @@ body {
 }
 
 .timer {
-  font-size: 180px; /* 타이머 글자 크기를 크게 설정 */
+  font-size: 180px; /* íƒ€ì´ë¨¸ ê¸€ìž í¬ê¸°ë¥¼ í¬ê²Œ ì„¤ì • */
   font-weight: 900;
-  color: #333; /* 타이머 글자 색상 */
+  color: #333; /* íƒ€ì´ë¨¸ ê¸€ìž ìƒ‰ìƒ */
 }
 
 #timerCountDown {
-  font-size: 24px; /* 카운트다운 글자 크기를 작게 설정 */
-  color: #666; /* 카운트다운 글자 색상 */
-  margin-top: 10px; /* 카운트다운과 타이머 사이의 여백 */
+  font-size: 24px; /* ì¹´ìš´íŠ¸ë‹¤ìš´ ê¸€ìž í¬ê¸°ë¥¼ ìž‘ê²Œ ì„¤ì • */
+  color: #666; /* ì¹´ìš´íŠ¸ë‹¤ìš´ ê¸€ìž ìƒ‰ìƒ */
+  margin-top: 10px; /* ì¹´ìš´íŠ¸ë‹¤ìš´ê³¼ íƒ€ì´ë¨¸ ì‚¬ì´ì˜ ì—¬ë°± */
 }
 
 #bus {
@@ -189,17 +189,17 @@ body {
   z-index: 999;
 }
 
-/* 팝업창의 스타일 변경 */
+/* íŒì—…ì°½ì˜ ìŠ¤íƒ€ì¼ ë³€ê²½ */
 #popup {
   display: none;
   position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background: #f2f8f5; /* 연한 초록색 배경 */
-  border: 2px solid #c8e5d1; /* 조금 더 진한 초록색 테두리 */
-  border-radius: 15px; /* 모서리를 둥글게 */
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* 부드러운 그림자 효과 */
+  background: #f2f8f5; /* ì—°í•œ ì´ˆë¡ìƒ‰ ë°°ê²½ */
+  border: 2px solid #c8e5d1; /* ì¡°ê¸ˆ ë” ì§„í•œ ì´ˆë¡ìƒ‰ í…Œë‘ë¦¬ */
+  border-radius: 15px; /* ëª¨ì„œë¦¬ë¥¼ ë‘¥ê¸€ê²Œ */
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* ë¶€ë“œëŸ¬ìš´ ê·¸ë¦¼ìž íš¨ê³¼ */
   width: 80%;
   max-width: 500px;
   padding: 20px;
@@ -208,7 +208,7 @@ body {
 
 #popup h2 {
   font-size: 18px;
-  color: #4caf50; /* 제목에 녹색 사용 */
+  color: #4caf50; /* ì œëª©ì— ë…¹ìƒ‰ ì‚¬ìš© */
   margin-bottom: 10px;
   display: flex;
   align-items: center;
@@ -216,7 +216,7 @@ body {
 }
 
 #popup h2::before {
-  content: "📝"; /* 제목 옆에 아이콘 추가 */
+  content: "ðŸ“"; /* ì œëª© ì˜†ì— ì•„ì´ì½˜ ì¶”ê°€ */
   font-size: 20px;
 }
 
@@ -227,12 +227,12 @@ body {
   border-radius: 5px;
   padding: 10px;
   font-size: 14px;
-  background: #ffffff; /* 흰색 배경 */
-  color: #333333; /* 글자 색상 */
+  background: #ffffff; /* í°ìƒ‰ ë°°ê²½ */
+  color: #333333; /* ê¸€ìž ìƒ‰ìƒ */
 }
 
 #popup button {
-  background-color: #4caf50; /* 버튼의 녹색 배경 */
+  background-color: #4caf50; /* ë²„íŠ¼ì˜ ë…¹ìƒ‰ ë°°ê²½ */
   color: white;
   border: none;
   border-radius: 5px;
@@ -244,7 +244,7 @@ body {
 }
 
 #popup button:hover {
-  background-color: #45a049; /* 버튼 호버 시 더 진한 녹색 */
+  background-color: #45a049; /* ë²„íŠ¼ í˜¸ë²„ ì‹œ ë” ì§„í•œ ë…¹ìƒ‰ */
 }
 
 #popupOverlay {
@@ -254,7 +254,7 @@ body {
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* 반투명 검정 배경 */
+  background: rgba(0, 0, 0, 0.5); /* ë°˜íˆ¬ëª… ê²€ì • ë°°ê²½ */
   z-index: 999;
 }
 
@@ -262,7 +262,7 @@ body {
 
 
 #main.menu-closed {
-  margin-left: 0; /* 사이드바가 닫힌 상태일 때 */
+  margin-left: 0; /* ì‚¬ì´ë“œë°”ê°€ ë‹«ížŒ ìƒíƒœì¼ ë•Œ */
 }
 
 #main.menu-closed #bus {

@@ -50,15 +50,15 @@ body {
 }
 
 .timer {
-  font-size: 180px; /* íƒ€ì´ë¨¸ ê¸€ìž í¬ê¸°ë¥¼ í¬ê²Œ ì„¤ì • */
+  font-size: 180px;
   font-weight: 900;
-  color: #333; /* íƒ€ì´ë¨¸ ê¸€ìž ìƒ‰ìƒ */
+  color: #333;
 }
 
 #timerCountDown {
-  font-size: 24px; /* ì¹´ìš´íŠ¸ë‹¤ìš´ ê¸€ìž í¬ê¸°ë¥¼ ìž‘ê²Œ ì„¤ì • */
-  color: #666; /* ì¹´ìš´íŠ¸ë‹¤ìš´ ê¸€ìž ìƒ‰ìƒ */
-  margin-top: 10px; /* ì¹´ìš´íŠ¸ë‹¤ìš´ê³¼ íƒ€ì´ë¨¸ ì‚¬ì´ì˜ ì—¬ë°± */
+  font-size: 24px;
+  color: #666;
+  margin-top: 10px;
 }
 
 #bus {
@@ -189,17 +189,16 @@ body {
   z-index: 999;
 }
 
-/* íŒì—…ì°½ì˜ ìŠ¤íƒ€ì¼ ë³€ê²½ */
 #popup {
   display: none;
   position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background: #f2f8f5; /* ì—°í•œ ì´ˆë¡ìƒ‰ ë°°ê²½ */
-  border: 2px solid #c8e5d1; /* ì¡°ê¸ˆ ë” ì§„í•œ ì´ˆë¡ìƒ‰ í…Œë‘ë¦¬ */
-  border-radius: 15px; /* ëª¨ì„œë¦¬ë¥¼ ë‘¥ê¸€ê²Œ */
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* ë¶€ë“œëŸ¬ìš´ ê·¸ë¦¼ìž íš¨ê³¼ */
+  background: #f2f8f5;
+  border: 2px solid #c8e5d1;
+  border-radius: 15px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
   width: 80%;
   max-width: 500px;
   padding: 20px;
@@ -208,7 +207,7 @@ body {
 
 #popup h2 {
   font-size: 18px;
-  color: #4caf50; /* ì œëª©ì— ë…¹ìƒ‰ ì‚¬ìš© */
+  color: #4caf50;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
@@ -216,7 +215,7 @@ body {
 }
 
 #popup h2::before {
-  content: "ðŸ“"; /* ì œëª© ì˜†ì— ì•„ì´ì½˜ ì¶”ê°€ */
+  content: "📝";
   font-size: 20px;
 }
 
@@ -227,12 +226,12 @@ body {
   border-radius: 5px;
   padding: 10px;
   font-size: 14px;
-  background: #ffffff; /* í°ìƒ‰ ë°°ê²½ */
-  color: #333333; /* ê¸€ìž ìƒ‰ìƒ */
+  background: #ffffff;
+  color: #333333;
 }
 
 #popup button {
-  background-color: #4caf50; /* ë²„íŠ¼ì˜ ë…¹ìƒ‰ ë°°ê²½ */
+  background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 5px;
@@ -244,7 +243,7 @@ body {
 }
 
 #popup button:hover {
-  background-color: #45a049; /* ë²„íŠ¼ í˜¸ë²„ ì‹œ ë” ì§„í•œ ë…¹ìƒ‰ */
+  background-color: #45a049;
 }
 
 #popupOverlay {
@@ -254,15 +253,12 @@ body {
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* ë°˜íˆ¬ëª… ê²€ì • ë°°ê²½ */
+  background: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
 
-
-
-
 #main.menu-closed {
-  margin-left: 0; /* ì‚¬ì´ë“œë°”ê°€ ë‹«ížŒ ìƒíƒœì¼ ë•Œ */
+  margin-left: 0;
 }
 
 #main.menu-closed #bus {

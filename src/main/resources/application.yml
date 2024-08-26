@@ -38,7 +38,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     #구글 이메일 아이디
-    username: hjw12041204@
+    username:
     # 앱 비번
     password:
     properties:

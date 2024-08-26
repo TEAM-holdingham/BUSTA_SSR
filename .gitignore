@@ -27,6 +27,12 @@ out/
 !**/src/test/**/out/
 !**/src/main/resources/application.yml
 
+# .env 파일 예시
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=hjw12041204@gmail.com
+SMTP_PASS=hnwm fcqw sjdf dkms
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

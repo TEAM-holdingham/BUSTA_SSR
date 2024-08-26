@@ -2,6 +2,7 @@
 
 # 🚌 버스타 - Burning Study Timer
 ### 즐거운 몰입을 위한 웹 스터디 타이머, 버스타! ⏱️<br>
+### v1.0.0
 
 <img src="src/main/resources/static/assets/배너대지-2.png" onclick="window.open('https://busta.store');">
 
@@ -13,6 +14,7 @@
 |:---:|:---:|:---:|:---:|:---:|
 |강예현|시승연|류예진|박채연|허다빈|
 |프론트엔드|프론트엔드|프론트엔드|백엔드|백엔드|
+
 
 
 ## 🎥 시연영상 바로가기
@@ -30,10 +32,14 @@
 ![css](https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white)
 
 ![java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![php](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
 ![spring](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
 ![springsecurity](https://img.shields.io/badge/Spring_Security-6DB33F?style=for-the-badge&logo=Spring-Security&logoColor=white)
 ![mysql](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
 ![mariadb](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
 
 ![cloudtype](https://img.shields.io/badge/CloudType-00A1E0?style=for-the-badge&logo=Salesforce&logoColor=white)
+<br>
+
+## 릴리즈 노트
+### v1.0.0 
+24 . 8 . 27 .  BUSTA 서비스 시작

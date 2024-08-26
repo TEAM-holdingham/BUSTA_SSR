@@ -2,6 +2,9 @@
 
 # 🚌 버스타 - Burning Study Timer
 ### 즐거운 몰입을 위한 웹 스터디 타이머, 버스타! ⏱️<br>
+<div id="url_banner">
+  <img src="src/main/resources/static/assets/배너-작업중web.png" onclick="window.open('https://busta.store');">
+</div>
 🔗 https://busta.store
 <br><br>
 

@@ -35,12 +35,12 @@ spring:
     show-sql: true
 
   mail:
-    host: smtp.gmail.com
-    port: 587
+    host: ${SPRING_MAIL_HOST}
+    port: ${SPRING_MAIL_PORT}
     #구글 이메일 아이디
-    username:
+    username: ${SPRING_MAIL_USERNAME}
     # 앱 비번
-    password:
+    password: ${SPRING_MAIL_PASSWORD}
     properties:
       mail:
         smtp:

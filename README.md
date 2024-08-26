@@ -9,14 +9,17 @@
 <br><br>
 
 ## 🧑‍🤝‍🧑 TEAM <햄듭니다>
-|<img src="src/main/resources/static/assets/시승연.png" width="80">|<img src="src/main/resources/static/assets/시승연.png" width="80">|<img src="src/main/resources/static/assets/류예진.jpg" width="80">|<img src="src/main/resources/static/assets/시승연.png" width="80">|<img src="src/main/resources/static/assets/시승연.png" width="80">|
+|<img src="src/main/resources/static/assets/시승연.png" width="80">|<img src="src/main/resources/static/assets/시승연.png" width="80">|<img src="https://github.com/user-attachments/assets/a6f8cbdb-1411-4aab-b6a4-1e8af3eda46a" width="60">|<img src="https://github.com/user-attachments/assets/39fb23bf-7d71-46bb-b77d-a59b21448679" width="80">|<img src="src/main/resources/static/assets/시승연.png" width="80">|
 |:---:|:---:|:---:|:---:|:---:|
 |강예현|시승연|류예진|박채연|허다빈|
 |프론트엔드|프론트엔드|프론트엔드|백엔드|백엔드|
 
+
 <br>
 
 ## 어떻게 사용하나요?
+
+
 
 <img src="https://github.com/user-attachments/assets/cefd0e4f-46de-4e60-8621-fcfd8217f6bf" width="500px"></img>
 

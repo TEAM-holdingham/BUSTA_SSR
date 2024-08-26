@@ -7,114 +7,6 @@
     <title>나의 기록 - 오늘의 목표</title>
     <link rel="stylesheet" href="/sidebar/style_sidebar.css">
     <link rel="stylesheet" href="/my_record/style_goals.css">
-    <style>
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .functionality-container {
-            flex-direction: column;
-            display: flex;
-            margin-left: 260px;
-            padding: 40px;
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            width: 65%;
-            align-items: center;
-        }
-        h1 {
-            font-size: 28px;
-            margin-bottom: 20px;
-            color: #444;
-        }
-        .task-list {
-            width: 100%;
-            max-width: 800px;
-            margin: 20px 0;
-            border-collapse: collapse;
-            background-color: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        .task-list th, .task-list td {
-            padding: 16px;
-            text-align: left;
-        }
-        .task-list th {
-            background-color: #91B6FA;
-            color: #fff;
-            font-weight: bold;
-            font-size: 16px;
-        }
-        .task-list tr {
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .task-list tr:last-child {
-            border-bottom: none;
-        }
-        .task-list tr:hover {
-            background-color: #f5f5f5;
-        }
-        .task-list td {
-            font-size: 14px;
-            color: #555;
-        }
-        .task-list a {
-            color: #91B6FA;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .task-list a:hover {
-            text-decoration: underline;
-        }
-        #addForm {
-            width: 80%;
-            margin-top: 5px;
-            background-color: #f9f9f9;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        #formTitle {
-            margin-bottom: 20px;
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-        }
-        #todoForm label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #666;
-        }
-        #todoForm input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        #formButton {
-            background-color: #91B6FA;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-        #formButton:hover {
-            background-color:
-                    #91B6FA;
-        }
-    </style>
 </head>
 <body>
 
@@ -163,7 +55,8 @@
         </nav>
     </header>
     <div style="display:flex; justify-content:center;">
-        <main class="functionality-container">
+        <div id="main">
+        <div class="functionality-container">
             <!-- 날짜와 달력 아이콘을 "나의 기록" 텍스트와 동일한 열에 정렬 -->
             <!--        <div class="date-container">-->
             <!--            <div class="date-icon"><img src="/my_record/calendar.svg" alt="달력 아이콘"></div>-->
@@ -204,33 +97,13 @@
                     <button type="submit" id="formButton">저장</button>
                 </form>
             </div>
-        </main>
+        </div>
     </div>
+        </div>
 
 </div>
 
 <script src="/my_record/script_goals.js"></script>
-
-<script>
-    function editToDo(element) {
-        var id = element.getAttribute("data-id");
-        var description = element.getAttribute("data-description");
-
-        document.getElementById("id").value = id;
-        document.getElementById("description").value = description;
-
-        document.getElementById("formTitle").innerText = "오늘의 목표 수정";
-        document.getElementById("formButton").innerText = "업데이트";
-    }
-
-    function resetForm() {
-        document.getElementById("id").value = "";
-        document.getElementById("description").value = "";
-
-        document.getElementById("formTitle").innerText = "오늘의 목표 추가";
-        document.getElementById("formButton").innerText = "저장";
-    }
-</script>
-
+<script src="/sidebar/script_sidebar.js"></script>
 </body>
 </html>

@@ -41,6 +41,10 @@ spring:
     username: ${SPRING_MAIL_USERNAME}
     # 앱 비번
     password: ${SPRING_MAIL_PASSWORD}
+#    host: smtp.example.com
+#    port: 587
+#    username:
+#    password: 
     properties:
       mail:
         smtp:

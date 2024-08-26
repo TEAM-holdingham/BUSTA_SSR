@@ -78,6 +78,10 @@
 
 <br>
 
+## 아키텍처 다이어그램
+<img src="https://github.com/user-attachments/assets/97dd1859-8dbe-4fee-bd1c-a6c44f4d78e9" width="700px"></src>
+
+
 ## ⚙️ 프로젝트에 사용했어요
 ![slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)
 ![notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white)

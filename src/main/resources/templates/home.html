@@ -9,43 +9,47 @@
   <link rel="stylesheet" href="/home_set_time/style_home_set_time.css" />
   <script src="https://kit.fontawesome.com/9125fcc41c.js" crossorigin="anonymous"></script>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>">
+  <script src="../static/sidebar/script_sidebar.js"></script>
 </head>
 <body>
 <div id="mySidenav" class="sidenav">
-  <a class="closebtn" onclick="toggleNav()">
-    <img src="../assets/close.svg" alt="접기">
+  <a href="#" class="closebtn" onclick="toggleNav()">
+    <img src="/assets/close.svg" alt="접기">
     접기
   </a>
-  <a href="../home/home.html" class="home-link">홈</a>
-  <a href="../my_record/goals.html" class="record-link">나의 기록</a>
-  <a href="../my_page/my_page.html" class="mypage-link">마이페이지</a>
-  <a href="../friends_list/friends_list.html" class="friend-link">친구 관리</a>
-  <a href="../settings/settings_main.html" class="setting-link">
-    <img src="../assets/setting.svg" alt="설정">
+  <a href="/time/home" class="home-link">홈</a>
+  <a href="/todolist" class="record-link">나의 기록</a>
+  <a href="/security-login/my-page" class="mypage-link">마이페이지</a>
+  <a href="/friends" class="friend-link">친구 관리</a>
+  <a href="/settings/main" class="setting-link">
+    <img src="/assets/setting.svg" alt="설정">
     설정
   </a>
-  <a href="../dm/dm_main.html" class="dm-link">
-    <img src="../assets/message.svg" alt="디엠">
+  <a href="#" class="dm-link">
+    <img src="/assets/message.svg" alt="디엠">
   </a>
-  <a href="../notification/notification_main.html" class="alarm-link">
-    <img src="../assets/alarm.svg" alt="알람">
-  </a>
-
-  <a href="../announcement/announcement_main.html" class="notify-link">
-    <img src="../assets/notify.svg" alt="공지">
+  <a href="/notifications/main" class="alarm-link">
+    <img src="/assets/alarm.svg" alt="알람">
   </a>
 
-  <a href="#" class="profile-link">
-    <img src="../assets/logout.svg" alt="로그아웃">
+  <a href="/announcement/announcement-main" class="notify-link">
+    <img src="/assets/notify.svg" alt="공지">
   </a>
 
-  <a href="#" class="logout-link">로그아웃</a>
+  <a href="/profile" class="profile-link">
+    <img src="/assets/logout.svg" alt="프로필 이미지">
+  </a>
 
+  <form action="/security-login/logout" method="POST" class="logout-form" style="display: inline;">
+    <button type="submit" class="logout-link" style="background: none; border: none; padding: 0; cursor: pointer;">
+      로그아웃
+    </button>
+  </form>
 </div>
-
+<!--사이드바-->
 
 <span class="arrow" onclick="toggleNav()">
-  <img src="/assets/open.svg" alt="열기" class="openbtn" />
+      <img src="/assets/open.svg" alt="열기" class="openbtn" />
 </span>
 
 <div id="main">

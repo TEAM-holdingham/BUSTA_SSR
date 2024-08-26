@@ -17,25 +17,58 @@
 <br>
 
 ## 어떻게 사용하나요?
+
+<img src="https://github.com/user-attachments/assets/cefd0e4f-46de-4e60-8621-fcfd8217f6bf" width="500px"></img>
+
 ### 🚌 버스 모양 타이머 
 목표를 향해 달리는 나만의 학습 버스! 탑승이 준비되셨나요?
 
 ### 👯 스터디 메이트
 공부는 함께 할수록 즐겁죠. 현재 접속중인 친구와 함께 서로를 응원해요!
 
+<br>
+<hr>
+
+<img src="https://github.com/user-attachments/assets/ff2fcf5a-0941-44bb-bb7b-0cf4184df738" width="500px"></img>
+<img src="https://github.com/user-attachments/assets/e1c202d6-9401-4157-be51-e28b785ce8ea" width="500px"></img>
+
+
+
 ### 📋 목표 설정과 나의 기록
 나의 학습 목표를 설정하고, 성장을 기록하세요.
+
+<br>
+<hr>
+
+<img src="https://github.com/user-attachments/assets/6f1566d6-f52b-4e3c-9bb1-0152d4fde948" width="500px"></img>
+
+
 
 ### 🧘 마이페이지
 버스에 탑승하기 전, 나의 개성 있는 프로필을 완성해 보세요.
 
+<br>
+<hr>
+
+<img src="https://github.com/user-attachments/assets/08e9a5a5-939f-4eb6-99ad-714c903ec9e8" width="500px"></img>
+
+
+
 ### 💬 친구 관리와 다이렉트 메시지
 친구들과 편리하게 소통하며 성장하는 학습 커뮤니티!
+
+<br>
+<hr>
+
+<img src="https://github.com/user-attachments/assets/d2c6289d-2950-4421-82d8-a0f0116a2f13" width="500px"></img>
+
+
 
 ### 🔔 알림과 공지 모아보기
 모든 중요한 소식을 놓치지 않고 확인할 수 있어요.
 
 <br>
+
 
 ## 🎥 시연영상 바로가기
 ![youtube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)

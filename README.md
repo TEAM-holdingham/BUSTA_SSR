@@ -13,10 +13,12 @@
 <br><br>
 
 ## 🧑‍🤝‍🧑 TEAM <햄듭니다>
-|<img src="src/main/resources/static/assets/시승연.png" width="80">|<img src="https://github.com/user-attachments/assets/269222d7-40e6-4088-b657-19f3817a4906" width="60">|<img src="https://github.com/user-attachments/assets/a6f8cbdb-1411-4aab-b6a4-1e8af3eda46a" width="60">|<img src="https://github.com/user-attachments/assets/39fb23bf-7d71-46bb-b77d-a59b21448679" width="80">|<img src="https://github.com/user-attachments/assets/729eebe8-398c-47a6-aead-62712bee79cf" width="65">|
+|<img src="https://github.com/user-attachments/assets/85aaf8c9-e744-4cd7-b316-f3557215fd57" width="80">|<img src="https://github.com/user-attachments/assets/269222d7-40e6-4088-b657-19f3817a4906" width="60">|<img src="https://github.com/user-attachments/assets/a6f8cbdb-1411-4aab-b6a4-1e8af3eda46a" width="60">|<img src="https://github.com/user-attachments/assets/39fb23bf-7d71-46bb-b77d-a59b21448679" width="80">|<img src="https://github.com/user-attachments/assets/729eebe8-398c-47a6-aead-62712bee79cf" width="65">|
 |:---:|:---:|:---:|:---:|:---:|
 |강예현|시승연|류예진|박채연|허다빈|
 |프론트엔드|프론트엔드|프론트엔드|백엔드|백엔드|
+
+
 
 
 <br>

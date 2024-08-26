@@ -16,22 +16,22 @@ public class EmailVerificationController {
     private final EmailVerificationService emailVerificationService;
     private final UserService userService;
 
-    @PostMapping("/api/sendVerificationEmail")
-    public ResponseEntity<String> sendVerificationEmail(@RequestBody Map<String, String> request) {
-        String loginId = request.get("loginId");
-        emailVerificationService.sendVerificationEmail(loginId);
-        return ResponseEntity.ok("Verification email sent");
-    }
-
-    @GetMapping("/api/verifyEmail")
-    public ResponseEntity<String> verifyEmail(@RequestParam String token) {
-        boolean isVerified = emailVerificationService.verifyEmailToken(token);
-        if (isVerified) {
-            return ResponseEntity.ok("Email verified successfully");
-        } else {
-            return ResponseEntity.badRequest().body("Invalid or expired token");
-        }
-    }
+//    @PostMapping("/api/sendVerificationEmail")
+//    public ResponseEntity<String> sendVerificationEmail(@RequestBody Map<String, String> request) {
+//        String loginId = request.get("loginId");
+//        emailVerificationService.sendVerificationEmail(loginId);
+//        return ResponseEntity.ok("Verification email sent");
+//    }
+//
+//    @GetMapping("/api/verifyEmail")
+//    public ResponseEntity<String> verifyEmail(@RequestParam String token) {
+//        boolean isVerified = emailVerificationService.verifyEmailToken(token);
+//        if (isVerified) {
+//            return ResponseEntity.ok("Email verified successfully");
+//        } else {
+//            return ResponseEntity.badRequest().body("Invalid or expired token");
+//        }
+//    }
 
     @PostMapping("/{loginType}/join")
     public ResponseEntity<String> signup(@PathVariable String loginType, @RequestBody JoinRequest joinRequest) {
@@ -40,6 +40,25 @@ public class EmailVerificationController {
             return ResponseEntity.ok("Signup successful");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/api/sendVerificationEmail")
+    public ResponseEntity<String> sendVerificationEmail(@RequestBody Map<String, String> request) {
+        String loginId = request.get("loginId");
+        emailVerificationService.sendVerificationEmail(loginId);
+        return ResponseEntity.ok("Verification email sent");
+    }
+
+    @PostMapping("/api/verifyEmail")
+    public ResponseEntity<String> verifyEmail(@RequestBody Map<String, String> request) {
+        String loginId = request.get("loginId");
+        String otp = request.get("otp");
+        boolean isVerified = emailVerificationService.verifyEmailToken(loginId, otp);
+        if (isVerified) {
+            return ResponseEntity.ok("Email verified successfully");
+        } else {
+            return ResponseEntity.badRequest().body("Invalid or expired OTP");
         }
     }
 }

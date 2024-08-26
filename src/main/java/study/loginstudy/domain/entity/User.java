@@ -100,8 +100,8 @@ public class User {
     @JsonBackReference
     private List<FriendRequest> receivedRequests;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private PasswordResetToken passwordResetToken;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PasswordResetToken> passwordResetTokens;
 
     // Getters and setters
 

@@ -19,73 +19,112 @@ public class PasswordResetController {
     @Autowired
     private UserService userService;
 
-    // 기존 코드: HTML 페이지 반환 및 단순 문자열 응답
+    @Autowired
+    private EmailVerificationService emailVerificationService;
+
+    // 비밀번호 재설정을 위한 OTP 요청
     @PostMapping("/request")
     @ResponseBody
     public String requestPasswordReset(@RequestParam String loginId) {
-        userService.sendPasswordResetEmail(loginId);
-        return "Password reset email sent.";
+        emailVerificationService.sendPasswordResetOtp(loginId);
+        return "Password reset OTP sent.";
     }
 
-    @PostMapping("/verify-token")
+    // 비밀번호 재설정 OTP 검증
+    @PostMapping("/verify-otp")
     @ResponseBody
-    public String verifyToken(@RequestParam String token) {
-        boolean isValid = userService.verifyToken(token);
-        return isValid ? "Valid token" : "Invalid or expired token";
+    public String verifyOtp(@RequestParam String loginId, @RequestParam String otp) {
+        boolean isValid = emailVerificationService.verifyPasswordResetOtp(loginId, otp);
+        return isValid ? "Valid OTP" : "Invalid or expired OTP";
     }
-
 
     @GetMapping("/reset")
-    public String showResetForm(@RequestParam String token, Model model) {
-        model.addAttribute("token", token);
+    public String showResetForm(@RequestParam String loginId, Model model) {
+        model.addAttribute("loginId", loginId);
         return "reset-password-form";
     }
 
+    // 비밀번호 재설정 OTP 검증 및 비밀번호 재설정
     @PostMapping("/reset")
     @ResponseBody
-    public String resetPassword(@RequestParam String token, @RequestParam String newPassword) {
-        if (userService.resetPassword(token, newPassword)) {
-            return "Password successfully reset.";
-        } else {
-            return "Invalid or expired token.";
+    public ResponseEntity<Map<String, String>> resetPassword(@RequestBody Map<String, String> payload) {
+        String loginId = payload.get("loginId");
+        String otp = payload.get("otp");
+        String newPassword = payload.get("newPassword");
+        Map<String, String> response = new HashMap<>();
+
+        System.out.println("Received loginId: " + loginId);
+        System.out.println("Received OTP: " + otp);
+        System.out.println("New Password: " + newPassword);
+
+        try {
+            boolean isValidOtp = emailVerificationService.verifyPasswordResetOtp(loginId, otp);
+            if (isValidOtp) {
+                if (userService.resetPassword(loginId, newPassword)) {
+                    response.put("status", "success");
+                    response.put("message", "Password successfully reset.");
+                } else {
+                    response.put("status", "error");
+                    response.put("message", "Failed to reset password.");
+                }
+            } else {
+                response.put("status", "error");
+                response.put("message", "Invalid or expired OTP.");
+            }
+        } catch (Exception e) {
+            response.put("status", "error");
+            response.put("message", "Error occurred: " + e.getMessage());
         }
+
+        return ResponseEntity.ok(response);
     }
 
-    // 새로 추가된 API: JSON 응답을 위한 메서드들
+
+
+
+
+    // API 버전
     @PostMapping("/api/request")
     @ResponseBody
     public ResponseEntity<Map<String, String>> apiRequestPasswordReset(@RequestParam String loginId) {
-        userService.sendPasswordResetEmail(loginId);
+        emailVerificationService.sendPasswordResetOtp(loginId);
 
         Map<String, String> response = new HashMap<>();
         response.put("status", "success");
-        response.put("message", "Password reset email sent.");
-        return ResponseEntity.ok(response);  // JSON 형식으로 성공 메시지 반환
+        response.put("message", "Password reset OTP sent.");
+        return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/api/reset")
+    @PostMapping("/api/verify-otp")
     @ResponseBody
-    public ResponseEntity<Map<String, String>> apiShowResetForm(@RequestParam String token) {
+    public ResponseEntity<Map<String, String>> apiVerifyOtp(@RequestParam String loginId, @RequestParam String otp) {
         Map<String, String> response = new HashMap<>();
-        response.put("token", token);
-        response.put("status", "success");
-        response.put("message", "Reset form token provided.");
-        return ResponseEntity.ok(response);  // JSON 형식으로 토큰과 메시지 반환
+
+        boolean isValid = emailVerificationService.verifyPasswordResetOtp(loginId, otp);
+        if (isValid) {
+            response.put("status", "success");
+            response.put("message", "Valid OTP");
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("status", "error");
+            response.put("message", "Invalid or expired OTP");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
     }
 
     @PostMapping("/api/reset")
     @ResponseBody
-    public ResponseEntity<Map<String, String>> apiResetPassword(@RequestParam String token, @RequestParam String newPassword) {
+    public ResponseEntity<Map<String, String>> apiResetPassword(@RequestParam String loginId, @RequestParam String newPassword) {
         Map<String, String> response = new HashMap<>();
 
-        if (userService.resetPassword(token, newPassword)) {
+        if (userService.resetPassword(loginId, newPassword)) {
             response.put("status", "success");
             response.put("message", "Password successfully reset.");
-            return ResponseEntity.ok(response);  // JSON 형식으로 성공 메시지 반환
+            return ResponseEntity.ok(response);
         } else {
             response.put("status", "error");
-            response.put("message", "Invalid or expired token.");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);  // JSON 형식으로 오류 메시지 반환
+            response.put("message", "Invalid or expired OTP.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
 }

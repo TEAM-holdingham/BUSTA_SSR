@@ -2,13 +2,13 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/sign_up/style_sign_up_2.css" />
   <!-- FontAwesome CDN 추가 -->
   <script src="https://kit.fontawesome.com/9125fcc41c.js" crossorigin="anonymous"></script>
 </head>
-<body class="vsc-initialized">
+<body>
 <header>
   <img src="/assets/signup_logo_white.png" width="100px" style="margin-top: 20px">
   <div style="justify-content: center; margin-top: 10px">
@@ -18,7 +18,7 @@
   </div>
 </header>
 <div class="bg" style="height: 700px;padding: 30px;">
-  <form method="post" action="/security-login/join2">
+  <form id="signUpForm" method="post" action="/security-login/join2">
     <div>
       <label for="loginId">로그인 아이디 (이메일) </label>
       <input type="text" id="loginId" name="loginId" value="">
@@ -35,47 +35,40 @@
     <div>
       <label for="username">사용자 이름  </label>
       <input type="text" id="username" name="username" value="">
-
     </div>
     <br>
     <div>
       <label for="password">비밀번호 </label>
       <input type="password" id="password" name="password" value="">
-
     </div>
     <br>
     <div>
       <label for="passwordCheck">비밀번호 체크 </label>
       <input type="password" id="passwordCheck" name="passwordCheck" value="">
-
     </div>
     <br>
     <div>
       <label for="nickname">닉네임  </label>
       <input type="text" id="nickname" name="nickname" value="">
-
     </div>
     <br>
     <div>
       <label for="phoneNumber">전화번호 </label>
       <input type="text" id="phoneNumber" name="phoneNumber" value="">
-
     </div>
     <br>
     <div>
       <label for="birthDate">생년월일 </label>
       <input type="date" id="birthDate" name="birthDate" value="">
-
     </div>
     <br>
     <div>
       <label for="gender">성별 </label>
       <select id="gender" name="gender">
-        <option value="female">여성</option><option value="male">남성</option>
-
+        <option value="female">여성</option>
+        <option value="male">남성</option>
         <option value="other">기타</option>
       </select>
-
     </div>
     <br>
 
@@ -87,6 +80,10 @@
   <script>
     function sendVerificationEmail() {
       const loginId = document.querySelector('[name="loginId"]').value;
+      if (!loginId) {
+        alert("로그인 아이디 (이메일)을 입력해주세요.");
+        return;
+      }
       fetch('/api/sendVerificationEmail', {
         method: 'POST',
         headers: {
@@ -97,27 +94,37 @@
               .then(response => response.text())
               .then(data => {
                 alert(data);
-                // 성공 시 폼 제출 허용
-                document.querySelector('form').submit();
               })
               .catch(error => console.error('Error:', error));
     }
 
-
     function verifyEmailToken() {
-      const token = document.getElementById('emailToken').value;
-      fetch('/api/verifyEmail?token=' + token, {
-        method: 'GET'
+      const loginId = document.querySelector('[name="loginId"]').value;
+      const otp = document.getElementById('emailToken').value;
+      if (!otp) {
+        alert("인증번호를 입력해주세요.");
+        return;
+      }
+      fetch('/api/verifyEmail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ loginId: loginId, otp: otp })
       })
               .then(response => response.text())
-              .then(data => alert(data))
+              .then(data => {
+                alert(data);
+                if (data === "인증 성공") {
+                  // 인증 성공 시 폼 제출
+                  document.getElementById('signUpForm').submit();
+                }
+              })
               .catch(error => console.error('Error:', error));
     }
   </script>
-</div>
 
+</div>
 
 </body>
 </html>
-
-

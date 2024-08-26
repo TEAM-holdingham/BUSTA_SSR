@@ -20,24 +20,11 @@ public class EmailVerificationToken {
     @Column(nullable = false, unique = true)
     private String token;
 
-    public String getLoginId() {
-        return loginId;
-    }
-
-    public void setLoginId(String loginId) {
-        this.loginId = loginId;
-    }
+    @Column(nullable = false)
+    private String otp;  // 인증번호 필드
 
     @Column(nullable = false)
     private String loginId;
-
-    public LocalDateTime getExpiryDate() {
-        return expiryDate;
-    }
-
-    public void setExpiryDate(LocalDateTime expiryDate) {
-        this.expiryDate = expiryDate;
-    }
 
     @Column(nullable = false)
     private LocalDateTime expiryDate;
@@ -45,9 +32,11 @@ public class EmailVerificationToken {
     @Column(nullable = false)
     private boolean verified = false;
 
-    public EmailVerificationToken(String token, String loginId, LocalDateTime expiryDate) {
+    // 모든 필드를 포함한 생성자
+    public EmailVerificationToken(String token, String loginId, LocalDateTime expiryDate, String otp) {
         this.token = token;
         this.loginId = loginId;
         this.expiryDate = expiryDate;
+        this.otp = otp;
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -154,23 +155,40 @@ public class UserService {
                 .build();
         emailService.sendMail(emailMessage);
     }
+// 토큰 방식
+//    public boolean resetPassword(String token, String newPassword) {
+//        PasswordResetToken resetToken = passwordResetTokenRepository.findByToken(token)
+//                .orElseThrow(() -> new IllegalArgumentException("Invalid token"));
+//
+//        if (resetToken.getExpiryDate().isBefore(LocalDateTime.now())) {
+//            return false;
+//        }
+//
+//        User user = resetToken.getUser();
+//        user.setPassword(encoder.encode(newPassword));
+//        userRepository.save(user);
+//
+//        passwordResetTokenRepository.delete(resetToken);
+//
+//        return true;
+//    }
 
-    public boolean resetPassword(String token, String newPassword) {
-        PasswordResetToken resetToken = passwordResetTokenRepository.findByToken(token)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid token"));
+    // otp 방식
+    private final PasswordEncoder passwordEncoder;
 
-        if (resetToken.getExpiryDate().isBefore(LocalDateTime.now())) {
-            return false;
+    // 비밀번호 재설정
+    public boolean resetPassword(String loginId, String newPassword) {
+        Optional<User> optionalUser = userRepository.findByLoginId(loginId);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setPassword(passwordEncoder.encode(newPassword)); // 비밀번호 암호화 및 설정
+            userRepository.save(user); // 변경 사항 저장
+            return true;
         }
-
-        User user = resetToken.getUser();
-        user.setPassword(encoder.encode(newPassword));
-        userRepository.save(user);
-
-        passwordResetTokenRepository.delete(resetToken);
-
-        return true;
+        return false;
     }
+
 
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -234,6 +252,8 @@ public class UserService {
     public void deleteUserByLoginId(String loginId) {
         userRepository.deleteByLoginId(loginId); // 사용자 삭제
     }
+
+
 
 
 

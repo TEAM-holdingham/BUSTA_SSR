@@ -1,13 +1,20 @@
-// 토큰 검증 함수
+// OTP 검증 함수
+// OTP 검증 함수
 function verifyEmailToken() {
-    const token = document.querySelector(".input_token input").value;
+    const otp = document.querySelector(".input_token input").value;
+    const loginId = localStorage.getItem("userEmail"); // 저장된 이메일 가져오기
 
-    if (!token) {
-        alert("토큰을 입력해 주세요.");
+    if (!otp) {
+        alert("OTP를 입력해 주세요.");
         return;
     }
 
-    fetch('/password-reset/verify-token?token=' + encodeURIComponent(token), {
+    if (!loginId) {
+        alert("이메일 정보가 누락되었습니다. 다시 시도해 주세요.");
+        return;
+    }
+
+    fetch(`/password-reset/verify-otp?loginId=${encodeURIComponent(loginId)}&otp=${encodeURIComponent(otp)}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -15,13 +22,12 @@ function verifyEmailToken() {
     })
         .then(response => response.text())
         .then(result => {
-            if (result === "Valid token") {
-                alert("토큰이 유효합니다. 비밀번호를 재설정해 주세요.");
-                // 토큰을 로컬 스토리지에 저장하거나 변수에 저장하여 이후 비밀번호 재설정에 사용합니다.
-                localStorage.setItem("resetToken", token);
-                document.querySelector(".reset_password").style.display = 'block'; // 비밀번호 입력 필드 표시
+            if (result === "Valid OTP") {
+                alert("OTP가 유효합니다. 비밀번호를 재설정해 주세요.");
+                localStorage.setItem("otp", otp); // OTP를 저장
+                document.querySelector(".reset_password").style.display = 'block';
             } else {
-                alert("유효하지 않거나 만료된 토큰입니다.");
+                alert("유효하지 않거나 만료된 OTP입니다.");
             }
         })
         .catch(error => {
@@ -30,13 +36,16 @@ function verifyEmailToken() {
         });
 }
 
+
+// 비밀번호 재설정 함수
 // 비밀번호 재설정 함수
 function resetPassword() {
-    const token = localStorage.getItem("resetToken"); // 저장된 토큰을 가져옴
+    const loginId = localStorage.getItem("userEmail"); // 이메일을 로컬 스토리지에서 가져옴
+    const otp = localStorage.getItem("otp"); // 이전에 인증된 OTP를 가져옴
     const newPassword = document.getElementById("newPasswordInput").value;
 
-    if (!token) {
-        alert("토큰이 유효하지 않습니다.");
+    if (!otp) {
+        alert("OTP가 검증되지 않았습니다.");
         return;
     }
 
@@ -45,17 +54,18 @@ function resetPassword() {
         return;
     }
 
-    fetch('/password-reset/reset?token=' + encodeURIComponent(token) + '&newPassword=' + encodeURIComponent(newPassword), {
+    fetch('/password-reset/reset', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ loginId: loginId, otp: otp, newPassword: newPassword })
     })
-        .then(response => response.text())
+        .then(response => response.json())
         .then(result => {
-            alert(result);
-            if (result === "Password successfully reset.") {
-                // 비밀번호 재설정 성공 후 리디렉션 또는 다른 처리
+            alert(result.message);
+            if (result.status === "success") {
+                localStorage.removeItem("otp"); // OTP 삭제
                 window.location.href = '/security-login/login';
             }
         })
@@ -64,3 +74,5 @@ function resetPassword() {
             alert("서버 오류가 발생했습니다.");
         });
 }
+
+

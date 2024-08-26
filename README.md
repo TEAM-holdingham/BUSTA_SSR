@@ -2,11 +2,10 @@
 
 # 🚌 버스타 - Burning Study Timer
 ### 즐거운 몰입을 위한 웹 스터디 타이머, 버스타! ⏱️<br>
-### v1.0.0
+<br>
 
-<img src="https://github.com/user-attachments/assets/f0552d03-11e1-4dff-9719-f33ad8474498" width="170" onclick="window.open('https://busta.store');">
-
-<!--🔗 https://busta.store-->
+<img src="https://github.com/user-attachments/assets/f0552d03-11e1-4dff-9719-f33ad8474498" width="170" onclick="window.open('https://busta.store');"> <br>
+🔗 https://busta.store
 <br><br>
 
 ## 🧑‍🤝‍🧑 TEAM <햄듭니다>

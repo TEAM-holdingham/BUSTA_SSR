@@ -15,10 +15,32 @@
 |강예현|시승연|류예진|박채연|허다빈|
 |프론트엔드|프론트엔드|프론트엔드|백엔드|백엔드|
 
+<br>
 
+## 어떻게 사용하나요?
+### 🚌 버스 모양 타이머 
+목표를 향해 달리는 나만의 학습 버스! 탑승이 준비되셨나요?
+
+### 👯 스터디 메이트
+공부는 함께 할수록 즐겁죠. 현재 접속중인 친구와 함께 서로를 응원해요!
+
+### 📋 목표 설정과 나의 기록
+나의 학습 목표를 설정하고, 성장을 기록하세요.
+
+### 🧘 마이페이지
+버스에 탑승하기 전, 나의 개성 있는 프로필을 완성해 보세요.
+
+### 💬 친구 관리와 다이렉트 메시지
+친구들과 편리하게 소통하며 성장하는 학습 커뮤니티!
+
+### 🔔 알림과 공지 모아보기
+모든 중요한 소식을 놓치지 않고 확인할 수 있어요.
+
+<br>
 
 ## 🎥 시연영상 바로가기
 ![youtube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)
+
 <br>
 
 ## ⚙️ 프로젝트에 사용했어요
@@ -38,6 +60,7 @@
 ![mariadb](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
 
 ![cloudtype](https://img.shields.io/badge/CloudType-00A1E0?style=for-the-badge&logo=Salesforce&logoColor=white)
+
 <br>
 
 ## 릴리즈 노트

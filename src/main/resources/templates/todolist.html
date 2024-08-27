@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나의 기록 - 오늘의 목표</title>
     <link rel="stylesheet" href="/sidebar/style_sidebar.css">
-    <link rel="stylesheet" href="/my_record/style_goals.css">
+    <link rel="stylesheet" href="/my_record/style_todolist.css">
 </head>
 <body>
 
@@ -46,64 +46,52 @@
     <img src="/assets/open.svg" alt="열기" class="openbtn">
 </span>
 
-<div class="container" style="display: flex; flex-direction: column; ">
+<div class="record-container">
     <header>
-        <h1>나의 기록</h1>
+        <h1>나의dd기록</h1>
         <nav>
             <a href="/todolist" class="active">오늘의 목표</a>
             <a href="/timer/timelaps">타임 랩스</a>
         </nav>
     </header>
-    <div style="display:flex; justify-content:center;">
-        <div id="main">
-        <div class="functionality-container">
-            <!-- 날짜와 달력 아이콘을 "나의 기록" 텍스트와 동일한 열에 정렬 -->
-            <!--        <div class="date-container">-->
-            <!--            <div class="date-icon"><img src="/my_record/calendar.svg" alt="달력 아이콘"></div>-->
-            <!--            <span>2024.02.18.(일)</span>-->
-            <!--        </div>-->
 
-            <!-- 기존 기능을 유지한 테이블 -->
-            <table border="1" class="task-list" style="width: 90%">
-                <tr>
-                    <th>ID</th>
-                    <th>오늘의 목표 설명</th>
-                    <th>완료 여부</th>
-                    <th>동작</th>
-                </tr>
-                <tr th:each="toDoList : ${listToDoLists}">
-                    <td th:text="${toDoList.id}"></td>
-                    <td th:text="${toDoList.description}"></td>
-                    <td th:text="${toDoList.completed != null ? (toDoList.completed ? '완료' : '미완료') : '미완료'}"></td>
-                    <td>
-                        <a href="#addForm"
-                           th:attr="data-id=${toDoList.id},data-description=${toDoList.description},data-completed=${toDoList.completed}"
-                           onclick="editToDo(this)">수정</a> |
-                        <a th:href="@{/delete/{id}(id=${toDoList.id})}">삭제</a> |
-                        <a th:href="@{/complete/{id}(id=${toDoList.id})}">완료</a>
-                    </td>
-                </tr>
-            </table>
-
-            <hr/>
-
-            <!-- Add/Edit Form -->
-            <div id="addForm">
-                <h2 id="formTitle">오늘의 목표 추가</h2>
-                <form id="todoForm" action="#" th:action="@{/save}" th:object="${toDoList}" method="post">
-                    <input type="hidden" id="id" th:field="*{id}" />
-                    <label for="description">설명:</label>
-                    <input type="text" id="description" name="description" th:field="*{description}" />
-                    <button type="submit" id="formButton">저장</button>
-                </form>
-            </div>
-        </div>
+    <div id="main">
+    <div class="functionality-container">
+        <table border="1" class="task-list">
+            <tr>
+                <th>ID</th>
+                <th>오늘의 목표 설명</th>
+                <th>완료 여부</th>
+                <th>동작</th>
+            </tr>
+            <tr th:each="toDoList : ${listToDoLists}">
+                <td th:text="${toDoList.id}"></td>
+                <td th:text="${toDoList.description}"></td>
+                <td th:text="${toDoList.completed != null ? (toDoList.completed ? '완료' : '미완료') : '미완료'}"></td>
+                <td>
+                    <a href="#addForm"
+                       th:attr="data-id=${toDoList.id},data-description=${toDoList.description},data-completed=${toDoList.completed}"
+                       onclick="editToDo(this)">수정</a> |
+                    <a th:href="@{/delete/{id}(id=${toDoList.id})}">삭제</a> |
+                    <a th:href="@{/complete/{id}(id=${toDoList.id})}">완료</a>
+                </td>
+            </tr>
+        </table>
     </div>
-        </div>
+        <hr/>
 
+        <div id="addForm">
+            <form id="todoForm" action="#" th:action="@{/save}" th:object="${toDoList}" method="post">
+                <input type="hidden" id="id" th:field="*{id}" />
+                <input type="text" id="description" name="description" th:field="*{description}" placeholder="오늘의 목표 추가" />
+                <button type="submit" id="formButton">저장</button>
+            </form>
+        </div>
+    </main>
+</div>
 </div>
 
-<script src="/my_record/script_goals.js"></script>
-<script src="/sidebar/script_sidebar.js"></script>
+<script src="/my_record/script_todolist.js"></script>
+<script src="/my_record/script_sidebar.js"></script>
 </body>
 </html>

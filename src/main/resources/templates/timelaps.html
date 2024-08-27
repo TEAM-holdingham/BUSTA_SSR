@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나의 기록 - 타임 랩스</title>
     <link rel="stylesheet" href="/sidebar/style_sidebar.css">
-    <link rel="stylesheet" href="/my_record/style_timelaps.css">
-
+    <!--<link rel="stylesheet" href="/my_record/style_goals.css">-->
+    <link rel="stylesheet" href="/my_record/style_timelaps.css"> <!-- 추가된 CSS 파일 -->
 </head>
 <body>
 
@@ -41,19 +41,18 @@
             로그아웃
         </button>
     </form>
-
 </div>
 
 <span class="arrow" onclick="toggleNav()">
     <img src="/assets/open.svg" alt="열기" class="openbtn">
 </span>
 
-<div class="container">
+<div id="main" class="container">
     <header>
         <h1>나의 기록</h1>
         <nav>
             <a href="/todolist">오늘의 목표</a>
-            <a href="/timer/timelaps" class="active">타임 랩스</a>
+            <a href="/timer/timelaps" class="active">타임dla 랩스</a>
         </nav>
     </header>
     <main>
@@ -68,7 +67,6 @@
     </main>
 </div>
 
-
-<script src="/sidebar/script_sidebar.js"></script>
+<script src="/my_record/script_timelaps.js"></script> <!-- 추가된 JavaScript 파일 -->
 </body>
 </html>

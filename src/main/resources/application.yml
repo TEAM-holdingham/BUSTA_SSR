@@ -52,6 +52,7 @@ spring:
           starttls:
             enable: true
 
+
   app:
     reset-password-url: http://localhost:8080/reset-password
 

@@ -35,22 +35,23 @@ spring:
     show-sql: true
 
   mail:
-#    host: ${SPRING_MAIL_HOST}
-#    port: ${SPRING_MAIL_PORT}
-#    #구글 이메일 아이디
-#    username: ${SPRING_MAIL_USERNAME}
-#    # 앱 비번
-#    password: ${SPRING_MAIL_PASSWORD}
     host: ${SPRING_MAIL_HOST}
     port: ${SPRING_MAIL_PORT}
-      #구글 이메일 아이디
+    #구글 이메일 아이디
     username: ${SPRING_MAIL_USERNAME}
-      # 앱 비번
+    # 앱 비번
     password: ${SPRING_MAIL_PASSWORD}
-    #    host: smtp.example.com
-    #    port: 587
-    #    username:
-    #    password:
+#    host: smtp.example.com
+#    port: 587
+#    username:
+#    password:
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 
   app:
     reset-password-url: http://localhost:8080/reset-password

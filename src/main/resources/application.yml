@@ -41,16 +41,16 @@ spring:
 #    username: ${SPRING_MAIL_USERNAME}
 #    # 앱 비번
 #    password: ${SPRING_MAIL_PASSWORD}
-    host: smtp.example.com
-    port: 587
-    username: seungyeonsi913@gmail.com
-    password: dnjsgksmseofh777
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
+    host: ${SPRING_MAIL_HOST}
+    port: ${SPRING_MAIL_PORT}
+      #구글 이메일 아이디
+    username: ${SPRING_MAIL_USERNAME}
+      # 앱 비번
+    password: ${SPRING_MAIL_PASSWORD}
+    #    host: smtp.example.com
+    #    port: 587
+    #    username:
+    #    password:
 
   app:
     reset-password-url: http://localhost:8080/reset-password

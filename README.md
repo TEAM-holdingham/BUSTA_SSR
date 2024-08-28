@@ -106,6 +106,13 @@
 
 ![cloudtype](https://img.shields.io/badge/CloudType-00A1E0?style=for-the-badge&logo=Salesforce&logoColor=white)
 
+### 사용된 오픈소스
+
+이 프로젝트는 다음 오픈소스를 사용하여 개발되었습니다:
+
+- [Springboot-Login-Study](https://github.com/Changbum97/Springboot-Login-Study) - Copyright © 2015-2021 the original authors, licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+
+
 <br>
 
 ## 릴리즈 노트
